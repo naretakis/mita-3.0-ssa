@@ -55,8 +55,8 @@ export default function Home() {
         </Typography>
 
         <Box sx={{ 
-          backgroundColor: 'success.light', 
-          color: 'success.contrastText',
+          backgroundColor: 'primary.light', 
+          color: 'primary.contrastText',
           py: 2, 
           px: 3, 
           borderRadius: 2,
@@ -65,7 +65,7 @@ export default function Home() {
           mb: 4
         }}>
           <Typography variant="body1" fontWeight={500}>
-            🔒 No accounts required. No data collection. Your assessments never leave your device.
+            No accounts required. No data collection. Your assessments never leave your device.
           </Typography>
         </Box>
 
@@ -99,7 +99,7 @@ export default function Home() {
 
       <Box sx={{ textAlign: 'center', py: 4, borderTop: 1, borderColor: 'divider' }}>
         <Typography variant="body2" color="text.secondary">
-          Based on CMS MITA Framework v3.0 (February 2012)
+          Based on CMS MITA Framework v3.0 (May 2014)
         </Typography>
         <Typography variant="body2" color="text.secondary">
           This is an independent tool and is not affiliated with or endorsed by CMS.
