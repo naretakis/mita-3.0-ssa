@@ -1,0 +1,76 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Contractor Management",
+  "sub_category": "Contractor Support",
+  "process_name": "Manage Contractor Communication",
+  "process_code": "CO",
+  "process_details": {
+    "description": "The Manage Contractor Communication business process receives requests for information, appointments, and assistance from contractors (e.g., managed care, at- risk mental health or dental care, primary care physician) such as inquiries related to modifications in Medicaid Program policies and procedures, introduction of new programs, modifications to existing programs, public health alerts, and contract amendments, etc. This business process includes the log, research, development, approval, and delivery of routine or ad hoc messages. The State Medicaid Agency (SMA) communications a variety of methods such as email, mail, publication, mobile device, facsimile, telephone, web or Electronic Data Interchange (EDI).\nNOTE: The Manage Contractor Communication business process handles current contractors by providing assistance and responses to individual entities, i.e., bi-directional communication. The Perform Contractor Outreach business process targets both prospective and current contractor populations for distribution of information regarding programs, policies, and other issues. Other examples of communications include:\n• Pay for performance communications - performance measures could affect capitation payments or other reimbursements.\n• Incentives to improve encounter information quality and submission rates.",
+    "trigger_events": {
+      "environment_based": [
+        "Receive an inquiry from contractor.",
+        "Request to send information packages.",
+        "Request for assistance, such as a request for training or modify contractor information.",
+        "Periodic timetable (e.g., monthly) is due to send information (e.g., within 24 hours of new contract award and periodic communications such as newsletters or other agency communications)."
+      ],
+      "interaction_based": [
+        "Receive request from other business processes to develop and produce communications for contractors such as notifications from Manage Contractor Information business process."
+      ]
+    },
+    "results": [
+      "Contractor receives appropriate assistance, communications, and/or information packages.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive request for communication.",
+      "2. Validate information submitted is correct and as complete as possible. Information complies with syntax criteria and requestor has completed all required fields.",
+      "3. Validate that the provided information is authentic.",
+      "4. Agency logs request for communication.",
+      "5. Determine content and method of communication (e.g., email, mail, publication, mobile device, facsimile, telephone, web, or EDI.",
+      "6. Prepare content that is linguistically, culturally, and competency appropriate for the communication in agreed upon format.",
+      "7. Review and approve communication.",
+      "8. Generate communication in agreed upon format.",
+      "9. Agency logs communication message.",
+      "10. END: Evaluate the efficacy of the communication (e.g., customer satisfaction, first time resolution rate)."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Contractor data store including contract information",
+      "Plan data store including health benefit information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Award Contract",
+      "Manage Contract",
+      "Close Out Contract",
+      "Manage Contractor Information",
+      "Inquire Contractor Information",
+      "Manage Contractor Grievance and Appeal",
+      "Maintain State Plan",
+      "Manage Health Plan Information",
+      "Manage Health Benefit Information",
+      "Manage Performance Measures"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Performance Measures"
+    ],
+    "constraints": "Communications will vary by state, by type of contractor, and by type of communication. Contract access. Contractor is unable to access needed or requested information.",
+    "failures": [
+      "The SMA is unable to provide linguistically, culturally, or competency appropriate information.",
+      "Delivery failures due to erroneous contact information or lack of contact information."
+    ],
+    "performance_measures": [
+      "Time to complete response: By phone __ minutes; by email __hours; by mail __ days",
+      "Accuracy of communications = __%",
+      "Communications successfully delivered = __%"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Contractor Management/Contractor Management BPT.pdf",
+    "source_page_range": "4-6",
+    "extracted_date": "2026-01-12"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Care Management",
+  "sub_category": "Case Management",
+  "process_name": "Manage Population Health Outreach",
+  "process_code": "CM",
+  "process_details": {
+    "description": "The Manage Population Health Outreach business process is responsible for the implementation of strategy to improve general population health. The State Medicaid Agency (SMA) identifies target populations or individuals for selection by cultural, diagnostic, or other demographic indicators. The inputs to this business process are census, vital statistics, immigration, and other information sources. This business process outputs materials for:\n• Campaigns to enroll new members in existing health plan or health benefit.\n• New health plan or health benefit offering.\n• Modification to existing health plan or health benefit offering. It includes production of information materials and communications to impacted members, providers, and contractors (e.g., program strategies and materials, etc.). The communication of information includes a variety of methods such as email, mail, publication, mobile device, facsimile, telephone, web or Electronic Data Interchange (EDI).",
+    "trigger_events": {
+      "environment_based": [
+        "Receive information from census, vital statistics, public health departments, immigration, and other information sources.",
+        "Periodic timetable (e.g., monthly, quarterly) to distribute information is due.",
+        "Receive new population or problem-specific legislated health improvement initiatives.",
+        "Receive request for information from other originators (e.g., federal actions or constituency interests)."
+      ],
+      "interaction_based": [
+        "Receive alert from Establish Case to place member into care management monitoring."
+      ]
+    },
+    "results": [
+      "The SMA produces outreach communications (e.g., mailing brochures, web pages, email, kiosk, and radio, billboard, and TV advertisements) and distributes to targeted populations or individuals. The SMA may also conduct face-to-face meetings.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive request for outreach materials or communication.",
+      "2. Target population identified and defined by analyzing information, performance measures, feedback from community, and policy directives.",
+      "3. Approve, deny, or modify decisions to develop outreach communications.",
+      "4. Determine content and method of communication (e.g., email, mail, publication, mobile device, facsimile, telephone, web or EDI).",
+      "5. Determine performance measures.",
+      "6. Prepare content that is linguistically, culturally, and competency appropriate for the communication in agreed upon format.",
+      "7. Review and approve communication.",
+      "8. Generate communication in agreed upon format.",
+      "9. Agency logs communication message sent to target population.",
+      "10. END: Evaluate the efficacy of the communication (e.g., customer satisfaction, first time resolution rate)."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Member data store including demographic information",
+      "Provider data store including provider network Information",
+      "Contractor data store including provider network Information",
+      "Plan data store including policy information",
+      "Health Benefit data store including program and service information",
+      "Data from external agencies including: census, vital statistics, immigration, and various health registries"
+    ],
+    "predecessor_processes": [
+      "There are several business processes that can result in the interest or need to reach out to the Medicaid population in an attempt to improve behavior or promote prevention:",
+      "Identify Utilization Anomalies",
+      "Manage Performance Measures",
+      "Manage Member Grievance and Appeal",
+      "Manage Provider Grievance and Appeal",
+      "Manage Health Plan Information"
+    ],
+    "successor_processes": [
+      "Manage Applicant and Member Communication",
+      "Perform Population and Member Outreach",
+      "Manage Provider Communication",
+      "Perform Provider Outreach",
+      "Manage Contractor Communication",
+      "Manage Performance Measures"
+    ],
+    "constraints": "Agencies do not coordinate amongst each other in order to share information. Potential political and inter-agency conflicts over appropriate use of health care information.",
+    "failures": [
+      "Inter-agency agency communication or lack of access to information impairs ability to gather information to support strategies."
+    ],
+    "performance_measures": [
+      "Time to complete communication: By phone __ minutes; by email __hours; by mail __ days",
+      "Accuracy of communications = __%",
+      "Communications successfully delivered = __%"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Care Management/Care Management BPT.pdf",
+    "source_page_range": "7-9",
+    "extracted_date": "2026-01-12"
+  }
+}

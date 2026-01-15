@@ -1,0 +1,64 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Contractor Management",
+  "sub_category": "Contract Management",
+  "process_name": "Produce Solicitation",
+  "process_code": "CO",
+  "process_details": {
+    "description": "The Produce Solicitation business process gathers requirements, develops a solicitation (e.g., Request for Information (RFI), Request for Quotation (RFQ), or Request for Proposals (RFP)), receives approvals for the solicitation, and releases for response.",
+    "trigger_events": {
+      "environment_based": [
+        "A scheduled date for re-procurement of contract is due.",
+        "Request by Executive Management to procure or re-procure a contract."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "The State Medicaid Agency (SMA) produces an Advance Planning Document (APD).",
+      "The SMA produces a solicitation for distribution.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive directive to procure or re-procure contract.",
+      "2. Gather requirements for services.",
+      "3. Determine if CMS requires an APD.\n  a. Produce APD.\n  b. Modify APD as directed.\n  c. Receive approval for APD.",
+      "4. Develop solicitation for the services.",
+      "5. Receive internal (state) and federal approvals for solicitation.",
+      "6. Advertise solicitation.",
+      "7. END: The SMA releases solicitation for response."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Plan data store including policy information",
+      "Health Benefit data store including benefit package and benefit information",
+      "Contractor data store including provider network",
+      "Manage Performance Measures data store including agency objectives and business activity",
+      "Information Technology (IT) Plan"
+    ],
+    "predecessor_processes": [
+      "Manage Health Plan Information"
+    ],
+    "successor_processes": [
+      "Award Contract"
+    ],
+    "constraints": "Each state decides what types of contracts to procure. States engage in a wide range of contracts. Statutes that provide the legal framework for procurements govern all States. Each state’s statutes are different from all other States. Business process steps differ from state to state.",
+    "failures": [
+      "The SMA loses funding for the procurement.",
+      "Insufficient responses to solicitation."
+    ],
+    "performance_measures": [
+      "Time to complete process = ___ months; ___ weeks",
+      "Accuracy of information = ___ %",
+      "Accessibility of information for creating solicitation = ___ months; ___ weeks",
+      "Consistency of decisions and disposition = ___ %",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Contractor Management/Contractor Management BPT.pdf",
+    "source_page_range": "11-12",
+    "extracted_date": "2026-01-12"
+  }
+}

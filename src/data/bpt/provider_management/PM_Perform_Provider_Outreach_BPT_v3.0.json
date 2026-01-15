@@ -1,0 +1,73 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Provider Management",
+  "sub_category": "Provider Support",
+  "process_name": "Perform Provider Outreach",
+  "process_code": "PM",
+  "process_details": {
+    "description": "The Perform Provider Outreach business process originates internally within the State Medicaid Agency (SMA) in response to multiple activities (e.g., identified gaps in medical service coverage, public health alerts, provider complaints, medical breakthroughs, modifications in the Medicaid Program policies and procedures). SMA may develop prospective Provider outreach information, also referred to as Provider Recruiting information, for targeted providers identified by analyzing program information (for example, not enough dentists to serve a population, new immigrants need language-compatible providers). Enrolled Provider outreach information may relate to corrections in billing practices, public health alerts, public service announcements, drive to sign up more Primary Care Physicians, and other objectives. The State Medicaid Agency develops outreach information for target populations identified by analyzing member information. The State Medicaid Agency may communicate information in a variety of methods such as email, mail, publication, mobile device, facsimile, telephone, web or Electronic Data Interchange (EDI). The State Medicaid Agency produces, distributes, tracks and archives all contractor outreach communications according to state rules. The Manage Performance Measures business process defines benchmarks and measures outreach efficacy.\nNOTE: The Perform Provider Outreach business process targets both prospective and current provider populations for distribution of information about programs, policies, and health issues. Manage Provider Communication business process handles inquiry from applicants, prospective and current providers by providing assistance and responses to individuals (i.e., bi-directional communication).",
+    "trigger_events": {
+      "environment_based": [
+        "Executive Management decision to: o Fill gaps in health care service and administrative coverage. o Solicit updated/new administrative and technical functions. o Introduce new programs requiring new types of health or administrative service. o Change existing policies and procedures. o Identify critical need for a specific target population. o Identify new populations in need of service (e.g., new immigrant communities)."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "Agency produces outreach communications (e.g., mailing brochures, web pages, email, kiosk, and radio, billboard, and TV advertisements) and distributes to targeted providers. Agency may also conduct face-to-face meetings.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive request for outreach materials or communication.",
+      "2. Target population is identified and defined by analyzing information, performance measures, feedback from community, and policy directives.",
+      "3. Approve, deny, or modify decisions to develop outreach communications.",
+      "4. Determine content and method of communication (e.g., email, mail, publication, mobile device, facsimile, telephone, web or EDI.",
+      "5. Determine performance measures.",
+      "6. Prepare content that is linguistically, culturally, and competency appropriate for the communication in agreed upon format.",
+      "7. Review and approve communication.",
+      "8. Generate communication in agreed upon format.",
+      "9. Agency logs communication message.",
+      "10. END: Evaluate the efficacy of the communication (e.g., customer satisfaction, first time resolution rate)"
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Provider data store including provider network, application and enrollment information",
+      "Plan data store including policy information",
+      "Health Benefits data store including benefit package and benefit information",
+      "Performance Measures data store including agency’s objectives",
+      "Care Management data store including population health and treatment plan information",
+      "Business activity data store including performance information",
+      "Compliance Management data store including compliance incident information"
+    ],
+    "predecessor_processes": [
+      "Manage Performance Measures",
+      "Identify Utilization Anomalies",
+      "Maintain State Plan",
+      "Manage Health Plan Information",
+      "Manage Health Benefit Information"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Provider Communication"
+    ],
+    "constraints": "Communications and information packages will address the needs of the targeted population. Materials will be linguistically and culturally appropriate, legally compliant, appropriate to the targeted group, and meet financial guidelines (re: cost to produce and distribute). Other constraints may be agency priority, availability of resources, and accuracy of contractor contact information. Provider may have communication barriers such as lack of Internet or phone access. Provider is unable to access needed or requested information.",
+    "failures": [
+      "Unable to identify target population based on desired criteria.",
+      "Management denies permission for outreach activity.",
+      "Cancel health plan or health benefit.",
+      "Delivery failures due to erroneous contact information."
+    ],
+    "performance_measures": [
+      "Time to complete process of developing outreach materials = __ days",
+      "Accuracy of outreach materials = __%",
+      "Successful delivery rate to targeted individuals = ___%",
+      "Effectiveness of the communication - Outreach results in achieving specified goals (e.g., recruitment of new providers from targeted population)"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Provider Management/Provider Management BPT.pdf",
+    "source_page_range": "11-13",
+    "extracted_date": "2026-01-12"
+  }
+}

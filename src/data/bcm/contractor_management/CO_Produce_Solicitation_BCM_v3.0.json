@@ -1,0 +1,150 @@
+{
+  "document_type": "BCM",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Contractor Management",
+  "sub_category": "Contract Management",
+  "process_name": "Produce Solicitation",
+  "process_code": "CO",
+  "maturity_model": {
+    "capability_questions": [
+      {
+        "category": "Business Capability Descriptions",
+        "question": "How integrated or central is the process?",
+        "levels": {
+          "level_1": "The process is re- invented each time a solicitation is necessary. SMA stores the procurement information for manual reuse, and it is not possible to share information.",
+          "level_2": "Contract information is in a central location and is electronic. There is coordination between agencies. Requirements tracking and maintenance are central.",
+          "level_3": "SMA centralizes and automates contract information. Coordination between agencies eliminates duplication of contracted services.",
+          "level_4": "SMA adopts MITA Framework, industry standards, and other national standards by interstate agencies and entities allow for shared business services.",
+          "level_5": "SMA adopts MITA Framework, industry standards, and other national standards by national agencies and entities allow for shared business services."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "Is the process primarily manual or automatic?",
+        "levels": {
+          "level_1": "The process consists primarily of manual activity to accomplish tasks. Production of a solicitation consists primarily of manual, paper-based steps. This requires manual compilation of information.",
+          "level_2": "SMA uses a mix of manual and automatic processes to accomplish tasks. SMA coordinates between agencies electronic contract information from central location. Manual compilation of information remains a requirement in some cases. Publication of the solicitation uses electronic media (e.g., Web portal).",
+          "level_3": "SMA automates process to the full extent possible within the intrastate. SMA automates contract information from central location.",
+          "level_4": "SMA automates process to the full extent possible across the interstate.",
+          "level_5": "SMA automates process to the full extent possible across the nation."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "What is the primary mechanism for publication of the solicitation and communication with potential respondents?",
+        "levels": {
+          "level_1": "Publication of the solicitation and communication with potential respondents is primarily via paper, in person, mail and facsimile. Publication of the solicitation may be via electronic media. Potential respondents can use telephone, facsimile, in person, e-mail, or paper as a way to keep current on any updates during the produce solicitation process.",
+          "level_2": "SMA centralizes contract information, and there is coordination between agencies. SMA automates the publication of the solicitation and communication concerning updates and solicitation status with potential respondents.",
+          "level_3": "SMA automates the process. Some in person communication remains a part of the process.",
+          "level_4": "SMA automates process to the full extent possible across the interstate.",
+          "level_5": "SMA automates process to the full extent possible across the nation."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "Does the State Medicaid Agency use standards in the process?",
+        "levels": {
+          "level_1": "SMA focuses on meeting compliance thresholds for state and federal regulations using state-specific standards.",
+          "level_2": "SMA applies a mix of nationally recognized and state-specific standards.",
+          "level_3": "SMA adopts MITA Framework, industry standards, and other nationally recognized standards for intrastate exchange of information.",
+          "level_4": "SMA adopts MITA Framework, industry standards, and other nationally recognized standards for clinical and interstate information exchange.",
+          "level_5": "SMA adopts MITA Framework, industry standards, and other nationally recognized standards for national exchange of information."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "How does the State Medicaid Agency collaborate with other agencies or entities in performing the process?",
+        "levels": {
+          "level_1": "Very little collaboration occurs with other agencies to standardize information exchange or business tasks.",
+          "level_2": "SMA collaborates with other agencies and entities to adopt nationally recognized standards and Electronic Data Interchange (EDI) transactions.",
+          "level_3": "SMA collaborates with other intrastate agencies and entities to adopt national standards, and to develop and share reusable business services.",
+          "level_4": "SMA collaborates with other interstate agencies and entities to adopt national standards, and to develop and share reusable processes including clinical information.",
+          "level_5": "SMA collaborates with agencies and entities for national (and international) interoperability improvements that maximize automation of routine operations."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Timeliness of Process",
+        "question": "How timely is the end-to-end process?",
+        "levels": {
+          "level_1": "Process meets threshold or mandated requirements for timeliness (i.e., the process achieves results within the time specified by law or regulation). The process may require six (6) or more months to issue the solicitation",
+          "level_2": "Process timeliness improves through use of automation. SMA uses web portals, email distribution and tracking, for respondent communications. Timeliness exceeds legal requirements. The process completes, on average, in six (6) months or less.",
+          "level_3": "Timeliness improves via state and federal collaboration, use of information sharing, standards, and regional information exchange hubs. The process supports outcome oriented program management, ensures MITA compliance, and supports the shift to shared business services in both the production of solicitations and their content. The process on average requires less than three (3) months for completion.",
+          "level_4": "Information is available in near real time. SMA has interstate interoperability. The process on average requires fewer than 60 business days to complete.",
+          "level_5": "Information is available in real time. Processes improve further through connectivity with other States and with federal agencies. Most processes execute at the point of service. Results are almost immediate."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Data Access and Accuracy",
+        "question": "How accurate is the information available to the process?",
+        "levels": {
+          "level_1": "Use of direct data entry for information collection is manually intensive and susceptible to inconsistent or incorrect information. Stakeholders are unable to rely on information for decision-making.",
+          "level_2": "Nationally recognized and state-specific standards improve accuracy of information but the decision-making process may be erroneous or misleading. Accuracy is higher than at Level 1.",
+          "level_3": "Automation of information collection increases the reliability of SMA’s internal information. External sources of information use MITA Framework and industry standards for information exchange. Decision- making is automatic using standardized business rules definitions. Accuracy rating is at 99% or higher.",
+          "level_4": "Automation of information collection increases the reliability of SMA’s internal and external sources of information. SMA adopts MITA Framework and industry standards for information exchange with interstate agencies. Decision- making is automatic using regional standardized business rules definitions. Accuracy rating is at 99% or higher.",
+          "level_5": "SMA adopts MITA Framework and industry standards for information exchange with national agencies. Decision- making is automatic using national standardized business rules definitions. Accuracy rating is at 99% or higher."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Data Access and Accuracy",
+        "question": "How accessible is the information in the process?",
+        "levels": {
+          "level_1": "SMA stores information in disparate systems including paper storage and obtains information manually. There is limited access to information by constraints of the manual process and updates to information. Accessing information to research and compile solicitation content can take more than six (6) months.",
+          "level_2": "SMA stores information in disparate systems, but automation and nationally recognized and state-specific standards increase accessibility over Level 1. Accessing information to research and compile solicitation content, on average, takes less than three (3) months.",
+          "level_3": "SMA obtains information easily and exchanges with intrastate agencies and entities based on MITA Framework and industry standards. SMA has enhanced the process support outcome-oriented program management and support the shift to shared business services in both the production of solicitations and their content. SMA can research exceptions through real-time access to information via industry messages. Access to information to research and compile solicitation content takes less than one (1) month.",
+          "level_4": "SMA obtains information easily and exchanges with interstate agencies and entities. Accessing information to research and compile solicitation content takes less than three (3) weeks.",
+          "level_5": "SMA obtains information easily and exchanges with national agencies and entities. Accessing information to research/compile solicitation content takes less than three (3) weeks."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Cost Effectiveness",
+        "question": "What is the cost of the process compared to the benefits of its results?",
+        "levels": {
+          "level_1": "High relative cost due to low number of automatic, standardized tasks.",
+          "level_2": "Automation improves process and allows focus on exception resolution. Adoption of solicitation tools to manage requirements. Increases cost effectiveness ratio over Level 1.",
+          "level_3": "SMA adopts MITA Framework, industry standards, and other nationally recognized standards. SMA enhances process to support improvements in program management, and support the shift to shared business services in both the production of solicitations and their content. The primarily automatic, standardized process allows staff to focus on managing the production of solicitations and effectively communicating with potential respondents. Increases cost effectiveness ratio over Level 2.",
+          "level_4": "SMA adopts MITA Framework, industry standards, and other nationally recognized standards for interstate information exchange. SMA increases cost effectiveness ratio over Level 3.",
+          "level_5": "SMA adopts MITA Framework, industry standards, and other nationally recognized standards for national (and international) information exchange. SMA increases cost effectiveness ratio over level 4."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Effort to Perform; Efficiency",
+        "question": "How efficient is the process?",
+        "levels": {
+          "level_1": "Process is labor intensive. There is wasted effort or expense to accomplish tasks. Process meets minimum state process guidelines and SMA performance standards. Efficiency is low.",
+          "level_2": "Automation and state standards increase productivity. Efficiency is higher than Level 1.",
+          "level_3": "SMA adopts MITA Framework, industry standards and information exchange with intrastate agencies and entities improving efficiency to 95% or higher.",
+          "level_4": "SMA adopts MITA Framework, industry standards and information exchange with interstate agencies and entities improving efficiency to 98% or higher.",
+          "level_5": "SMA adopts MITA Framework, industry standards and information exchange with national agencies and entities improving efficiency to 98% or higher."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Accuracy of Process Results",
+        "question": "How accurate are the results of the process?",
+        "levels": {
+          "level_1": "Manual processes result in greater opportunity for human error. Inconsistencies and ambiguities increase the number of respondent questions and can lead to post award protests. Accuracy is low.",
+          "level_2": "SMA centralizes automation and standardized business rules definitions reduce error. SMA centralizes and coordinates contract information between agencies. The development of Medicaid specific policies and procedures for the process reduces confusion and provides accurate information within the solicitation. Accuracy improves above Level 1.",
+          "level_3": "SMA adopts MITA Framework, industry standards and information exchange with intrastate agencies and entities. SMA enhances the process to support improved program management, and support the shift to shared business services in both the production of solicitations and their content. Accuracy is improved to 90% or higher.",
+          "level_4": "SMA adopts MITA Framework, industry standards and information exchange with interstate agencies and entities improving accuracy to 98% or higher.",
+          "level_5": "SMA adopts MITA Framework, industry standards and information exchange with national agencies and entities improving accuracy to 98% or higher."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Utility or Value to Stakeholders",
+        "question": "Does the business process satisfy stakeholders?",
+        "levels": {
+          "level_1": "Stakeholders lack confidence in information negatively affecting stakeholder satisfaction with the process.",
+          "level_2": "Automation and standardization provides clear and useful information. Stakeholder satisfaction is greater than Level 1.",
+          "level_3": "SMA adopts MITA Framework, industry standards and information exchange with intrastate agencies and entities improving stakeholder satisfaction to 90% or higher. SMA uses survey or questionnaire for information collection.",
+          "level_4": "SMA adopts MITA Framework, industry standards and information exchange with interstate agencies and entities improving stakeholder satisfaction to 95% or higher.",
+          "level_5": "SMA adopts MITA Framework, industry standards and information exchange with national agencies and entities improving stakeholder satisfaction to 98% or higher."
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bcm/Contractor Management/Contractor Management BCM.pdf",
+    "source_page_range": "36-45",
+    "extracted_date": "2026-01-12"
+  }
+}

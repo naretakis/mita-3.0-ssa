@@ -1,0 +1,79 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Financial Management",
+  "sub_category": "Accounts Receivable Management",
+  "process_name": "Manage Cost Settlement",
+  "process_code": "FM",
+  "process_details": {
+    "description": "The Manage Cost Settlement business process begins with the submission of the provider’s annual Medicare Cost Report to Medicaid. Staff makes inquires for paid, denied, and adjusted claims information in the Claims data store. The business process includes:\n• Reviewing provider costs and establishing a basis for cost settlements or compliance reviews.\n• Receiving audited Medicare Cost Report from intermediaries.\n• Capturing the necessary provider cost settlement information.\n• Calculating the final annual cost settlement based on the Medicare Cost Report.\n• Generating the information for notification to the provider.\n• Verifying the information is correct.\n• Producing the notifications to providers.\n• Establishing interim reimbursement rates.\nNOTE: In some States, the State Medicaid Agency (SMA) may make cost settlements through the Apply Mass Adjustment business process.",
+    "trigger_events": {
+      "environment_based": [
+        "Receive provider costs from claims history data store.",
+        "Receive Medicare Cost Report.",
+        "Prompt for annual provider cost review."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "Alert sent to notify provider of cost settlement information.",
+      "Alert sent to Manage Accounts Receivable Information business process to monitor for payment.",
+      "Alert sent to Manage Rate Setting business process of interim reimbursement rates.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive Medicare Cost Report from provider.",
+      "2. Request annual claims detail information.",
+      "3. Review provider costs.",
+      "4. Establish a basis for cost settlements or compliance reviews.",
+      "5. Receive audited Medicare Cost Report from intermediaries from Receive Inbound Transaction.",
+      "6. Receive provider cost settlement information from Receive Inbound Transaction.",
+      "7. Capture the necessary provider cost settlement information.",
+      "8. Calculate the final annual cost settlement based on the Medicare Cost Report and prorate for Medicaid services.",
+      "9. Establish interim reimbursement rates.",
+      "10. Generate cost settlement information identifying the amount of overpayment or underpayment and the reimbursement rates the SMA would consider for the next year.",
+      "11. Verify the information is correct.",
+      "12. Send alert to notify providers of cost settlements summary information.",
+      "13. Send cost settlement summary information to providers via Send Outbound Transaction.",
+      "14. Send alert to monitor payment activities to Manage Accounts Receivable Information (if overpayment) or to Manage Accounts Payable Information (if underpayment) business processes.",
+      "15. Send alert to conduct retroactive modifications to Apply Mass Adjustment business process.",
+      "16. END: Send alert of interim reimbursement rates to Manage Rate Setting business process."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Claims data store including payment information",
+      "Provider data store including provider network and contract information",
+      "Financial data store including accounts receivable information",
+      "Cost log information sent to Centers for Medicare & Medicaid Services (CMS)"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Provider Communication",
+      "Manage Accounts Receivable Information",
+      "Manage Rate Setting",
+      "Apply Mass Adjustment"
+    ],
+    "constraints": "Cost Settlement information will conform to CMS and state-specific reporting requirements.",
+    "failures": [
+      "This process has no failure modes that prevent the process from completion.",
+      "Delays are the result of delays in the audited Medicare Cost Report.",
+      "A provider may file a grievance if it does not agree with established rates or settlement amounts."
+    ],
+    "performance_measures": [
+      "Time to complete the process = e.g., ___ months, ___ weeks or ___ days",
+      "Accuracy with which the SMA applies Cost Settlement rules = __%",
+      "Consistency with which the SMA applies Cost Settlement rules = __%",
+      "Number of grievances or protests received = __",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Financial Management/Financial Management BPT.pdf",
+    "source_page_range": "9-11",
+    "extracted_date": "2026-01-12"
+  }
+}

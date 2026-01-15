@@ -1,0 +1,62 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Financial Management",
+  "sub_category": "Accounts Receivable Management",
+  "process_name": "Prepare Member Premium Invoice",
+  "process_code": "FM",
+  "process_details": {
+    "description": "States may implement member cost sharing through the collection of premiums for medical coverage provided under Medicaid and Children’s Health Insurance Program (CHIP). The State Medicaid Agency (SMA) formulates the premium amounts on factors such as family size, income, age, benefit plan, and in some cases the selected health plan, if covered under managed care, during eligibility determination and enrollment. The Prepare Member Premium Invoice business process begins with a timetable (usually monthly) for scheduled invoicing. The business process includes:\n• Retrieving member premium information.\n• Performing required information manipulation according to business rules.\n• Formatting the results into required output information.\n• Sending member premium invoice alert to the Manage Applicant and Member Communication business process.\nNOTE: This business process does not include sending the member premium invoice Electronic Data Interchange (EDI) transaction.",
+    "trigger_events": {
+      "environment_based": [
+        "Periodic timetable (e.g., monthly) is due for scheduled invoicing.",
+        "Periodic timetable (e.g., monthly) is due for scheduled health insurance premiums invoicing. State transition-based Trigger Events:",
+        "Periodic timetable (e.g., monthly) is due for insurance premium eligibility redetermination and payments."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "Alert sent to Manage Applicant and Member Communication business process to send invoice.",
+      "Tracking information as needed for measuring performance and business",
+      "activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Periodic timetable is due for scheduled invoicing.",
+      "2. Retrieve member premium information.",
+      "3. Adjust member premium information based on state criteria.",
+      "4. Format the results into required output information.",
+      "5. Produce member invoice information.",
+      "6. END: Send alert to generate invoice via Manage Applicant and Member Communication business process."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Member data store including demographics, cost share, and premium information",
+      "Claims data store including premium information",
+      "Financial data store including accounts receivable information"
+    ],
+    "predecessor_processes": [
+      "Manage Accounts Receivable Information"
+    ],
+    "successor_processes": [
+      "Manage Applicant and Member Communication",
+      "Manage Accounts Receivable Information",
+      "Manage Accounts Receivable Funds"
+    ],
+    "constraints": "The Prepare Member Premium Invoice business process will conform to the state- specific requirements.",
+    "failures": [
+      "Member premium information not available."
+    ],
+    "performance_measures": [
+      "Time to complete process: e.g., Real Time response = within __seconds, Batch Responses = within __ days",
+      "Accuracy of decisions = __%",
+      "Consistency of decisions and disposition = __%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Financial Management/Financial Management BPT.pdf",
+    "source_page_range": "15-16",
+    "extracted_date": "2026-01-12"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Business Relationship Management",
+  "sub_category": "Standards Management",
+  "process_name": "Manage Business Relationship Communication",
+  "process_code": "BR",
+  "process_details": {
+    "description": "The Manage Business Relationship Communication business process receives requests for information, appointments, and assistance from business partners, such as inquiries related to a Service Level Agreement (SLA). This business process includes the log, research, development, approval and delivery of routine or ad hoc messages. Information communicated by a variety of methods such as email, mail, publication, mobile device, facsimile, telephone, web or Electronic Data Interchange (EDI).",
+    "trigger_events": {
+      "environment_based": [
+        "Receive inquiry from business partner.",
+        "Request to send information packages such as a SLA or a Key Performance Indicator (KPI).",
+        "Receive request for assistance, such as a request for training or change in business partner information.",
+        "Periodic timetable (e.g., monthly) is due for sending information (e.g., within 24 hours of new business partner agreement and periodic communications such as newsletters or other agency communications)."
+      ],
+      "interaction_based": [
+        "Receive requests from other business processes to develop and produce communications for business partners such as alerts from Establish Business Relationship business process.",
+        "Receive inquiries originating from customer help desk through Manage Business Relationship Information business process."
+      ]
+    },
+    "results": [
+      "Business partner receives appropriate assistance, communication, and/or information packages.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive request for communication.",
+      "2. Validate information submitted is correct and as complete as possible. Information complies with syntax criteria and requestor has completed all required fields.",
+      "3. Validate that the provided information is authentic.",
+      "4. Agency logs request for communication.",
+      "5. Determine content and method of communication (e.g., email, mail, publication, mobile device, facsimile, telephone, web, or Electronic Data Interchange (EDI)).",
+      "6. Prepare content that is linguistically, culturally, and competency appropriate for the communication in agreed upon format.",
+      "7. Review and approve communication.",
+      "8. Generate communication in agreed upon format.",
+      "9. Agency logs communication message.",
+      "10. END: Evaluate the efficacy of the communication (e.g., customer satisfaction, first time resolution rate)."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Business Partner data store including service agreements information",
+      "Contractor data store including contract information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Establish Business Relationship",
+      "Manage Business Relationship Information",
+      "Terminate Business Relationship",
+      "Maintain State Plan",
+      "Manage Health Plan Information",
+      "Manage Health Benefit Information"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Performance Measures"
+    ],
+    "constraints": "The State Medicaid Agency (SMA) and its business partners agree on the content of the communications. Content depends on the business relationship. Content may be standards-based. Communication complies with federal and state regulations that may vary by state. Business partner may have communication barriers such as lack of internet or phone access. Business partner is unable to access needed or requested information.",
+    "failures": [
+      "The SMA is unable to provide linguistically, culturally, or competency appropriate information.",
+      "Delivery failures due to erroneous contact information or lack of contact information."
+    ],
+    "performance_measures": [
+      "Time to complete response: By phone __ minutes; by email __hours; by mail __ days",
+      "Accuracy of communications = __%",
+      "Communications successfully delivered = __%"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Business Relationship Management/Business Relationship Management BPT.pdf",
+    "source_page_range": "2-4",
+    "extracted_date": "2026-01-12"
+  }
+}

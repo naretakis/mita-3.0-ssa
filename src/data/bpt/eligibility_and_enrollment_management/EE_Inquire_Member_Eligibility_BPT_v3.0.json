@@ -1,0 +1,61 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Eligibility and Enrollment Management",
+  "sub_category": "Member Enrollment",
+  "process_name": "Inquire Member Eligibility",
+  "process_code": "EE",
+  "process_details": {
+    "description": "The Inquire Member Eligibility business process receives requests for eligibility verification from Health Insurance Marketplace, authorized providers, programs or business associates; performs the inquiry; and prepares the Eligibility, Coverage or Benefit Information response. The response information includes but is not limited to benefit status, explanation of benefits, coverage, effective dates, and amount for co- insurance, co-pays, deductibles, exclusions and limitations. The information may include details about the Medicaid health plans, health benefits, and the provider(s) from which the member may receive covered services.\nNOTE: This business process does not include Member requests for eligibility verification. Member initiated requests are handled by the Manage Member Information and or Manage Applicant and Member Communication business processes.",
+    "trigger_events": {
+      "environment_based": [],
+      "interaction_based": [
+        "Receive eligibility inquiry from the Health Insurance Marketplace via ANSI X12 Health Care Eligibility Benefit Inquiry and Response (270/271) 270 Inquiry transaction using the Council for Affordable Healthcare (CAQH®) Committee on Operating Rules for Information Exchange (CORE®) Phase 1 and 2 Rules.",
+        "Receive eligibility inquiry from the provider via ANSI X12 Health Care Eligibility Benefit Inquiry and Response (270/271) 270 inquiry transaction using CAQH CORE Rules.",
+        "Receive eligibility inquiry from the pharmacist via National Council for Prescription Drug Programs (NCPDP) Retail Pharmacy Eligibility transaction.",
+        "Receive eligibility inquiry via Automated Voice Response System (AVRS) or other commonly available electronic means."
+      ]
+    },
+    "results": [
+      "Response sent to Health Insurance Marketplace via ANSI X12 Health Care Eligibility Benefit Inquiry and Response (270/271) 271 Response transaction using CAQH CORE Rules.",
+      "Response sent to provider via ANSI X12 Health Care Eligibility Benefit Inquiry and Response (270/271) 271 Response transaction using CAQH CORE Rules.",
+      "If applicable, response sent to AVRS or other commonly available electronic means with eligibility information.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive eligibility verification request.",
+      "2. Agency logs eligibility verification request.",
+      "3. Validate requester’s authorization to receive requested information.",
+      "4. Find requested member’s eligibility information.",
+      "5. Agency logs response.",
+      "6. If applicable, send response to AVRS with eligibility information.",
+      "7. END: Send response to requestor via ANSI X12 Health Care Eligibility Benefit Inquiry and Response (270/271) 271 Response transaction using CAQH CORE Rules."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Member data store including demographics, eligibility and enrollment information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction"
+    ],
+    "constraints": "Eligibility verification request can ask for verification at the categorical, health plan, provider, or health benefit level per X12 Health Care Eligibility Benefit Inquiry and Response (270/271) 270 Inquiry depending on trading partner agreements. Agency must use Council for Affordable Healthcare (CAQH®) Committee on Operating Rules for Information Exchange (CORE®) Phase 1 and 2 Rules in addition to other HIPAA compliant inquiry methods.",
+    "failures": [
+      "Unauthorized requestor cannot receive requested information at the level asked (e.g., eligibility for mental health program); however, requester may receive more general information such as verification of eligibility for health plan or health benefit coverage. NOTE: Responses that a member is not eligible or is not active are not failures to process the request."
+    ],
+    "performance_measures": [
+      "Time to verify eligibility and generate response: e.g., Real Time response = within __ seconds, Batch Response = within __ hours",
+      "Response Accuracy = ___%",
+      "Error rate = __% or less",
+      "Usage of CORE certified response = ____ % of the time"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Eligibility and Enrollment Management/Eligibility and Enrollment Management BPT.pdf",
+    "source_page_range": "22-24",
+    "extracted_date": "2026-01-12"
+  }
+}

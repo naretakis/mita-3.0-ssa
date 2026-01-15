@@ -1,0 +1,61 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Operations Management",
+  "sub_category": "Claims Adjudication",
+  "process_name": "Calculate Spend-Down Amount",
+  "process_code": "OM",
+  "process_details": {
+    "description": "A person that is not eligible for medical coverage when they have income above the health plan standards may become eligible for coverage through a process called spend-down (see Determine Member Eligibility business process). The Calculate Spend-Down Amount business process is responsible for tracking spend-down amounts and determining if a member meets its responsibility through the submission of medical claims. The Process Claim business process automatically accounts for the spend-down amount during adjudication. Once the member has met the spend-down obligation, a modification of eligibility status allows Medicaid payments to begin and/or resume. This typically occurs in situations where a member has a chronic condition and is consistently above the resource levels, but it may also occur in other situations. The Calculate Spend-Down Amount business process begins with the receipt of member’s health plan information from Enroll Member business process that requires a predetermined amount the member will be financially responsible for prior to Medicaid payment for any medical services.",
+    "trigger_events": {
+      "environment_based": [],
+      "interaction_based": [
+        "Receive health plan information from Enroll Member business process."
+      ]
+    },
+    "results": [
+      "Member has met spend-down obligation.",
+      "Alert sent to Manage Member Information with spend-down information.",
+      "Sent notification that Member has met spend-down obligation to member via Manage Applicant and Member Communication business process.",
+      "OM Claims Adjudication Calculate Spend-Do",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive health plan information from Enroll Member business process",
+      "2. Determine spend-down obligation amount.",
+      "3. Receive claim including payment information.",
+      "4. Subtract medical claim amounts from member’s spend-down until they meet their responsibility.",
+      "5. Send alert to Manage Member Information with spend-down information.",
+      "6. END: Send notification that member has met spend-down obligation via Manage Applicant and Member Communication business process."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Member data store with demographics and spend-down information",
+      "Claims data store with payment information"
+    ],
+    "predecessor_processes": [
+      "Enroll Member",
+      "Process Claim"
+    ],
+    "successor_processes": [
+      "Manage Applicant and Member Communication",
+      "Maintain Member Information"
+    ],
+    "constraints": "The calculate spend-down will conform to the state-specific policies that may differ by state.",
+    "failures": [
+      "No health plan information from Enroll Member."
+    ],
+    "performance_measures": [
+      "Time to complete the process: e.g., Real Time response = within __ seconds, Batch Response = within__ hours",
+      "Accuracy with which rules are applied",
+      "Consistency of decisions and disposition = __%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Operations Management/Operations Management BPT.pdf",
+    "source_page_range": "20-21",
+    "extracted_date": "2026-01-12"
+  }
+}

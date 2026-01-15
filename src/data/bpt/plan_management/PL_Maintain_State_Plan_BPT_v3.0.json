@@ -1,0 +1,76 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Plan Management",
+  "sub_category": "Plan Administration",
+  "process_name": "Maintain State Plan",
+  "process_code": "PL",
+  "process_details": {
+    "description": "The Maintain State Plan business process responds to the scheduled and unscheduled prompts to update and revise the Medicaid State Plan. The Medicaid State Plan is the officially recognized statement describing the nature and scope of the State Medicaid program as required under Section 1902 of the Social Security Act.",
+    "trigger_events": {
+      "environment_based": [
+        "Periodic timetable (e.g., annual) is due for review of Medicaid State Plan.",
+        "Periodic timetable (e.g., annual) is due to implement new policy or modification.",
+        "Ad hoc request for Medicaid State Plan updates."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "The State Medicaid Agency (SMA) defines new or modified Medicaid State Plan.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive prompt or notification to review and update Medicaid State Plan.",
+      "2. Review relevant current Medicaid State Plan documentation.",
+      "3. Analyze requirements for change to Medicaid State Plan.",
+      "4. Research information associated with the change.",
+      "5. Analyze impact of the change and determine whether to move forward with modification based on results of analysis:\n  a. If no modifications to Medicaid State Plan are necessary, END: Business process stops.\n  b. If necessary, request a waiver for submission in accordance with procedures from appropriate authorities.",
+      "6. Develop Medicaid State Plan modification.",
+      "7. Disseminate Medicaid State Plan modification for review, comment and approval by internal and external stakeholders.",
+      "8. Refine Medicaid State Plan modification based on feedback.",
+      "9. Conduct Medicaid State Plan Amendment (SPA) review process with CMS.",
+      "10. END: Publish Medicaid State Plan Amendment."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Plan data store including Medicaid State Plan, health plan, health benefits, performance measures, and benchmarks information",
+      "Business Activity data store including performance information"
+    ],
+    "predecessor_processes": [
+      "Develop Agency Goals and Objectives",
+      "Maintain Program Policy",
+      "Manage Performance Measures",
+      "Manage Budget Information"
+    ],
+    "successor_processes": [
+      "Manage Health Plan Information",
+      "Manage Health Benefit Information",
+      "Manage Performance Measures",
+      "Manage Applicant and Member Communication",
+      "Perform Population and Member Outreach",
+      "Manage Provider Communication",
+      "Perform Provider Outreach",
+      "Manage Contractor Communication",
+      "Perform Contractor Outreach",
+      "Manage Business Relationship Communication",
+      "Manage Compliance Incident Information",
+      "Formulate Budget",
+      "Manage Data",
+      "Establish Business Relationship"
+    ],
+    "constraints": "Economic conditions shift, making less revenue available to fund the approved and planned budget. The SMA will comply with federal and state regulations.",
+    "failures": [
+      "The SMA is unable to receive approval of Medicaid State Plan from internal or external stakeholders."
+    ],
+    "performance_measures": [
+      "Time to complete the process = within __ days, ___ weeks",
+      "Achievement of goals and objectives linked to policy implementation"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Plan Management/Plan Management BPT.pdf",
+    "source_page_range": "4-6",
+    "extracted_date": "2026-01-12"
+  }
+}

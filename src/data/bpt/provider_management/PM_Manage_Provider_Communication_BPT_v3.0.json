@@ -1,0 +1,79 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Provider Management",
+  "sub_category": "Provider Support",
+  "process_name": "Manage Provider Communication",
+  "process_code": "PM",
+  "process_details": {
+    "description": "The Manage Provider Communication business process receives requests for information, provides publications, and assistance from prospective and current providers’ communications (e.g., inquiries related to eligibility of provider, covered services, reimbursement, enrollment requirements). The State Medicaid Agency (SMA) may communicate information using a variety of methods such as email, mail, publication, mobile device, facsimile, telephone, web or Electronic Data Interchange (EDI). This business process includes the log, research, development, approval and delivery of routine or ad hoc messages.\nNOTE: Manage Provider Communication business process handles inquiry from prospective and current providers by providing assistance and responses to individual entities (i.e., bi-directional communication). Also included are scheduled communications such as program memorandum, notifications of pending expired provider eligibility, or formal program notifications such as the disposition of appeals. The Perform Provider Outreach business process targets both prospective and current provider populations for distribution of information about programs, policies, and health care issues.",
+    "trigger_events": {
+      "environment_based": [
+        "Receive inquiry from current or prospective provider.",
+        "Receive request to send information packages such as provider enrollment applications and/or billing instructions.",
+        "Receive request for assistance, such as a request for training or modify in provider information.",
+        "Periodic timetable (e.g. hours, monthly, and quarterly) is due to send information. For example, SMA sends communications within 24 hours of new provider enrollment or periodic publications such as newsletters."
+      ],
+      "interaction_based": [
+        "Receive requests from other business processes to develop and produce communications for providers such as notifications from Enroll Provider business process.",
+        "Receive inquiries originating from customer help desk through Manage Provider Information business process."
+      ]
+    },
+    "results": [
+      "Current or prospective provider receives appropriate assistance, communications, appointment, and/or information packages.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive request for communication.",
+      "2. Validate information submitted is correct and as complete as possible. Information complies with syntax criteria and requestor has completed all required fields.",
+      "3. Validate that the provided information is authentic.",
+      "4. Agency logs request for communication.",
+      "5. Determine content and method of communication (e.g., email, mail, publication, mobile device, facsimile, telephone, web, or EDI.",
+      "6. Determine performance measures.",
+      "7. Prepare content that is linguistically, culturally, and competency appropriate for the communication in agreed upon format.",
+      "8. Review and approve communication.",
+      "9. Generate communication in agreed upon format.",
+      "10. Agency logs communication message.",
+      "11. END: Evaluate the efficacy of the communication (e.g., customer satisfaction, first time resolution rate)."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Provider data store including provider network, contract, and grievance information",
+      "Plan data store including policy information",
+      "Health Benefit data store including benefit package and benefit information",
+      "Ancillary Communication Tracking Systems: Customer Relationship Management (CRM), Help Desk Log, Protected Health Information (PHI) disclosure log, etc."
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Determine Provider Eligibility",
+      "Enroll Provider",
+      "Disenroll Provider",
+      "Terminate Provider",
+      "Manage Provider Grievance and Appeal",
+      "Maintain State Plan",
+      "Manage Health Plan Information",
+      "Manage Health Benefit Information"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Provider Information",
+      "Manage Performance Measures"
+    ],
+    "constraints": "Communications requested will vary by state, depending on programs supported and type of provider requesting information. Provider may have communication barriers such as lack of internet or phone access. Provider is unable to access required or requested information.",
+    "failures": [
+      "SMA is unable to provide linguistically, culturally, or competency appropriate information.",
+      "Delivery failures due to erroneous contact information or lack of contact information."
+    ],
+    "performance_measures": [
+      "Time to complete response: By phone __ minutes; by email ___ hours; by mail __days",
+      "Accuracy of communications = __%",
+      "Communications successfully delivered = __%"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Provider Management/Provider Management BPT.pdf",
+    "source_page_range": "6-8",
+    "extracted_date": "2026-01-12"
+  }
+}

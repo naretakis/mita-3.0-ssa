@@ -1,0 +1,72 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Eligibility and Enrollment Management",
+  "sub_category": "Member Enrollment",
+  "process_name": "Enroll Member",
+  "process_code": "EE",
+  "process_details": {
+    "description": "The Enroll Member business process receives eligibility information from the Determine Member Eligibility business process, the Health Insurance Marketplace, or any insurance affordability program (e.g., Children’s Health Insurance Program [CHIP] or Basic Health Program [BHP]). It determines additional qualifications for enrollment in health benefits for which the member is eligible, and produces notifications for coordination of communications to the member, provider, and to the insurance affordability programs. The Marketplace, Agency or enrollment brokers may perform some or all of the steps in this business process.\n\nNOTE: There is a separate business process for Disenroll Member.\nNOTE: Applications and Accounts - An individual seeking eligibility for enrollment in a qualified health plan through the Health Insurance Marketplace, advance premium tax credits, cost-sharing reductions, Medicaid, CHIP or BHP completes and submits an on-line, telephone, in-person, or paper application for verification and eligibility determination. The Health Insurance Marketplace or insurance affordability program accepts application data and manages information in an “account” by the receiving program to enable access to this information during the verification and eligibility determination processes, as well as after the conclusion of the process to support change reporting and for other purposes.",
+    "trigger_events": {
+      "environment_based": [
+        "Receive presumptive eligibility determination from provider."
+      ],
+      "interaction_based": [
+        "Receive enrollment determination from Determine Member Eligibility business process."
+      ]
+    },
+    "results": [
+      "Enroll eligible member in Medicaid health plans and health benefits.",
+      "Alert sent to Manage Applicant and Member Communication to send welcome package, health plan, if applicable, health benefits, and identification cards.",
+      "Alert sent to send enrollment information to contractor.",
+      "If applicable, alert sent to Manage Member Financial Participation for premium payment arrangement.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive eligibility determination to enroll member.",
+      "2. Agency associates member with elected health plan, if applicable, and health benefits.",
+      "3. Send alert to send enrollment information to contractor.",
+      "4. Send alert to send dual eligibility enrollment information to Medicare.",
+      "5. If applicable, send alert to Manage Member Financial Participation for premium payment arrangement.",
+      "6. END: Send notification to member with welcome package and identification cards via Manage Applicant and Member Communication business process."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Plan data store including policy information",
+      "Health Benefit data store including benefit package and benefit information",
+      "Member data store including demographics and application information",
+      "Provider data store including provider network information",
+      "Contractor data store including provider network information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Determine Member Eligibility",
+      "Manage Applicant and Member Communication"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Applicant and Member Communication",
+      "Manage Member Information",
+      "Manage Member Financial Participation"
+    ],
+    "constraints": "State may have different programs and different enrollment criteria, or may use enrollment brokers for some or all of the business process steps. States may require non-HIPAA covered contractors to use the ANSI X12 834 Benefit Enrollment and Maintenance transaction or may rely on State specific formats for contractor notification.",
+    "failures": [
+      "Alert fails to reach member or contractor.",
+      "Duplicate enrollment requests,",
+      "Required field missing or not correct"
+    ],
+    "performance_measures": [
+      "Time to complete process: successful applicant is enrolled within __ days",
+      "Accuracy of enrollment = ___%",
+      "Consistency of enrollments and disposition = ___%",
+      "Error rate is __% or less",
+      "Disenroll Member"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Eligibility and Enrollment Management/Eligibility and Enrollment Management BPT.pdf",
+    "source_page_range": "16-18",
+    "extracted_date": "2026-01-12"
+  }
+}

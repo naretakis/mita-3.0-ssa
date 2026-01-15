@@ -1,0 +1,62 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Business Relationship Management",
+  "sub_category": "Standards Management",
+  "process_name": "Manage Business Relationship Information",
+  "process_code": "BR",
+  "process_details": {
+    "description": "The Manage Business Relationship Information business process maintains the agreement between the State Medicaid Agency (SMA) and the other party such as the intrastate, interstate, and federal agencies. This includes routine modifications to required information such as authorized signers, addresses, terms of agreement, Key Performance Indicator (KPI), and data exchange standards.",
+    "trigger_events": {
+      "environment_based": [
+        "Receive agreement modifications (e.g., create, update, or delete)."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "Modified business relationship agreement.",
+      "Alert to send notification to business partner of agreement.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive agreement updates.",
+      "2. Agency logs request for modification.",
+      "3. Validate information submitted is correct and as complete as possible. Information complies with syntax criteria and submitter has completed all required fields.",
+      "4. Validate that the provided information is authentic.",
+      "5. Staff records modification to business relationship agreement.",
+      "6. END: Send alert to notify business partner of modification."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Business Partner data store including service agreement information",
+      "Contractor data store including contract information"
+    ],
+    "predecessor_processes": [
+      "Establish Business Relationship",
+      "Manage Contract"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Business Relationship Communication",
+      "Terminate Business Relationship"
+    ],
+    "constraints": "Modifications include all information in the agreement, and depend on the type of agreement and service level requirements associated with the agreement.",
+    "failures": [
+      "Information does not comply with syntax criteria.",
+      "Not all required information provided.",
+      "Staff is unable to authenticate information provided."
+    ],
+    "performance_measures": [
+      "Time to complete business process = within __ days",
+      "Accuracy with which edits are applied = ___%",
+      "Consistency of decisions and disposition = ___%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Business Relationship Management/Business Relationship Management BPT.pdf",
+    "source_page_range": "4-6",
+    "extracted_date": "2026-01-12"
+  }
+}

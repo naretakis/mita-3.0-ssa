@@ -1,0 +1,74 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Contractor Management",
+  "sub_category": "Contract Management",
+  "process_name": "Award Contract",
+  "process_code": "CO",
+  "process_details": {
+    "description": "The Award Contract business process utilizes requirements, advanced planning documents, requests for information, request for proposal, and sole source documents to request and receive proposals, veri Request for Proposal (RFP) or sole source requirements, apply evaluation criteria, designate contractor/vendor, post award information, entertain protests, resolve protests, negotiate contracts, and notify parties. In some States, this business process makes a recommendation of award instead of the actual award itself.\nNOTE: The State Medicaid Agency (SMA) requires billing agents, clearinghouses, or other alternate payee (as defined by the Secretary) to register.",
+    "trigger_events": {
+      "environment_based": [
+        "Receive respondent’s proposal or approval for sole source."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "Alert to send notification of award status to respondent.",
+      "The SMA negotiates contract with awarded contractor.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive respondent’s proposal (e.g., email, mail, web, or Electronic Data Interchange (EDI).",
+      "2. Conduct collection of contractor information.",
+      "3. Validate information submitted is correct and as complete as possible. Information complies with syntax criteria and respondent has completed all required fields for the type of contractor.",
+      "4. If applicable, request additional information.",
+      "5. Validate information provided is authentic (e.g., corporate status).",
+      "6. Validate contractor network, resources, and other requirements and obtain appropriate approvals (i.e., state, federal).",
+      "7. Assign identification to the respondent.",
+      "8. Verify proposal content against RFP or sole source requirements.",
+      "9. Apply evaluation criteria to respondent’s proposal.",
+      "10. Make determination of awarded contractor.",
+      "11. Post award information.",
+      "12. Send alert to notify respondent of award results (e.g., award/recommend, deny, or continue negotiations).",
+      "13. If applicable, send alert to Manage Contractor Grievance and Appeal business process to receive protests and disposition protests.",
+      "14. END: Negotiate contract with contractor, collect additional information required to complete a contract, negotiate, and assign rates or other form of payment."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Contractor data store including provider network and contract information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Produce Solicitation"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Contractor Communication",
+      "Manage Contract",
+      "Manage Contractor Grievance and Appeal"
+    ],
+    "constraints": "The Contractor application will accommodate the full range of contractor types.",
+    "failures": [
+      "Information does not comply with syntax criteria.",
+      "Not all required information provided.",
+      "Information provided not authenticated.",
+      "Parties are unable to negotiate contract (e.g., no agreement on rates).",
+      "The SMA loses funding.",
+      "Responder successfully protests an award."
+    ],
+    "performance_measures": [
+      "Time to complete process = ___ months; ___ weeks",
+      "Accuracy of information = ___ %",
+      "Accessibility of information for creating solicitation = ___ months; ___ weeks",
+      "Consistency of decisions and disposition = ___ %",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Contractor Management/Contractor Management BPT.pdf",
+    "source_page_range": "12-14",
+    "extracted_date": "2026-01-12"
+  }
+}

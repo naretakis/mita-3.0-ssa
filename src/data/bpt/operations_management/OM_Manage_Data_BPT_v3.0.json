@@ -1,0 +1,81 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Operations Management",
+  "sub_category": "Payment and Reporting",
+  "process_name": "Manage Data",
+  "process_code": "OM",
+  "process_details": {
+    "description": "The Manage Data business process is responsible for the preparation of the data sets and delivery to federal agencies (e.g., Centers for Medicare & Medicaid Services (CMS), Social Security Administration (SSA).) Information exchange may include extraction of Medicaid and CHIP Business Information and Solutions (MACBIS) information needs (i.e., fee-for-services, managed care, eligibility and provider information). The Manage Data business process includes activity to extract the information, transform to the required format, encrypt for security, and load the electronic file to the target destination. The uses for the information include:\n• Research and evaluation of health care activities.\n• Staff can forecast the utilization and expenditures for a program.\n• Staff can analyze policy alternatives.\n• State and federal agencies can respond to congressional inquiries.\n• Matches to other health related databases.",
+    "trigger_events": {
+      "environment_based": [
+        "Periodic (e.g., quarterly) timetable for information is due.",
+        "Receive request for information."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "Information message sent to target destination.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive time event or request to initiate Manage Data business process.",
+      "2. Extract required information from source data stores.",
+      "3. Transform information to meet business and technical needs of target destination.",
+      "4. Apply necessary encryption algorithms for security.",
+      "5. END: Send message with information to the target destination."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Claims data store including claims, encounters, adjudication, and historical information",
+      "Care management data store including treatment plan, outcomes, and authorization information",
+      "Plan data store including Medicaid State Plan, health plan, health benefits, reference, performance measures, and benchmarks information",
+      "Compliance Incident data store including anomalies and adverse action information",
+      "Member data store including demographics, eligibility determination, enrollment, grievance and appeals, communication, and outreach information",
+      "Provider data store including provider network, eligibility determination, enrollment, grievance and appeals, communication, and outreach information",
+      "Contractor data store including provider network, enrollment, grievance and appeals, communication, and outreach information",
+      "Financial data store including accounts payable and accounts receivable information"
+    ],
+    "predecessor_processes": [
+      "NOTE: Many MITA Framework business processes collect data for extraction of information and send to target destination. The following are the business processes that manage primary data stores.",
+      "Manage Case Information",
+      "Manage Contractor Information",
+      "Manage Member Information",
+      "Manage Provider Information",
+      "Manage Budget Information",
+      "Manage Accounts Receivable Information",
+      "Manage Accounts Payable Information",
+      "Generate Financial Report",
+      "Process Claim",
+      "Process Encounter",
+      "Generate Remittance Advice",
+      "Manage Compliance Incident Information",
+      "Maintain State Plan",
+      "Manage Health Plan Information",
+      "Manage Health Benefit Information",
+      "Manage Performance Measures",
+      "Manage Reference Information"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction"
+    ],
+    "constraints": "The Manage Data business process will adhere to the federal requirements for submission of information to federal agency.",
+    "failures": [
+      "Requested information is not available for extraction.",
+      "Transformation does not meet the federal requirements for submission.",
+      "Information message does not meet the target destination submission requirements."
+    ],
+    "performance_measures": [
+      "Time to complete the process: e.g., Real Time response = within ___seconds, Batch Response = within ___ hours",
+      "Accuracy with which the State Medicaid Agency (SMA) applies rules =___%",
+      "Consistency with which the SMA applies rules =___%",
+      "Error rate =___% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Operations Management/Operations Management BPT.pdf",
+    "source_page_range": "18-20",
+    "extracted_date": "2026-01-12"
+  }
+}

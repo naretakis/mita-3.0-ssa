@@ -1,0 +1,77 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Performance Management",
+  "sub_category": "Compliance Management",
+  "process_name": "Identify Utilization Anomalies",
+  "process_code": "PE",
+  "process_details": {
+    "description": "The Identify Utilization Anomalies business process uses criteria and rules to identify target groups (e.g., providers, contractors, trading partners or members) and establishes patterns or parameters of acceptable and unacceptable behavior, tests individuals against these models, or looks for new and unusual patterns, in order to identify outliers that demonstrate suspicious utilization of program benefits. Internal and external referrals, business intelligence analysis (i.e., historical, current, and predictive views of business operations), and scheduled or on-demand reporting may identify a compliance incident. Identification of utilization anomalies include evaluation of:\n• Provider utilization review\n• Provider compliance review\n• Contractor utilization review (includes managed care organizations)\n• Contractor compliance review\n• Member utilization review\n• Investigation of potential fraud or abuse review\n• Drug utilization review\n• Quality review (e.g., Consumer Assessment of Healthcare Providers and Systems (CAPHS) and Healthcare Effectiveness Data and Information Set (HEDIS) measures)\n• Performance review (e.g., Key Performance Indicator (KPI))\n• Erroneous payment\n• Contract review\n• Audit Review\n• Other evaluation of information Different criteria and rules, relationships, and information define each type of compliance incident and require different types of external investigation.",
+    "trigger_events": {
+      "environment_based": [
+        "Periodic timetable is due to scan for compliance incidents.",
+        "Request to examine a specific group, individual, or other entity."
+      ],
+      "interaction_based": [
+        "Receive alert sent from business process that has outliers from established benchmarks."
+      ]
+    },
+    "results": [
+      "Identification of utilization anomalies.",
+      "If applicable, alert sent to notify member via Manage Applicant and Member",
+      "Communication business process with anomaly information.",
+      "If applicable, alert sent to notify provider via Manage Provider Communication business process with anomaly information.",
+      "If applicable, alert sent to notify contractor via Manage Contractor Communication business process with anomaly information.",
+      "If applicable, alert sent to Establish Compliance Incident business process for further investigation and monitoring.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive request or reach scheduled timetable review.",
+      "2. Review performance measures and benchmark targets.",
+      "3. Define characteristics of the target group in which the analysis will focus: types of provider, location, types of services, member characteristics, medical conditions.",
+      "4. Identify information requirements, both selection parameters and reporting parameters to include items such as time period(s), data elements, data relationships.",
+      "5. Identify rules to apply to the information - Select or create rules including specified norms, statistical deviations, types of patterns, Boolean logic, ratios, percentages.",
+      "6. Apply rules to targeted group information.",
+      "7. Record the results.",
+      "8. If applicable, send alert to notify member via Manage Applicant and Member Communication business process with anomaly information.",
+      "9. If applicable, send alert to notify provider via Manage Provider Communication business process with anomaly information.",
+      "10. If applicable, send alert to notify contractor via Manage Contractor Communication business process with anomaly information.",
+      "11. END: If applicable, send alert to the Establish Compliance Incident business process for further investigation and monitoring."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Member data store including demographics, eligibility, enrollment, and grievance information",
+      "Provider data store including provider network, contract, and grievance information",
+      "Contractor data store including provider network, and contract information",
+      "Care Management data store including member health status, clinical data, and treatment outcome information",
+      "Claims data store including payment information",
+      "Financial data store including accounts receivable and accounts payable information",
+      "Business Activity data store including performance information",
+      "Compliance Management data store including compliance incident information"
+    ],
+    "predecessor_processes": [
+      "Manage Performance Measures"
+    ],
+    "successor_processes": [
+      "Establish Compliance Incident",
+      "Manage Business Relationship Communication",
+      "Manage Applicant and Member Communication",
+      "Manage Provider Communication",
+      "Manage Contractor Communication"
+    ],
+    "constraints": "States and programs within States establish different criteria for their investigations. Rules change along with the experience of the state, health care industry best practices, modifications in benefits, or with the addition of new provider types.",
+    "failures": [
+      "Staff is unable to identify target population because of insufficient information."
+    ],
+    "performance_measures": [
+      "Time to complete the process = within __ hours, ___ minutes",
+      "Compliance Incident resulting in corrective action, settlement, or collection = __%"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Performance Management/Performance Management BPT.pdf",
+    "source_page_range": "1-3",
+    "extracted_date": "2026-01-12"
+  }
+}

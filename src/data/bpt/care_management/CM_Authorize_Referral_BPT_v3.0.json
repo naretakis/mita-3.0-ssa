@@ -1,0 +1,91 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Care Management",
+  "sub_category": "Authorization Determination",
+  "process_name": "Authorize Referral",
+  "process_code": "CM",
+  "process_details": {
+    "description": "The Authorize Referral business process is responsible for referrals between providers that the State Medicaid Agency (SMA) approves for payment, based on state policy. Examples are referrals by physicians to other providers for laboratory procedures, surgery, drugs, or durable medical equipment. The SMA uses this business process primarily for Primary Care Case Management programs where additional approval controls deemed necessary by the state. Most States do not require this additional layer of control.\nNOTE: MITA contains three (3) different authorization business processes: 1. Authorize Service - the standard process of prior authorization of services. 2. Authorize Treatment Plan - the approval of a treatment plan prepared by a care management team in a care management setting. 3. Authorize Referral - specifically the approval of a referral to another provider, requested by a primary care physician. The Authorize Referral business process may encompass both a pre-approved and post-approved referral request, especial immediate services. This business process may include, but is not limited to, referrals for specific types and numbers of visits, procedures, surgeries, tests, drugs, durable medical equipment, therapies, and institutional days of stay. The SMA evaluates requests based on urgency, state priority requirements, and type of service/taxonomy (durable medical equipment, speech, physical therapy, dental, inpatient, out-of-state). It validates key information, and ensures that the referral is appropriate and medically necessary. After review, staff approves, modifies, suspends for additional information or denies the request. This business process sends an alert to Manage Case Information business process. A post-approved referral request is an editing/auditing function that requires review of information after the referral is complete. A review may consist of verifying documentation to ensure that the referral is appropriate, and medically and/or functionally necessary, and validating provider type and specialty information to ensure alignment with agency policies and procedures. Post-approved validation typically occurs in the Process Claim or Process Encounter business processes.",
+    "trigger_events": {
+      "environment_based": [
+        "Provider submits a request to refer patient to other service providers in accordance with state policy.",
+        "Provider submits additional information for existing referral request."
+      ],
+      "interaction_based": [
+        "Receive referral request from Health Information Exchange (HIE) via Accredited Standards Committee (ASC) X12 278 Health Care Services Review Request and Response transaction.",
+        "Receive referral request from requestor via ASC X12 278 Health Care Services Review Request and Response transaction."
+      ]
+    },
+    "results": [
+      "Send the authorize referral response to the referring provider and the consulting provider.",
+      "Alert to send referral information to requestor via ASC X12 278 Health Care Services Review Request and Response transaction.",
+      "If applicable, alert sent to submitter via ASC X12 TA1 Interchange Acknowledgment, 997 Functional Acknowledgment, 999 Implementation Acknowledgment and/or the 824 Application Advice transaction(s) per Trading Partner Agreement (TPA).",
+      "Alert sent to Manage Applicant and Member Communication to send notification of authorized referral response.",
+      "Alert sent to Manage Case Information business process for purposes of responding to member inquiries about the status of a referral request or a filing of a grievance or an appeal about the referral response.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive referral request from authorized provider.",
+      "2. Validate information submitted is correct and as complete as possible. Information complies with syntax criteria and requestor has completed all required fields.",
+      "3. Validate that the provided information is authentic.\n  a. If applicable, alert sent to submitter via ASC X12 TA1 Interchange Acknowledgment, 997 Functional Acknowledgment, 999 Implementation Acknowledgment, and/or the 824 Application Advice transaction(s) per Trading Partner Agreement (TPA). END: Business process stops.",
+      "4. Assign a tracking number.",
+      "5. Prioritize Referral Authorization Request.",
+      "6. Validate the following:",
+      "7. Member eligibility- for social service model, this entails assessing member’s health, functional, and socio-economic status",
+      "8. Eligibility for requesting and referral providers",
+      "9. Service coverage and referral requirements",
+      "10. Diagnosis code",
+      "11. Procedure code/or procedure groupings",
+      "12. Check for medical or functional necessity and appropriateness.",
+      "13. Check against current referral authorizations for duplicates.",
+      "14. Validate completeness of supporting documentation.",
+      "15. Deny based on insufficient/erroneous information for referral. Go to step 13.",
+      "16. Suspend the referral request based on need for additional information - send request for additional information. Go to step 13.",
+      "17. Approve referral request (this includes approved with modifications).",
+      "18. Send alert to send referral authorization to requestor via ASC X12 278 Health Care Services Review Request and Response transaction.",
+      "19. END: Send alert to notify member, referring provider, and referred-to provider of authorization determination. Alternate Path: For the authorization of some services, States may use the post-approval rather than the prior authorization business process. The post-approval business process will cover all steps listed above, but they may execute in a different order depending on state rules."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Member data store including demographic information",
+      "Provider data store including provider network Information",
+      "Health Information Exchange (HIE) data store including health information, clinical record, and clinical data",
+      "Claims data store including adjudication information",
+      "Plan data store including health benefits information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Process Claim",
+      "Process Encounter"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Process Claim",
+      "Process Encounter",
+      "Manage Case Information",
+      "Manage Applicant and Member Communication",
+      "Manage Provider Communication",
+      "Manage Contractor Communication",
+      "Submit Electronic Attachment"
+    ],
+    "constraints": "The authorize referral request information will conform to the format and content in accordance with state-specific reporting requirements, e.g., using a HIPAA Transaction Standard Companion Guide.",
+    "failures": [
+      "The SMA receives incomplete referral request information.",
+      "Requestor not authorized to make referral request.",
+      "Member not eligible for referred provider services."
+    ],
+    "performance_measures": [
+      "Time to complete the process: e.g., Real Time response = within __ seconds, Batch Response = within __ hours",
+      "Accuracy with which referral authorizations are approved or denied = ___%",
+      "Consistency of decisions in approving or denying referral authorizations = ___%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Care Management/Care Management BPT.pdf",
+    "source_page_range": "14-18",
+    "extracted_date": "2026-01-12"
+  }
+}

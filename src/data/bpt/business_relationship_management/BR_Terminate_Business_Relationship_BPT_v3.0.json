@@ -1,0 +1,64 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Business Relationship Management",
+  "sub_category": "Standards Management",
+  "process_name": "Terminate Business Relationship",
+  "process_code": "BR",
+  "process_details": {
+    "description": "The Terminate Business Relationship business process cancels the agreement between the State Medicaid Agency (SMA) and the business partner such as the intrastate, interstate and federal agencies.",
+    "trigger_events": {
+      "environment_based": [
+        "Receive request for termination of agreement from internal or external sources.",
+        "Notification that the agreement has expired or a one-time information exchange process is complete.",
+        "External sources could be a receipt of a vendor purchased by another."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "Business Relationship terminated. The SMA does not share additional information.",
+      "Alert to send notification to business partner of termination.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive request for business relationship termination.",
+      "2. Validate information submitted is correct and as complete as possible. Information complies with syntax criteria and requestor has completed all required fields.",
+      "3. Validate that the provided information authentic.",
+      "4. Evaluate impact of termination of business relationship to business operations.",
+      "5. Terminate business relationship and related Service Level Agreement (SLA), Memoranda of Understanding (MOU), and such.",
+      "6. END: Send alert to notify business partner of termination."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Business Partner data store including service agreements information",
+      "Contractor data store including contract information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Manage Business Relationship Information",
+      "Close Out Contract"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Business Relationship Communication"
+    ],
+    "constraints": "The SMA and its business partners agree on the content of the termination message. Content depends on the business relationship. Content is standards-based.",
+    "failures": [
+      "Information does not comply with syntax criteria.",
+      "Not all required information provided.",
+      "Information provided not authenticated."
+    ],
+    "performance_measures": [
+      "Time to complete business process = within __ days",
+      "Accuracy with which edits are applied = ___%",
+      "Consistency of decisions and disposition = ___%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Business Relationship Management/Business Relationship Management BPT.pdf",
+    "source_page_range": "6-7",
+    "extracted_date": "2026-01-12"
+  }
+}

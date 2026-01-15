@@ -1,0 +1,66 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Financial Management",
+  "sub_category": "Accounts Receivable Management",
+  "process_name": "Manage Accounts Receivable Funds",
+  "process_code": "FM",
+  "process_details": {
+    "description": "The Manage Accounts Receivable Funds business process is responsible for all operations aspects of the collection of payment owed to the State Medicaid Agency (SMA). Activities in this business process comply with Cash Management Improvement Act (CMIA), Governmental Accounting Standards Board (GASB) standards and Generally Accepted Accounting Principles (GAAP).",
+    "trigger_events": {
+      "environment_based": [
+        "Receive payment (e.g., cash, check, and credit/debit card)."
+      ],
+      "interaction_based": [
+        "Receive electronic payment (e.g., electronic funds transfer).",
+        "Receive periodic scheduled electronic payments."
+      ]
+    },
+    "results": [
+      "The State Medicaid Agency (SMA) receives payment and applies to accounts receivable.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive payment (e.g., cash, check, credit/debit card, electronic funds transfer).",
+      "2. Record the payer and payment amount information.",
+      "3. Create payment receipt notice.",
+      "4. Notify payer of payment receipt (e.g., email, mail, electronic funds transfer).",
+      "5. END: Apply payment to accounts receivable."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Financial data store including accounts receivable information",
+      "Claims data store including premium information",
+      "Contractor data store including contract information",
+      "Member data store including demographics, spend-down, cost share, and patient liability information",
+      "Provider data store including provider network information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Manage Accounts Receivable Information"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Contractor Communication",
+      "Manage Applicant and Member Communication",
+      "Manage Provider Communication"
+    ],
+    "constraints": "States may have different payment business rules.",
+    "failures": [
+      "Inability or failure to load initial records or update information in existing records in the Financial data store.",
+      "The SMA received no payments."
+    ],
+    "performance_measures": [
+      "Time to complete the process = within __ hours, ___ minutes",
+      "Accuracy with which updates are applied = __%",
+      "Consistency with which updates are applied = __%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Financial Management/Financial Management BPT.pdf",
+    "source_page_range": "13-15",
+    "extracted_date": "2026-01-12"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Performance Management",
+  "sub_category": "Compliance Management",
+  "process_name": "Establish Compliance Incident",
+  "process_code": "PE",
+  "process_details": {
+    "description": "The Establish Compliance Incident business process is responsible registration of a case for incident tracking of utilization anomalies. It establishes an incident file, generates incident identification, assigns an incident manager, links to related cases, and collects related documentation.",
+    "trigger_events": {
+      "environment_based": [
+        "Request to initiate incident tracking for business partner, member, provider, contractor or other entity.",
+        "Request to initiate incident from communication (e.g., mail, telephone, facsimile or web).",
+        "Receive requests for suppression of information or corrective action from federal and state law enforcement.",
+        "Receive compliance investigation information from Centers for Medicare & Medicaid Services (CMS).",
+        "Receive compliance investigation information from Medicaid Fraud Control Unit (MFCU).",
+        "Receive compliance investigation information from Office of Inspector General (OIG).",
+        "Receive self-disclosure of actual or potential violations from provider."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "Initiation of a compliance incident.",
+      "Alert sent to Manage Compliance Incident Information business process for incident monitoring.",
+      "If applicable, notification sent to state or federal law enforcement agencies of possible criminal investigation.",
+      "If applicable, notification sent to CMS of compliance investigation.",
+      "If applicable, notification sent to MFCU of compliance investigation.",
+      "If applicable, notification sent to OIG of compliance investigation.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Request to establish incident tracking.",
+      "2. Establish incident case with required information.",
+      "3. Generate incident identification.",
+      "4. Assign and authorize an incident manager to manage an incident and request additional information.",
+      "5. Identify and link related incidents to this one.",
+      "6. Collect relevant documentation.",
+      "7. If applicable, send notification to state or federal law enforcement agencies of possible criminal investigation.",
+      "8. If applicable, send notification to CMS of compliance investigation.",
+      "9. If applicable, send notification to MFCU of compliance investigation.",
+      "10. If applicable, send notification to OIG of compliance investigation.",
+      "11. END: Send alert to Manage Compliance Incident Information business process for incident monitoring."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Member data store including demographics, eligibility, enrollment, and grievance information",
+      "Provider data store including provider network, contract, and grievance information",
+      "Contractor data store including provider network, and contract grievance information",
+      "Claims data store including payment information",
+      "Financial data store including accounts receivable and accounts payable information",
+      "Business Activity data store including performance information",
+      "Compliance Management data store including compliance incident information"
+    ],
+    "predecessor_processes": [
+      "Identify Utilization Anomalies",
+      "Manage Member Information",
+      "Manage Provider Information",
+      "Manage Contractor Information"
+    ],
+    "successor_processes": [
+      "Manage Compliance Incident Information"
+    ],
+    "constraints": "States and programs within States establish different criteria for their investigations. Rules change along with the experience of the state, health care best practices, modifications in benefits, and with the addition of new provider and member types.",
+    "failures": [
+      "No incident tracking requests made.",
+      "Lack of required information to establish an incident."
+    ],
+    "performance_measures": [
+      "Time to complete the process = e.g., ___ days, ___ hours or ___ minutes",
+      "Accuracy with which rules are applied = __%",
+      "Consistency with which rules are applied = __%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Performance Management/Performance Management BPT.pdf",
+    "source_page_range": "3-5",
+    "extracted_date": "2026-01-12"
+  }
+}

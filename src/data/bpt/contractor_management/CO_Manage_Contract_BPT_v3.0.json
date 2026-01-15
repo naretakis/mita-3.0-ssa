@@ -1,0 +1,68 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Contractor Management",
+  "sub_category": "Contract Management",
+  "process_name": "Manage Contract",
+  "process_code": "CO",
+  "process_details": {
+    "description": "The Manage Contract business process receives the contract award information, implements contract-monitoring procedures, updates contract if needed, and continues to monitor the terms of the contract throughout its duration.",
+    "trigger_events": {
+      "environment_based": [
+        "Receive negotiated contract information from Award Contract business process.",
+        "Periodic timetable (e.g., yearly) is due for contract review.",
+        "External event (e.g., policy, budget modification) necessitates contract amendment.",
+        "Receive contract modifications (e.g., create, updated, or delete).",
+        "Receive terminate contract information from Close Out Contract business process."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "Modified negotiated contract.",
+      "If applicable, alert sent to Manage Contractor Information business process with modification information.",
+      "Alert to send notification to contractor of modification to contract.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive contract award information from the Award Contract business process or contract update information from the Manage Contractor Communication business process.",
+      "2. Implement contract or modifications to contract.",
+      "3. If applicable, update contract with amendments.",
+      "4. If applicable, send alert to Manage Contractor Information business process with modified information.",
+      "5. END: Send alert to Manage Contractor Communication business process to notify contractor of modifications."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Contractor Information Data Store"
+    ],
+    "predecessor_processes": [
+      "Award Contract",
+      "Close Out Contract"
+    ],
+    "successor_processes": [
+      "Manage Contractor Communication",
+      "Manage Contractor Information"
+    ],
+    "constraints": "Business rules and/or policies may differ by state.",
+    "failures": [
+      "The State Medicaid Agency (SMA) loses funding.",
+      "Responder successfully protests an award.",
+      "The SMA fails to negotiate terms of contract or modification.",
+      "Information does not comply with syntax criteria.",
+      "Not all required information provided.",
+      "Information provided not authenticated."
+    ],
+    "performance_measures": [
+      "Time to complete process = ___ months; ___ weeks",
+      "Accuracy of information = ___ %",
+      "Accessibility of information for creating solicitation = ___ months; ___ weeks",
+      "Consistency of decisions and disposition = ___ %",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Contractor Management/Contractor Management BPT.pdf",
+    "source_page_range": "14-16",
+    "extracted_date": "2026-01-12"
+  }
+}

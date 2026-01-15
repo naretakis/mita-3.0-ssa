@@ -1,0 +1,74 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Financial Management",
+  "sub_category": "Accounts Receivable Management",
+  "process_name": "Manage Provider Recoupment",
+  "process_code": "FM",
+  "process_details": {
+    "description": "The Manage Provider Recoupment business process manages the determination and recovery of overpayments to providers. The State Medicaid Agency (SMA) initiates provider recoupment upon the discovery of an overpayment, for example, as the result of a provider utilization review audit, receipt of a claims adjustment request, or for situations where provider owes monies to the SMA due to fraud or abuse.\nThe business thread begins with discovering the overpayment, then retrieving claims payment information, initiating the recoupment request, or adjudicating a claims adjustment request, and notifying the provider of audit results via the Manage Provider Communication business process, applying recoupments in the system via the Manage Accounts Receivable Information business process, and monitoring payment history until the provider satisfies the repayment.\nThe SMA collects recoupments via check sent by the provider or credited against future payments for services.",
+    "trigger_events": {
+      "environment_based": [
+        "Periodic Provider utilization review audit by the Identify Utilization Anomalies business process is due.",
+        "Receive adverse action disposition from the Determine Adverse Action Incident business process.",
+        "Periodic post payment audit by the Identify Utilization Anomalies business process is due."
+      ],
+      "interaction_based": [
+        "Adjustment claim by the Process Claim or Process Encounter business processes."
+      ]
+    },
+    "results": [
+      "Alert sent to notify provider of recoupment request.",
+      "Alert sent to monitor recoupment activities to Manage Accounts Receivable Information business process.",
+      "Alert sent to Apply Mass Adjustment business process for retroactive modifications.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Discover overpayment as the result of a routine adjustment request, a provider utilization review, fraud and abuse case, or involvement of a third-party payer.",
+      "2. Retrieve claims payment information.",
+      "3. Initiate recoupment request.",
+      "4. Send alert to notify provider of recoupment request (e.g., amount owed).",
+      "5. Negotiate agreed upon method of repayment or recoupment.",
+      "6. If applicable, send alert to Apply Mass Adjustment business process for retroactive modifications.",
+      "7. END: Send alert to monitor recoupment activities to Manage Accounts Receivable Information business process."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Claims data store including payment information",
+      "Provider data store including provider network and contract information",
+      "Plan data store including policy and fee information",
+      "Health Benefit data store including benefit program and benefit information",
+      "Member data store including third-party liability information",
+      "Financial data store including accounts receivable information",
+      "Compliance Management data store including compliance incident information"
+    ],
+    "predecessor_processes": [
+      "Identify Utilization Anomalies",
+      "Process Claim",
+      "Process Encounter",
+      "Determine Adverse Action Incident"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Accounts Receivable Information",
+      "Manage Provider Communication",
+      "Apply Mass Adjustment"
+    ],
+    "constraints": "Policies and procedures differ by state. Integration with state accounting system can greatly affect the state’s ability to track receivables established by the recoupment.",
+    "failures": [
+      "The SMA is unable to agree on amount owed or method of recoupment."
+    ],
+    "performance_measures": [
+      "Time to complete provider recoupment process: e.g., Real Time response = within ___seconds, Batch Response = within ___hours",
+      "Accuracy with which recoupments are applied = ___ %",
+      "Consistency of decisions on suspended claims/encounters = ___%",
+      "Error rate = ___% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Financial Management/Financial Management BPT.pdf",
+    "source_page_range": "1-3",
+    "extracted_date": "2026-01-12"
+  }
+}

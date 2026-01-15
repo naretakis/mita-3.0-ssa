@@ -1,0 +1,80 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Contractor Management",
+  "sub_category": "Contractor Support",
+  "process_name": "Manage Contractor Grievance and Appeal",
+  "process_code": "CO",
+  "process_details": {
+    "description": "The Manage Contractor Grievance and Appeal business process handles contractor (e.g., managed care, at-risk mental health or dental care, primary care physician) appeals* of adverse decisions or communications of a grievance. The Manage Contractor Communication business process initiates a grievance or appeal. The State Medicaid Agency (SMA) logs and tracks the grievance or appeal; it triages to appropriate reviewers; it researches it; it may request additional information; it schedules and conducts a hearing in accordance with legal requirements; and it makes a ruling based upon the evidence presented. Staff documents and distributes results of the hearings, and adds relevant documents to the contractor’s information. Agency formally notifies contractor of the decision. Th process by providing information about the types of grievances and appeals it handles; grievance and appeals issues; parties that file or are the target of the grievances and appeals; and the dispositions. This information used to discern program improvement opportunities, which may reduce the issues that give rise to grievances and appeals. Based on the appeal business process, if a contractor wins an appeal that impacts or clarifies a Medicaid State Plan, health plan, or health benefit this process sends that information to Maintain State Plan, Manage Health Plan Information or Manage Health Benefit Information business processes to modify the relevant policy or procedure. Disposition could result in legislative change requirements that will be communicated to lawmakers.\nNOTE: States may define grievance and appeal differently, perhaps because of state laws. *This business process supports grievances and appeals for both prospective and current contractors. A non-enrolled contractor can file a grievance or appeal, for example, when agency does not award a contract to contractor. Protests received from prospective contractors are addressed in the Award Contract business process",
+    "trigger_events": {
+      "environment_based": [
+        "Receive grievance or appeal alert from Manage Contractor Information business process.",
+        "Receive grievance or appeal alert from Award Contract business process."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "Alert to send notification of final disposition of grievance or appeal to the contractor.",
+      "If applicable, alert sent to Establish Compliance Incident business process for further investigation.",
+      "If applicable, alert sent to Maintain State Plan business process to modify the relevant policy or procedure.",
+      "If applicable, alert sent to Manage Health Plan Information business process to modify the relevant policy or procedure.",
+      "If applicable, alert sent to Manage Health Benefit Information business process to modify the relevant policy or procedure.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive grievance or appeal.",
+      "2. Agency logs grievance or appeal.",
+      "3. Validate information submitted is correct and as complete as possible. Information complies with syntax criteria and submitter has completed all required fields.",
+      "4. Validate that the provided information is authentic.",
+      "5. If appropriate, request additional documentation.",
+      "6. Determine status as initial, second, expedited or other status as designated by the state.",
+      "7. Triage to appropriate personnel for review.",
+      "8. Perform research and analysis.",
+      "9. If appropriate, schedule hearing within required time limit.",
+      "10. If appropriate, conduct hearing within required time limit.",
+      "11. Determine disposition.",
+      "12. If applicable, send alert to Establish Compliance Incident business process for further investigation.",
+      "13. If applicable, alert sent to Maintain State Plan business process to modify the relevant policy or procedure.",
+      "14. If applicable, alert sent to Manage Health Plan Information business process to modify the relevant policy or procedure.",
+      "15. If applicable, alert sent to Manage Health Benefit Information business process to modify the relevant policy or procedure.",
+      "16. END: Send alert to notify contractor of disposition determination.\n  NOTE: Some of the above steps may be iterative and a grievance or appeals case may take many months to finalize."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Contractor data store including provider network and contract information",
+      "Grievance and Appeal data store including case history information",
+      "Claims data store including claims and premium Information"
+    ],
+    "predecessor_processes": [
+      "Manage Contractor Information",
+      "Award Contract"
+    ],
+    "successor_processes": [
+      "Manage Contractor Communication",
+      "Maintain State Plan",
+      "Manage Health Plan Information",
+      "Manage Performance Measures",
+      "Establish Compliance Incident"
+    ],
+    "constraints": "States have different requirements for evidence and the process for conducting the grievance/appeals cases. They have different rules for assigning outcome status and state specific consequences.",
+    "failures": [
+      "Grievance and appeal supporting documentation is incomplete.",
+      "The SMA cannot schedule or conduct hearing in the required period.",
+      "Contractor withdraws grievance or appeal.",
+      "Unable to process grievance or appeal per federal or state law."
+    ],
+    "performance_measures": [
+      "Time to complete process: normal grievance/appeal = __days; second appeal = __ days; expedited appeal = __hours",
+      "Accuracy of decisions = __%",
+      "Consistency of decisions and disposition = __%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Contractor Management/Contractor Management BPT.pdf",
+    "source_page_range": "8-11",
+    "extracted_date": "2026-01-12"
+  }
+}

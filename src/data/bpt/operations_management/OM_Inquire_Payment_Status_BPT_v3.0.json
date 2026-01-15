@@ -1,0 +1,64 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Operations Management",
+  "sub_category": "Payment and Reporting",
+  "process_name": "Inquire Payment Status",
+  "process_code": "OM",
+  "process_details": {
+    "description": "The Inquire Payment Status business process begins with receiving an Accredited Standards Committee (ASC) X12 276 Health Care Claim Status Request transaction or a request for information received through other means such as email, paper, telephone, facsimile, web, or Automated Voice Response (AVR). The business process handles the request for the status of a specified claim(s), retrieves information from the claims payment history, and generates the response information. In addition, the business process formats the information into the ASC X12 277 Health Care Information Status Notification transaction, or other mechanism for responding, via the media used to communicate the inquiry, and sends claim status response via the Send Outbound Transaction.",
+    "trigger_events": {
+      "environment_based": [
+        "Receive status request via email, mail, mobile device, facsimile, telephone, or web."
+      ],
+      "interaction_based": [
+        "Receive status request via ASC X12 276 Health Care Claim Status Request transaction."
+      ]
+    },
+    "results": [
+      "Requester received claims status information.",
+      "If applicable, response sent via ASC X12 277 Health Care Information Status Notification transactions to requester.",
+      "If applicable, alert sent to submitter via ASC X12 TA1 Interchange Acknowledgment, 997 Functional Acknowledgment, 999 Implementation Acknowledgment, and/or the 824 Application Advice transaction(s) per Trading Partner Agreement (TPA).",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive claim status request.\n  a. If applicable, alert sent to submitter via ASC X12 TA1 Interchange Acknowledgment, 997 Functional Acknowledgment, 999 Implementation Acknowledgment, and/or the 824 Application Advice transaction(s) per Trading Partner Agreement (TPA). END: Business process ends.",
+      "2. Agency logs claim status request.",
+      "3. Validate requester has authorization to receive requested information.",
+      "4. Inquire the payment status information to obtain required requested data elements (e.g., member birth date, member last and first name, member ID, claim service date, internal control number, medical record number).",
+      "5. Generate claim status response.",
+      "6. If applicable, provide claim status response via ASC X12 277 Health Care Information Status Notification transactions to requester.",
+      "7. END: If applicable, receive alert from submitter via ASC X12 TA1 Interchange Acknowledgment, 997 Functional Acknowledgment, 999 Implementation Acknowledgment, and/or the 824 Application Advice transaction(s) per Trading Partner Agreement (TPA)."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Claim data store including payment information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Process Claim",
+      "Process Encounter",
+      "Generate Remittance Advice",
+      "Apply Mass Adjustment"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction"
+    ],
+    "constraints": "Payment Status Inquiry and Response will conform to the format and content in accordance with federal and state-specific requirements, e.g., using HIPAA Transaction Standard Companion Guide that may differ based on situational fields determined by state policy.",
+    "failures": [
+      "The State Medicaid Agency (SMA) does not receive the claim Payment Status Inquiry submission."
+    ],
+    "performance_measures": [
+      "Time to complete the process: e.g., Real Time response = within __ seconds, Batch Response = within __ hours",
+      "Accuracy with which payment status rules are applied = __%",
+      "Consistency with which payment status rules are applied = __%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Operations Management/Operations Management BPT.pdf",
+    "source_page_range": "2-4",
+    "extracted_date": "2026-01-12"
+  }
+}

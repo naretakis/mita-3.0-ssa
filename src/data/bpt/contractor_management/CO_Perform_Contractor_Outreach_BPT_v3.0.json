@@ -1,0 +1,74 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Contractor Management",
+  "sub_category": "Contractor Support",
+  "process_name": "Perform Contractor Outreach",
+  "process_code": "CO",
+  "process_details": {
+    "description": "The Perform Contractor Outreach business process is responsible for sending information such as public health alerts, new programs, and/or modifications in the Medicaid Program policies and procedures. For prospective contractors (e.g., managed care, at-risk mental health or dental care, primary care physician), States Medicaid Agency (SMA) develops contractor outreach information for prospective contractors identified by analyzing Medicaid business needs. For currently enrolled contractors, information may relate to public health alerts, public service announcements, and other objectives. The SMA communicates contractor outreach information by a variety of methods such as email, mail, publication, mobile device, facsimile, telephone, web or Electronic Data Interchange (EDI). The SMA produces, distributes, tracks, and archives all contractor outreach communications according to state rules.",
+    "trigger_events": {
+      "environment_based": [
+        "Executive Management decision to: o Fill gaps in health care service and administrative coverage. o Solicit updated/new administrative and technical functions. o Introduce new programs requiring new types of health or administrative service. o Change to existing policies and procedures. o Respond to critical need in a specific target population. o Identify new populations in need of service (e.g., new immigrant communities).",
+        "State transition-based trigger events: o Alert received from Manage Health Plan Information business process of addition or modification. o Alert received from Manage Health Benefit Information business process of addition or modification."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "Agency produces outreach communications (e.g., mailing brochure, web page, email, kiosk, radio, billboard, and TV advertisements) and distributes to targeted contractors. Agency may also conduct face-to-face meetings.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive request for outreach materials or communication.",
+      "2. Target population identified and defined by analyzing information, performance measures, feedback from community, and policy directives.",
+      "3. Approve, deny, or modify decisions to develop outreach communications.",
+      "4. Determine content and method of communication (e.g., email, mail, publication, mobile device, facsimile, telephone, web or EDI.",
+      "5. Determine performance measures.",
+      "6. Prepare content that is linguistically, culturally, and competency appropriate for the communication in agreed upon format.",
+      "7. Review and approve communication.",
+      "8. Generate communication in agreed upon format.",
+      "9. Agency logs communication message.",
+      "10. END: Evaluate the efficacy of the communication (e.g., customer satisfaction, first time resolution rate)"
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Contractor data store including provider network information",
+      "Plan data store including policy information",
+      "Health Benefits data store including benefit package and benefits information",
+      "Performance Measures data store including agency’s objectives (e.g., Consumer",
+      "Assessment of Healthcare Providers and Systems (CAPHS) and Healthcare",
+      "Effectiveness Data and Information Set (HEDIS) information)"
+    ],
+    "predecessor_processes": [
+      "Manage Performance Measures",
+      "Identify Utilization Anomalies",
+      "Maintain State Plan",
+      "Manage Health Plan Information",
+      "Manage Health Benefit Information"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Contractor Communication",
+      "Manage Performance Measures"
+    ],
+    "constraints": "Communications and information packages will address the needs of the targeted population. Materials will be linguistically and culturally appropriate, legally compliant, appropriate to the targeted group, and meet financial guidelines (re: cost to produce and distribute). Other constraints may be agency priority, availability of resources, and accuracy of contractor contact information. Contractor may have communication barriers such as lack of internet or phone access. Contractor is unable to access needed or requested information.",
+    "failures": [
+      "Unable to identify target population based on desired criteria.",
+      "Management denies permission for outreach activity.",
+      "The SMA cancels health plan or health benefit.",
+      "Delivery failures due to erroneous contact information."
+    ],
+    "performance_measures": [
+      "Time to complete process of developing outreach materials = __days",
+      "Accuracy of outreach materials = __%",
+      "Successful delivery rate to targeted individuals = __%",
+      "Effectiveness of the communication - Outreach results in achieving specified goals"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Contractor Management/Contractor Management BPT.pdf",
+    "source_page_range": "6-8",
+    "extracted_date": "2026-01-12"
+  }
+}

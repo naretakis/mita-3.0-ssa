@@ -1,0 +1,74 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Eligibility and Enrollment Management",
+  "sub_category": "Provider Enrollment",
+  "process_name": "Inquire Provider Information",
+  "process_code": "EE",
+  "process_details": {
+    "description": "The Inquire Provider Information business process receives requests for provider enrollment verification from authorized providers, programs or business associates; performs the inquiry, and prepares the response information for the Send Outbound Transaction.",
+    "trigger_events": {
+      "environment_based": [
+        "Receive provider enrollment verification request from Receive Inbound Transaction."
+      ],
+      "interaction_based": [
+        "Receive eligibility inquiry via Automated Voice Response System (AVRS)."
+      ]
+    },
+    "results": [
+      "Provider enrollment verification response that may include information such as",
+      "enrollment start/end dates, provider type, and specific specialties provided.",
+      "If applicable, response sent with eligibility inquiry information via AVRS.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive provider enrollment verification information from Receive Inbound Transaction.",
+      "2. Agency logs enrollment verification request.",
+      "3. Validate requestor’s authorization to receive requested information.",
+      "4. Find requested provider’s enrollment verification information.",
+      "5. Agency logs response.",
+      "6. If applicable, send eligibility inquiry response via AVRS.",
+      "7. END: Send response to requestor via Send Outbound Transaction."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Provider data store including: ",
+      "Provider demographics ",
+      "Provider network ",
+      "Contract information o",
+      "Type o",
+      "Specialty o",
+      "Enrolled Program o",
+      "Jurisdiction o",
+      "Payment Information ",
+      "Provider taxonomy ",
+      "Service Location Information o",
+      "Category of Service o",
+      "Services o",
+      "Limitations o",
+      "Business Arrangement"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction"
+    ],
+    "constraints": "States determine what information share and who can access what requested information.",
+    "failures": [
+      "Process unable to process the provider information verification request.",
+      "Unauthorized requester cannot receive requested information."
+    ],
+    "performance_measures": [
+      "Time to verify provider information and generate response information: e.g., Real Time response = within __ seconds, Batch Response = within __ hours",
+      "Response Accuracy = ___%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Eligibility and Enrollment Management/Eligibility and Enrollment Management BPT.pdf",
+    "source_page_range": "38-40",
+    "extracted_date": "2026-01-12"
+  }
+}

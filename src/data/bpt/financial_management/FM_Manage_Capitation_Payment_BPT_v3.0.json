@@ -1,0 +1,55 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Financial Management",
+  "sub_category": "Accounts Payable Management",
+  "process_name": "Manage Capitation Payment",
+  "process_code": "FM",
+  "process_details": {
+    "description": "The Manage Capitation Payment business process includes the activities to prepare Primary Care Case Management (PCCM) or Managed Care Organization (MCO) capitation payments. Some States offer members the option of enrolling in a PCCM product that requires the selection of a Primary Care Physician (PCP). The PCP receives a Per-Member-Per-Month (PMPM) capitation payment amount for all members that the State Medicaid Agency (SMA) assigns. The provider payment schedule defines the PCCM capitation rates typically actuary based on an age and gender rating or flat rate. Provider may opt in or out of PCCM plan and does not have to belong to the MCO. A prevailing alternative to the SMA integrated managed care model is to delegate specific member populations to MCOs and pay the MCO a PMPM capitation amount for all assigned members. The Manage Capitation Payment business process interrogates the member, provider, and MCO, member assignment and contract capitation information, and creates the information extract necessary to generate the capitation payment. The data extract includes any processing rules and options including retroactive adjustments to member assignments that affect the capitation payment amount to the provider or MCO.",
+    "trigger_events": {
+      "environment_based": [
+        "Periodic (e.g., monthly) timetable to conduct capitation information extract."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "Alert sent to Manage Accounts Payable Information business process to generate Provider/MCO capitation payments.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Timed event triggered on monthly basis to initiate Manage Capitation Payment business process to invoke capitation information extract.",
+      "2. END: Send alert to Manage Accounts Payable Information business process to generate provider/MCO capitation payments."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Financial data store including accounts payable information",
+      "Contractor data store including contract information",
+      "Member data store including eligibility and benefits information",
+      "Provider data store including provider network & contract information"
+    ],
+    "predecessor_processes": [
+      "Enroll Member"
+    ],
+    "successor_processes": [
+      "Manage Accounts Payable Information"
+    ],
+    "constraints": "The Manage Capitation Payment business process will adhere to the federal and state policies and business rules that may differ by state.",
+    "failures": [
+      "No PCP information is available.",
+      "No PCCM information is available."
+    ],
+    "performance_measures": [
+      "Time to complete the process: e.g., Real Time response = within ___seconds, Batch Response = within ___ hours",
+      "Accuracy with which rules are applied =___%",
+      "Consistency with which rules are applied=___%",
+      "Error rate =___% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Financial Management/Financial Management BPT.pdf",
+    "source_page_range": "21-22",
+    "extracted_date": "2026-01-12"
+  }
+}

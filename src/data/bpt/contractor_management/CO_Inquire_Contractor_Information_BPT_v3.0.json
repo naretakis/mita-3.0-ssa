@@ -1,0 +1,60 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Contractor Management",
+  "sub_category": "Contractor Information Management",
+  "process_name": "Inquire Contractor Information",
+  "process_code": "CO",
+  "process_details": {
+    "description": "The Inquire Contractor Information business process receives requests for contract (e.g., managed care, at-risk mental health or dental care, Primary Care Physician (PCP)) verification from authorized providers, programs or business associates, performs the inquiry, and prepares the response for the Send Outbound Transaction.",
+    "trigger_events": {
+      "environment_based": [],
+      "interaction_based": [
+        "Receive contract verification request from Receive Inbound Transaction."
+      ]
+    },
+    "results": [
+      "Contract verification response sent to requestor.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive contract verification request.",
+      "2. Validate information submitted is correct and as complete as possible. Information complies with syntax criteria and requestor has completed all required fields.",
+      "3. Validate that the provided information is authentic.",
+      "4. Agency logs contract verification request.",
+      "5. Determine request status as initial or duplicate.",
+      "6. Query contractor data store for requested information.",
+      "7. Agency logs contract verification response.",
+      "8. END: Send contract verification response to requestor."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Contractor data store including contract information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Contractor Information"
+    ],
+    "constraints": "The State Medicaid Agency (SMA) determines what information to share.",
+    "failures": [
+      "The SMA is unable to find contractor information.",
+      "The SMA is unable to respond to a request.",
+      "Validation failed.",
+      "Requestor provides incomplete information (e.g., missing required information elements)."
+    ],
+    "performance_measures": [
+      "Time to verify Contractor information and generate response information: e.g., Real Time response = within __ seconds, Batch Response = within __ hours",
+      "Response Accuracy = ___%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Contractor Management/Contractor Management BPT.pdf",
+    "source_page_range": "2-4",
+    "extracted_date": "2026-01-12"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Care Management",
+  "sub_category": "Authorization Determination",
+  "process_name": "Authorize Service",
+  "process_code": "CM",
+  "process_details": {
+    "description": "The Authorize Service business process encompasses both a pre-approved and post-approved service request. This business process focuses on specific types and numbers of visits, procedures, surgeries, tests, drugs, therapies, and durable medical equipment. Its primary use is in a fee-for-services setting. Prior authorization of a service request is a care management function and begins when a care manager requests a service request by mail, facsimile, telephone, or Accredited Standards Committee (ASC) X12 278 Health Care Services Review Information request transaction. The care manager evaluates requests based on state rules for prioritization such as urgency and type of service/taxonomy (e.g., durable medical equipment, speech, physical therapy, dental, and out-of-state), validates key information, and ensures that requested service is appropriate and medically necessary. After review, staff approves, modifies, denies or suspends for additional information the service requests. The State Medicaid Agency (SMA) sends the appropriate response information for the outbound ASC X12 278 Health Care Services Review Response transaction to the provider using the Send Outbound Transaction.\nNOTE: MITA contains three (3) different authorization business processes: 1. Authorize Service - the standard process of prior authorization of services. 2. Authorize Treatment Plan - the approval of a treatment plan prepared by a care management team in a care management setting. 3. Authorize Referral - specifically the approval of a referral to another provider, requested by a primary care physician. A post-approved service request is an editing/auditing function that requires review of information after the service is complete. A review may consist of verifying documentation to ensure that the services were appropriate and medically necessary, and validating provider type and specialty information to ensure alignment with agency policies and procedures. Post-approved validation typically occurs in the Process Claim or Process Encounter business processes.\nNOTE: This business process is part of a suite that includes Service Requests for different service types and care settings including Medical, Dental, Drugs, and Off- label use of drugs, Social Service, Experimental Treatments, Out-of-State Services, and Emergencies.",
+    "trigger_events": {
+      "environment_based": [
+        "Provider submits a request for service in accordance with state policy.",
+        "Provider submits additional information for existing service authorization request."
+      ],
+      "interaction_based": [
+        "Receive service request from Health Information Exchange (HIE) via ASC X12 278 Health Care Services Review Request and Response transaction.",
+        "Receive service request from requestor via ASC X12 278 Health Care Services Review Request and Response transaction."
+      ]
+    },
+    "results": [
+      "Service authorization response sent to requestor.",
+      "Alert to send service information to requestor via ASC X12 278 Health Care Services Review Request and Response transaction.",
+      "If applicable, alert sent to submitter via ASC X12 TA1 Interchange Acknowledgment, 997 Functional Acknowledgment, 999 Implementation Acknowledgment and/or the 824 Application Advice transaction(s) per Trading Partner Agreement (TPA).",
+      "Alert sent to Manage Applicant and Member Communication to send notification of authorized service response.",
+      "Alert sent to Manage Case Information business process for purposes of responding to provider or member inquiries about the status of service request or a provider or member filing of a grievance or an appeal about the service authorization response.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive service authorization request from authorized provider.",
+      "2. Validate information submitted is correct and as complete as possible. Information complies with syntax criteria and requestor has completed all required fields.\n  a. If applicable, alert sent to submitter via ASC X12 TA1 Interchange Acknowledgment, 997 Functional Acknowledgment, 999 Implementation Acknowledgment and/or the 824 Application Advice transaction(s) per Trading Partner Agreement (TPA). END: Business process stops.",
+      "3. Validate that the provided information is authentic.",
+      "4. Assign a tracking number.",
+      "5. Prioritize Service Authorization Request.",
+      "6. Validate the following:",
+      "7. Member eligibility - for social service model, this entails assessing member’s health, functional, and socio-economic status",
+      "8. Requesting and servicing providers",
+      "9. Service coverage and referral requirements",
+      "10. Diagnosis code",
+      "11. Procedure code/or procedure groupings",
+      "12. Check for medical or functional necessity and appropriateness.",
+      "13. Check against current service authorizations for duplicates.",
+      "14. Validate completeness of supporting documentation.",
+      "15. Deny based on insufficient/erroneous information or authorization for service not medically necessary. Go to step 13.",
+      "16. Suspend the authorization request based on need for additional information. Go to step 13.",
+      "17. Approve service authorization request (this includes approved with modifications.",
+      "18. Send alert to send service authorization to requestor via ASC X12 278 Health Care Services Review Request and Response transaction.",
+      "19. END: Send alert to notify member and requesting provider of service authorization determination. Alternate Path: For the authorization of some services, States may use the post-approval rather than the prior authorization business process. The post-approval business process includes all steps listed above, but process executes in a different order depending on state rules."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Member data store including demographic information",
+      "Provider data store including provider network Information",
+      "Health Information Exchange (HIE) data store including health information, clinical record, and clinical data",
+      "Plan data store including health benefits information",
+      "Claims data store including adjudication information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Process Claim",
+      "Process Encounter"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Process Claim",
+      "Process Encounter",
+      "Manage Case Information",
+      "Manage Applicant and Member Communication",
+      "Manage Provider Communication",
+      "Manage Contractor Communication",
+      "Submit Electronic Attachment"
+    ],
+    "constraints": "The authorize service request information will conform to the format and content in accordance with state-specific reporting requirements, e.g., using a HIPAA Transaction Standard Companion Guide.",
+    "failures": [
+      "The SMA receives incomplete service authorization request.",
+      "Requestor (provider) is not eligible for enrollment or does not have authority to make service authorization request for particular service.",
+      "Member is not eligible for services."
+    ],
+    "performance_measures": [
+      "Time to complete the process: e.g., Real Time response = within __ seconds, Batch Response = within __ hours",
+      "Accuracy with which service authorizations are approved or denied = __%",
+      "Consistency of decisions in approving or denying service authorizations = __%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Care Management/Care Management BPT.pdf",
+    "source_page_range": "18-21",
+    "extracted_date": "2026-01-12"
+  }
+}

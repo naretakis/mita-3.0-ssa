@@ -1,0 +1,64 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Care Management",
+  "sub_category": "Case Management",
+  "process_name": "Perform Screening and Assessment",
+  "process_code": "CM",
+  "process_details": {
+    "description": "The Perform Screening and Assessment business process is responsible for the evaluation of member’s health information, facilitating evaluations and recording results. This business process assesses for certain health and behavioral health conditions (e.g., chronic illness, mental health, substance abuse), lifestyle and living conditions (e.g., employment, religious affiliation, living situation) factors. This business process:\n• Establishes risk categories and hierarchy, severity, and level of need.\n• Screens for required fields.\n• Edits required fields.\n• Verifies information from external sources if available.\n• Establishes severity scores and diagnoses.\n• Associates with applicable service needs. Health Information Exchange (HIE) verifies a member’s health information.",
+    "trigger_events": {
+      "environment_based": [],
+      "interaction_based": [
+        "Receive new member enrollment alert from Enroll Member business process.",
+        "Receive redetermination of member enrollment alert from Enroll Member business process."
+      ]
+    },
+    "results": [
+      "Member notified of applicable services as needed.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive new member or redetermination of member enrollment from Enroll Member business process.",
+      "2. Assign Care Manager.",
+      "3. Gather information for history and/or examinations.",
+      "4. Determine risk factors and establish risk categories.",
+      "5. Conduct needs assessment and determines level of need.",
+      "6. Determine health benefits that are appropriate for the member.",
+      "7. Staff records screening and assessment results.",
+      "8. Associate member to applicable services based on results.",
+      "9. END: Send alert to notify member of applicable services based on screening and assessment."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Member data store including demographic information",
+      "Health Information Exchange (HIE) data store including health information, clinical record and clinical data",
+      "Plan data store including policy information",
+      "Health Benefit data store including program and service information",
+      "Case History data store including action lists, journal notes, reviews and approvals"
+    ],
+    "predecessor_processes": [
+      "Enroll Member"
+    ],
+    "successor_processes": [
+      "Manage Case Information",
+      "Manage Applicant and Member Communication"
+    ],
+    "constraints": "States may have different screening requirements and health benefits. Agencies do not coordinate between each other in order to share information. Potential political and inter-agency conflicts over appropriate use of health care information.",
+    "failures": [
+      "Care Manager is unable to acquire history and/or examination information."
+    ],
+    "performance_measures": [
+      "Timeliness to complete process = within __ days",
+      "Accuracy with which changes are applied = ___%",
+      "Consistency of decisions and disposition = ___%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Care Management/Care Management BPT.pdf",
+    "source_page_range": "10-12",
+    "extracted_date": "2026-01-12"
+  }
+}

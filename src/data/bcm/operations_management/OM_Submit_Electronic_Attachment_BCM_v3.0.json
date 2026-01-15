@@ -1,0 +1,161 @@
+{
+  "document_type": "BCM",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Operations Management",
+  "sub_category": "Claims Adjudication",
+  "process_name": "Submit Electronic Attachment",
+  "process_code": "OM",
+  "maturity_model": {
+    "capability_questions": [
+      {
+        "category": "Business Capability Descriptions",
+        "question": "Is the process primarily manual or automatic?",
+        "levels": {
+          "level_1": "The process consists primarily of manual paper-based activity to accomplish tasks.",
+          "level_2": "SMA uses a mix of manual and automatic processes to Submit Electronic Attachment accomplish tasks.",
+          "level_3": "SMA automates process to the full extent possible within the intrastate.",
+          "level_4": "SMA automates process to the full extent possible across the interstate.",
+          "level_5": "SMA automates process to the full extent possible across the nation."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "How is clinical information requested and received when this information is required to process a transaction (claim, service authorization request, treatment plan) or for other processes?",
+        "levels": {
+          "level_1": "SMA requests medical and dental records via telephone or mail and responder delivers copies in paper format (including X- rays) via mail certified mail and facsimile.",
+          "level_2": "SMA receives a mix of paper and electronic attachments and returns a mix of electronic and paper formats.",
+          "level_3": "SMA receives the majority of transactions and attachments electronically. SMA continues to accept paper attachments from a small number of providers who still submit paper transactions.",
+          "level_4": "SMA no longer requires attachments because the payer has direct access to the clinical information stored in the Health Information Exchange (HIE).",
+          "level_5": "Through the Nationwide Health Information Network (NwHIN), SMA can view clinical information stored in Clinical information in any location in the country. Attachments are no longer necessary."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "Does the State Medicaid Agency use standards in the process?",
+        "levels": {
+          "level_1": "SMA focuses on meeting compliance thresholds for state and federal regulations using state-specific standards.",
+          "level_2": "SMA applies a mix of HIPAA and state- specific standards.",
+          "level_3": "SMA adopts MITA Framework, industry standards, and other nationally recognized standards for intrastate exchange of information.",
+          "level_4": "SMA adopts MITA Framework, industry standards, and other nationally recognized standards for clinical and interstate information exchange.",
+          "level_5": "SMA adopts MITA Framework, industry standards, and other nationally recognized standards for national exchange of information."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "Does the clinical information accompany the transaction?",
+        "levels": {
+          "level_1": "Submitter sends paper attachments (i.e., clinical records) separately from the transaction, and then SMA matches the two (2) documents, requiring manual intervention.",
+          "level_2": "SMA automatically matches electronic attachments to corresponding claim. SMA may scan paper attachments, but still associate them manually with the applicable transaction.",
+          "level_3": "SMA requires electronic attachments for electronically submitted transactions, and they accompany the transaction.",
+          "level_4": "Maturity level is not applicable.",
+          "level_5": "Maturity level is not applicable."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "Are validation activities manual or automatic?",
+        "levels": {
+          "level_1": "Validation that the attachment provides the necessary information is a primarily manual process.",
+          "level_2": "Some validation is automatic.",
+          "level_3": "The implementation of the process as a service per industry standard interface requirements allows automatic validation of attachments.",
+          "level_4": "SMA automates process to the full extent possible across the interstate.",
+          "level_5": "SMA automates process to the full extent possible across the nation."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "How does the State Medicaid Agency collaborate with other agencies or entities in performing the process?",
+        "levels": {
+          "level_1": "Very little collaboration occurs with other agencies to standardize information exchange or business tasks.",
+          "level_2": "SMA collaborates with other agencies and entities to adopt HIPAA standards and Electronic Data Interchange (EDI) transactions.",
+          "level_3": "SMA collaborates with other intrastate agencies and entities to adopt national standards, and to develop and share reusable business services.",
+          "level_4": "SMA collaborates with other interstate agencies and entities to adopt national standards, and to develop and share reusable processes including clinical information.",
+          "level_5": "SMA collaborates with agencies and entities for national (and international) interoperability improvements that maximize automation of routine operations."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Timeliness of Process",
+        "question": "How timely is the end-to-end process?",
+        "levels": {
+          "level_1": "Process meets threshold or mandated requirements for timeliness (i.e., the process achieves results within the time specified by law or regulation). It requires 30 or more business days for receipt of the requested records and associating them with the transaction.",
+          "level_2": "Process timeliness improves through use of automation. Timeliness exceeds legal requirements. SMA may scan paper attachments, reducing the distribution time within SMA. It requires 24 hours or less to receive clinical attachment and associate with correct transaction.",
+          "level_3": "Timeliness improves via state and federal collaboration, use of information sharing, standards, and regional Health Information Exchange (HIE). Timeliness exceeds Level 2.",
+          "level_4": "Information is available in near real time. Processes that use clinical information result in immediate action, response, and results. SMA has interstate interoperability, which further improves timeliness over Level 3.",
+          "level_5": "Information is available in real time. Processes improve further through connectivity with other States and with federal agencies. Most processes execute at the point of service. Results are almost immediate."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Data Access and Accuracy",
+        "question": "How accurate is the information in the process?",
+        "levels": {
+          "level_1": "Use of direct data entry for information collection is manually intensive and susceptible to inconsistent or incorrect information. Stakeholders are unable to rely on information for decision-making.",
+          "level_2": "HIPAA standard transactions improve accuracy of information but the decision- making process may be erroneous or misleading. Accuracy is higher than at Level Submit Electronic Attachment 1.",
+          "level_3": "Automation of information collection increases the reliability of SMA’s internal information. External sources of information use MITA Framework and industry standards for information exchange. Decision- making is automatic using standardized business rules definitions. Accuracy is 99.9% or higher.",
+          "level_4": "Automation of information collection increases the reliability of SMA’s internal and external sources of information. SMA adopts MITA Framework and industry standards for information exchange with interstate agencies. Decision-making is automatic using regional standardized business rules definitions. Accuracy is 99.9% or higher.",
+          "level_5": "SMA adopts MITA Framework and industry standards for information exchange with national agencies. Decision-making is automatic using national standardized business rules definitions. Accuracy is 99.9% or higher."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Data Access and Accuracy",
+        "question": "How accessible is the information in the process?",
+        "levels": {
+          "level_1": "SMA stores information in disparate systems including paper storage and obtains information manually. Accessing clinical records generally requires 48 or more hours.",
+          "level_2": "SMA stores information in disparate systems, but automation and HIPAA standards increase accessibility over Level 1. SMA accesses clinical records in one (1) hour or less.",
+          "level_3": "SMA obtains information easily and exchanges with intrastate agencies and entities based on MITA Framework and industry standards. Accessibility is greater than Level 2.",
+          "level_4": "SMA obtains information easily and exchanges with interstate agencies and entities. Accessibility is greater than Level 3.",
+          "level_5": "SMA obtains information easily and exchanges with national agencies and entities. Accessibility is greater than Level 4."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Cost Effectiveness",
+        "question": "What is the cost of the process compared to the benefits of its results?",
+        "levels": {
+          "level_1": "High relative cost due to low number of automatic, standardized tasks.",
+          "level_2": "Automation improves process and allows focus on exception resolution, improving cost effectiveness ratio over Level 1.",
+          "level_3": "SMA adopts MITA Framework, industry standards, and other nationally recognized standards further improving cost effectiveness ratio over Level 2.",
+          "level_4": "SMA adopts MITA Framework, industry standards, and other nationally recognized standards for interstate information exchange. SMA increases cost effectiveness ratio over Level 3.",
+          "level_5": "SMA adopts MITA Framework, industry standards, and other nationally recognized standards for national (and international) information exchange. SMA increases cost effectiveness ratio over level 4."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Effort to Perform; Efficiency",
+        "question": "How efficient is the process?",
+        "levels": {
+          "level_1": "Process is labor intensive. There is wasted effort or expense to accomplish tasks. Process meets minimum state process guidelines and SMA performance standards. Efficiency is low.",
+          "level_2": "Automation and state standards increase productivity. Efficiency is higher than Level 1",
+          "level_3": "SMA adopts MITA Framework, industry standards and information exchange with intrastate agencies and entities improving efficiency to 90% or higher.",
+          "level_4": "SMA adopts MITA Framework, industry standards and information exchange with interstate agencies and entities improving efficiency to 90% or higher.",
+          "level_5": "SMA adopts MITA Framework, industry standards and information exchange with national agencies and entities improving efficiency to 90% or higher."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Accuracy of Process Results",
+        "question": "How accurate are the results of the process?",
+        "levels": {
+          "level_1": "Manual processes result in greater opportunity for human error. Accuracy is low.",
+          "level_2": "Automation and standardized business rules definitions reduce error and improve accuracy above Level 1.",
+          "level_3": "SMA adopts MITA Framework, industry standards and information exchange with intrastate agencies and entities improving accuracy to 90% or higher.",
+          "level_4": "SMA adopts MITA Framework, industry standards and information exchange with interstate agencies and entities improving accuracy to 98% or higher.",
+          "level_5": "SMA adopts MITA Framework, industry standards and information exchange with national agencies and entities improving accuracy to 98% or higher."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Utility or Value to Stakeholders",
+        "question": "Does the business process satisfy stakeholders?",
+        "levels": {
+          "level_1": "Stakeholders lack confidence in information negatively affecting stakeholder satisfaction with the process.",
+          "level_2": "Automation and standardization provides clear and useful information. Stakeholder satisfaction is greater than Level 1",
+          "level_3": "SMA adopts MITA Framework, industry standards and information exchange with intrastate agencies and entities improving stakeholder satisfaction to 90% or higher. SMA uses survey or questionnaire for information collection.",
+          "level_4": "SMA adopts MITA Framework, industry standards and information exchange with interstate agencies and entities improving stakeholder satisfaction to 95% or higher.",
+          "level_5": "SMA adopts MITA Framework, industry standards and information exchange with national agencies and entities improving stakeholder satisfaction to 98% or higher."
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bcm/Operations Management/Operations Management BCM.pdf",
+    "source_page_range": "46-54",
+    "extracted_date": "2026-01-12"
+  }
+}

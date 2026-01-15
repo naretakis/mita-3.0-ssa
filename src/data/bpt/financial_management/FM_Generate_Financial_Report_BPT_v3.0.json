@@ -1,0 +1,70 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Financial Management",
+  "sub_category": "Fiscal Management",
+  "process_name": "Generate Financial Report",
+  "process_code": "FM",
+  "process_details": {
+    "description": "It is essential for the State Medicaid Agency (SMA) to be able to generate various financial and program analysis reports to assist with budgetary controls and to ensure that the established benefits and programs are meeting the needs of the member population and are performing according to the intent of the legislative laws or federal reporting requirements. The Generate Financial Report business process begins with a request for information or a timetable for scheduled correspondence. The business process includes:\n• Defining the report attributes (e.g., format, content, frequency, media, and retention).\n• Defining the state and federal budget categories of service, eligibility codes, provider types, and specialties (taxonomy).\n• Extracting required financial information from source data stores.\n• Transforming information to meet business and technical needs of target destination.\n• Applying necessary encryption algorithms for security.\n• Sending alert with information to the target destination.\nNOTE: This business process does not include maintaining the benefits, reference, or program information. Maintenance of the health plan, health benefits, and reference information is in separate business processes.",
+    "trigger_events": {
+      "environment_based": [
+        "Request to generate on-demand report on financial and/or program information.",
+        "Periodic timetable (e.g., daily, weekly, quarterly) is due for financial reporting."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "The on-demand or scheduled generation of a financial report.",
+      "The financial and program analysis report set sent to the Send Outbound Transaction.",
+      "Generation of Centers for Medicare & Medicaid Services (CMS) specific reports such as the following: o CHIP Program Budget Report (CMS-21B) o Medicaid Program Budget Report (CMS-37) o Quarterly CHIP Statement of Expenditures (CMS-21) o Quarterly Expense Report (CMS-64)",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive request for generation of financial report.",
+      "2. Agency logs the request.",
+      "3. Define required report(s) format, content, frequency, media for the reports, and its retention period.",
+      "4. Define data elements necessary to produce the report (e.g., state and federal budget categories of service, eligibility codes, taxonomy codes).",
+      "5. Extract required information from source data stores.",
+      "6. If applicable, transform information to meet business and technical needs of target destination.",
+      "7. If applicable, apply necessary encryption algorithms for security.",
+      "8. Agency logs the response.",
+      "9. If applicable, send the report to the Send Outbound Transaction for delivery to target destination.",
+      "10. END: Review financial report for analysis or distribution."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Financial data store including accounts receivable, accounts payable, Recovery",
+      "Audit Contractor (RAC) recoveries, and budget information",
+      "Claims data store including payment information",
+      "Member data store including demographics information",
+      "Provider data store including provider network information",
+      "Reference data store including code set information"
+    ],
+    "predecessor_processes": [
+      "Manage Budget Information",
+      "Manage Accounts Receivable Information",
+      "Manage Accounts Payable Information"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Data"
+    ],
+    "constraints": "The generation of financial and program analysis reports will adhere to state-specific or federal laws, regulations, and requirements. These rules will differ by state.",
+    "failures": [
+      "Information is unavailable to generate the report."
+    ],
+    "performance_measures": [
+      "Time to complete process: e.g., Real Time response = within __ seconds, Batch Response = within __ hours",
+      "Accuracy of decisions",
+      "Consistency of decisions and disposition = ___%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Financial Management/Financial Management BPT.pdf",
+    "source_page_range": "39-41",
+    "extracted_date": "2026-01-12"
+  }
+}

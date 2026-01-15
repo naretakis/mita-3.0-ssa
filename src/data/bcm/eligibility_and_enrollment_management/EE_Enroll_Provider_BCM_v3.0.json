@@ -1,0 +1,161 @@
+{
+  "document_type": "BCM",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Eligibility and Enrollment Management",
+  "sub_category": "Provider Enrollment",
+  "process_name": "Enroll Provider",
+  "process_code": "EE",
+  "maturity_model": {
+    "capability_questions": [
+      {
+        "category": "Business Capability Descriptions",
+        "question": "Does enrollment process meet state and federal regulations or policies?",
+        "levels": {
+          "level_1": "Meets state and federal requirements for processing applications timely and accurately.",
+          "level_2": "SMA exceeds state and federal requirements for processing applications timely and accurately",
+          "level_3": "SMA exceeds state and federal requirements for processing applications enrollment timely and accurately including one-stop collaboration across SMA.",
+          "level_4": "SMA fully automates the enrollment process within the region.",
+          "level_5": "SMA fully automates the enrollment process across the nation."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "Is the process primarily manual or automatic?",
+        "levels": {
+          "level_1": "The process consists primarily of manual paper-based activity to accomplish tasks.",
+          "level_2": "SMA uses a mix of manual and automatic processes to accomplish tasks",
+          "level_3": "SMA automates process to the full extent possible within the intrastate. SMA adopts MITA Framework, enrollment standard messages, and national standards within the intrastate that use standardized business rules definitions for consistent enrollment Provider Network information is shared with Health Insurance Marketplace (HIX). SMA produces audit trail of enrollment decision 100% of the time.",
+          "level_4": "SMA automates the enrollment process to the extent possible within the region. SMA adopts MITA Framework, enrollment standard messages, and national standards within the region that use a regional standardized business rules definitions for consistent enrollment Provider Network information is shared with Health Insurance Marketplace (HIX). SMA shares Meaningful Electronic Health Record information with the Registration and Attestation (R&A) System.",
+          "level_5": "SMA automates the enrollment process to the extent possible across the nation. SMA adopts MITA Framework, enrollment standard messages, and national standards nationally that use a national standardized business rules definitions for consistent enrollment Provider Network information is shared with Health Insurance Marketplace (HIX). SMA shares Meaningful Electronic Health Record information with the R&A System."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "How does the applicant complete and submit the application?",
+        "levels": {
+          "level_1": "Applicant completes application on paper and submits via facsimile, in person, or mail.",
+          "level_2": "Applicant may use state standardized paper application but also has choices of data entry at government offices and kiosks. Electronic submissions are available and used.",
+          "level_3": "Applicants may complete and submit nationally standardized electronic application from any location that has internet access. Multiple intrastate programs, including Medicaid, Medicare, and CHIP conduct dual-eligibility determination.",
+          "level_4": "SMA shares business services across interstate.",
+          "level_5": "SMA shares business services across the nation."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "Does the State Medicaid Agency use standards in the process?",
+        "levels": {
+          "level_1": "SMA focuses on meeting compliance thresholds for state and federal regulations using state-specific standards.",
+          "level_2": "SMA applies a mix of HIPAA and state- specific standards",
+          "level_3": "SMA adopts MITA Framework, standard enrollment interfaces, and other nationally recognized enrollment standards for intrastate enrollment assignment and exchange of information.",
+          "level_4": "SMA adopts MITA Framework, standard enrollment interfaces, and other nationally recognized enrollment standards for clinical and regional exchange of enrollment assignment information.",
+          "level_5": "SMA adopts MITA Framework, standard enrollment interfaces, and other nationally recognized enrollment standards for national exchange of enrollment assignment information."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "How does the State Medicaid Agency collaborate with other agencies or entities in performing the process?",
+        "levels": {
+          "level_1": "Very little collaboration occurs with other agencies to standardize information exchange or business tasks.",
+          "level_2": "SMA collaborates with other agencies and entities to adopt HIPAA standards and Electronic Data Interchange (EDI) transactions.",
+          "level_3": "SMA collaborates with other intrastate agencies and entities to adopt national standards and to develop and share reusable business services.",
+          "level_4": "SMA collaborates with other regional agencies and entities to adopt national standards and to develop and share reusable enrollment assignment processes including clinical information.",
+          "level_5": "SMA collaborates with national agencies and entities for national (and international) interoperability improvements that maximize automation of routine enrollment assignment operations."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Timeliness of Process",
+        "question": "How timely is the end-to-end process?",
+        "levels": {
+          "level_1": "Process meets threshold or mandated requirements for timeliness (i.e., the process achieves results within the time specified by law or regulation).",
+          "level_2": "Process timeliness improves through use of automation. Timeliness exceeds legal requirements",
+          "level_3": "Timeliness improves via state and federal collaboration, use of enrollment assignment information sharing, standards, and regional information exchange hubs. Timeliness exceeds Level 2.",
+          "level_4": "Enrollment assignment information is available in near real time. SMA has regional interoperability, which further improves timeliness over Level 3.",
+          "level_5": "Enrollment assignment information is available in real time. Processes improve further through connectivity with other States and with federal agencies. Most processes execute at the point of service. Results are almost immediate."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Data Access and Accuracy",
+        "question": "How accurate is the information in the process?",
+        "levels": {
+          "level_1": "Use of direct data entry for information collection is manually intensive and susceptible to inconsistent or incorrect information. Stakeholders are unable to rely on information for decision-making.",
+          "level_2": "HIPAA standard transactions improve accuracy of information but the decision-making process may be erroneous or misleading. Accuracy is higher than at Level 1",
+          "level_3": "SMA automatically collects enrollment assignment information increasing the reliability of SMA’s internal information. External sources of enrollment assignment information use MITA Framework and industry standards for information exchange. Decision- making is automatic using standardized business rules definitions. Accuracy rating is at 99% or higher.",
+          "level_4": "SMA automatically collects enrollment assignment information increasing the reliability of regional sources of information. SMA adopts MITA Framework and industry standards or information exchange by regional agencies. Decision-making is automatic using regional standardized business rules definitions. Accuracy rating is at 99% or higher.",
+          "level_5": "SMA uses MITA Framework and industry standards for national information exchange. Decision- making is automatic using national standardized business rules definitions. Accuracy rating is at 99% or higher."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Data Access and Accuracy",
+        "question": "How accessible is the information in the process?",
+        "levels": {
+          "level_1": "SMA stores information in disparate systems including paper storage and obtains information manually.",
+          "level_2": "SMA stores information in disparate systems, but automation and HIPAA standards increase accessibility over Level 1.",
+          "level_3": "SMA obtains enrollment assignment information easily and exchanges with intrastate agencies and entities based on MITA Framework and industry standards. Enrollment reports on the status of entire Medicaid population in graphical format for management use. Accessibility is greater than Level 2.",
+          "level_4": "SMA obtains enrollment assignment information easily and exchanges with regional agencies and entities. Accessibility is greater than Level 3.",
+          "level_5": "SMA obtains enrollment assignment information easily and exchanges with national agencies and entities. Accessibility is greater than Level 4."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Cost Effectiveness",
+        "question": "What is the cost of the process compared to the benefits of its results?",
+        "levels": {
+          "level_1": "High relative cost due to low number of automatic, standardized tasks.",
+          "level_2": "Automation improves process and allows focus on exception resolution, improving cost effectiveness ratio over Level 1.",
+          "level_3": "SMA adopts MITA Framework, enrollment assignment standard messages, and other nationally recognized enrollment assignment standards further improving cost effectiveness ratio over Level 2.",
+          "level_4": "SMA adopts MITA Framework, enrollment assignment standard messages, and other nationally recognized enrollment assignment standards for regional information exchange improving cost effectiveness ratio over Level 3.",
+          "level_5": "SMA adopts MITA Framework, enrollment assignment standard messages, and other nationally recognized enrollment assignment standards for national (and international) information exchange. SMA increases cost effectiveness ratio over level 4."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Effort to Perform; Efficiency",
+        "question": "How efficient is the process?",
+        "levels": {
+          "level_1": "Process is labor intensive. There is wasted effort or expense to accomplish tasks. Process meets minimum state process guidelines and SMA performance standards. Efficiency is low.",
+          "level_2": "Automation and state standards increase productivity. Efficiency is higher than Level 1",
+          "level_3": "SMA adopts MITA Framework and enrollment assignment standard messages with intrastate agencies and entities improving efficiency to 95% or higher.",
+          "level_4": "SMA adopts MITA Framework and enrollment assignment standard messages with regional agencies and entities improving efficiency to 98% or higher.",
+          "level_5": "SMA adopts MITA Framework and enrollment assignment standard messages with national agencies and entities improving efficiency to 98% or higher."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Accuracy of Process Results",
+        "question": "How accurate are the results of the process?",
+        "levels": {
+          "level_1": "Manual processes result in greater opportunity for human error. Accuracy is low.",
+          "level_2": "Automation and standardized business rules definitions reduce error and improve accuracy above Level 1.",
+          "level_3": "SMA adopts MITA Framework and enrollment assignment standard messages with intrastate agencies and entities improving accuracy to 90% or higher.",
+          "level_4": "SMA adopts MITA Framework and enrollment assignment standard messages with regional agencies and entities improving accuracy to 98% or higher.",
+          "level_5": "SMA adopts MITA Framework and enrollment assignment standard messages with national agencies and entities improving accuracy to 98% or higher."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Utility or Value to Stakeholders",
+        "question": "Does the business process satisfy stakeholders?",
+        "levels": {
+          "level_1": "Stakeholders lack confidence in information negatively affecting stakeholder satisfaction with the process.",
+          "level_2": "Automation and standardization provides clear and useful information. Stakeholder satisfaction is greater than Level 1",
+          "level_3": "SMA adopts MITA Framework and enrollment assignment standard messages with intrastate agencies and entities improving stakeholder satisfaction to 90% or higher. SMA uses survey or questionnaire for information collection.",
+          "level_4": "SMA adopts MITA Framework and enrollment assignment standard messages with regional agencies and entities improving stakeholder satisfaction to 95% or higher.",
+          "level_5": "SMA adopts MITA Framework and enrollment assignment standard messages with national agencies and entities improving stakeholder satisfaction to 98% or higher."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "Is the process primarily manual or automatic?",
+        "levels": {
+          "level_1": "The process consists primarily of manual activity to accomplish tasks.",
+          "level_2": "SMA uses a mix of manual and automatic processes to accomplish tasks.",
+          "level_3": "SMA fully automates the provider disenrollment process within the intrastate. SMA shares Provider Network information with",
+          "level_4": "SMA fully automates the provider disenrollment within the region. SMA shares Provider Network information with",
+          "level_5": "SMA fully automates the provider disenrollment process across the nation. SMA shares Provider Network information with"
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bcm/Eligibility and Enrollment Management/Eligibility and Enrollment Management BCM.pdf",
+    "source_page_range": "42-50",
+    "extracted_date": "2026-01-12"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Care Management",
+  "sub_category": "Authorization Determination",
+  "process_name": "Authorize Treatment Plan",
+  "process_code": "CM",
+  "process_details": {
+    "description": "The Authorize Treatment Plan business process encompasses both a prior authorization and post-approved treatment plan. The State Medicaid Agency (SMA) uses the Authorize Treatment Plans primarily in the care coordination setting where the care management team assesses the member’s needs, decides on a course of treatment, and completes the treatment plan.\nNOTE: MITA contains three (3) different authorization business processes: 1. Authorize Service - the standard process of prior authorization of services. 2. Authorize Treatment Plan - the approval of a treatment plan prepared by a care management team in a care management setting. 3. Authorize Referral - specifically the approval of a referral to another provider, requested by a primary care physician. A treatment plan prior-authorizes the named providers or provider types and services or category of services. The SMA prior authorizes individual providers for the service or category of services, and they do not have to submit their own prior authorizations or service requests. A treatment plan typically is a schedule of medical, therapeutic, and /or psychological procedures and appointments that spans a length of time designed to restore a patient's specific health condition. In contrast, the SMA limits an individual service request, primarily associated with fee-for- services payment, to focus on a specific visit, services, or products (e.g., a single specialist office visit, approval for a specific test or particular piece of Durable Medical Equipment (DME)). The prior authorized treatment plan generally begins with the receipt of an authorize treatment plan request from the care management team. The SMA staff then evaluates it based on urgency, state priority requirements, and type of service/taxonomy (speech, physical therapy, home health, behavioral, social), a validates key information, and ensures that requested plan of treatment is appropriate and medically or behaviorally necessary. After reviewing, staff approves, modifies, suspends for additional information or denies the request. Business process sends an alert to Manage Case Information business process. A post-approved treatment plan is an audit function that reviews suspended or paid claims to ensure the services were appropriate and in accordance with the treatment plan.",
+    "trigger_events": {
+      "environment_based": [
+        "Care manager submits a request for treatment plan authorization.",
+        "Provider submits a request for treatment plan authorization in accordance with state policy.",
+        "Provider submits additional information for existing treatment plan request."
+      ],
+      "interaction_based": [
+        "Receive treatment plan request from Health Information Exchange (HIE) via Accredited Standards Committee (ASC) X12 278 Health Care Services Review Request and Response transaction.",
+        "Receive treatment plan request from requestor via ASC X12 278 Health Care Services Review Request and Response transaction."
+      ]
+    },
+    "results": [
+      "The SMA sends the authorization response to requestor.",
+      "Alert sent with treatment plan information to requestor via ASC X12 278 Health Care Services Review Request and Response transaction.",
+      "If applicable, alert sent to submitter via ASC X12 TA1 Interchange Acknowledgment, 997 Functional Acknowledgment, 999 Implementation Acknowledgment and/or the 824 Application Advice transaction(s) per Trading Partner Agreement (TPA).",
+      "Alert sent to Manage Applicant and Member Communication to send notification of authorized treatment plan response.",
+      "Alert sent to Manage Case Information business process for purpose of responding to provider or member inquiry about the status of a treatment plan authorization or member filing of a grievance or an appeal about treatment authorization response.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive request for Treatment Plan authorization for authorized provider or care manager.",
+      "2. Assign a tracking identifier.",
+      "3. Validate information submitted is correct and as complete as possible. Information complies with syntax criteria and requestor has completed all required fields.",
+      "4. Validate that the provided information is authentic.\n  a. If applicable, alert sent to submitter via ASC X12 TA1 Interchange Acknowledgment, 997 Functional Acknowledgment, 999 Implementation Acknowledgment, and/or the 824 Application Advice transaction(s) per Trading Partner Agreement (TPA). END: Business process stops.",
+      "5. Prioritize authorize treatment plan request.",
+      "6. Validate the following:",
+      "7. Member eligibility",
+      "8. Eligibility for requesting and servicing providers",
+      "9. Service coverage and plan of treatment requirements",
+      "10. Diagnosis code",
+      "11. Procedure codes/or procedure groupings",
+      "12. Check for medical, social, and behavioral appropriateness.",
+      "13. Check against currently authorized treatment plans and service requests for duplication.",
+      "14. Coordinate services (check for duplicates) across programs and systems.",
+      "15. Validate completeness of supporting documentation.",
+      "16. Deny based on insufficient/erroneous information or treatment plan identifying services not medically, socially, and/or behaviorally necessary. Go to step 14.",
+      "17. Suspend the treatment plan request based on the need for additional information. Send a request for additional information. Go to step 14.",
+      "18. Approve plan of treatment request (this includes approved with modifications) and send approval response information to requesting parties.",
+      "19. Send alert to send treatment plan authorization to requestor via ASC X12 278 Health Care Services Review Request and Response transaction.",
+      "20. END: Send alert to notify member, care manager, and provider of authorization determination."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Member data store including demographic information",
+      "Provider data store including provider network Information",
+      "Health Information Exchange (HIE) data store including health information, clinical record, and clinical data",
+      "Plan data store including health benefits information",
+      "Claims data store including adjudication information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Establish Case",
+      "Manage Case Information",
+      "Manage Treatment Plan and Outcomes"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Case Information",
+      "Manage Applicant and Member Communication",
+      "Manage Provider Communication",
+      "Manage Contractor Communication",
+      "Submit Electronic Attachment",
+      "Manage Treatment Plan and Outcomes"
+    ],
+    "constraints": "The authorize treatment plan information will conform to the format and content in accordance with state-specific reporting requirements, e.g., using a HIPAA Transaction Standard Companion Guide.",
+    "failures": [
+      "Invalid beneficiary, invalid provider, invalid service, invalid dates, conflicting diagnosis, and treatment plan."
+    ],
+    "performance_measures": [
+      "Time to complete the process: e.g., Real Time response = within __ seconds, Batch Response = within __ hours",
+      "Accuracy with which the SMA approves treatment plan = __%",
+      "Consistency of decisions in approving or denying treatment plans = __%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Care Management/Care Management BPT.pdf",
+    "source_page_range": "21-24",
+    "extracted_date": "2026-01-12"
+  }
+}

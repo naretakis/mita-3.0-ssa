@@ -1,0 +1,54 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Performance Management",
+  "sub_category": "Compliance Management",
+  "process_name": "Prepare REOMB",
+  "process_code": "PE",
+  "process_details": {
+    "description": "The Prepare REOMB business process is responsible for the creation of Recipient Explanation of Medicaid Benefits (REOMB) for detecting payment problems. The State Medicaid Agency (SMA) sends the REOMB to randomly selected members of Medicaid services. It gives information on the Medicaid services paid on behalf of the member. The communication includes the provider's name, the date(s) of services, and the payment amount(s). Instructions on the communication tell the member what to do if the provider did not actually perform any of the listed services billed directly to him/her by the provider.\nNOTE: This business process does not include the handling of returned information.",
+    "trigger_events": {
+      "environment_based": [
+        "Periodic timetable is due for generation of the REOMB sample information."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "Member receives REOMB.",
+      "Alert sent with REOMB notification to member via Manage Applicant and Member Communication business process with REOMB information.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Timetable for scheduled REOMB generation.",
+      "2. Identify member selection using random sampling methodology.",
+      "3. Review sample selection information.",
+      "4. Prepare REOMB for each select member.",
+      "5. END: Send alert to member via Manage Applicant and Member Communication business process with REOMB information."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Member data store including demographics information",
+      "Claims data store including payment information"
+    ],
+    "predecessor_processes": [
+      "None"
+    ],
+    "successor_processes": [
+      "Manage Applicant and Member Communication"
+    ],
+    "constraints": "The policies and business rules for preparing the REOMB sample information differ by state. The SMA will provide the REOMB or letters to the members within 45 days of payment of claims.",
+    "failures": [
+      "This business process has no failure modes that prevent the process from going to completion."
+    ],
+    "performance_measures": [
+      "Time to complete process: e.g., Batch Responses = within __ hours",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Performance Management/Performance Management BPT.pdf",
+    "source_page_range": "12-13",
+    "extracted_date": "2026-01-12"
+  }
+}

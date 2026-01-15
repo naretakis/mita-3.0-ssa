@@ -1,0 +1,76 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Provider Management",
+  "sub_category": "Provider Information Management",
+  "process_name": "Terminate Provider",
+  "process_code": "PM",
+  "process_details": {
+    "description": "The Terminate Provider business process is responsible for the termination of provider agreement to participate in the Medicaid Program. The basis for termination can be:\n• Centers for Medicare & Medicaid Services (CMS) and the State Medicaid Agency (SMA) terminate a provider agreement if an individual provider:\n - Is not in substantial compliance with the requirements of participation, regardless of whether immediate jeopardy is present; \n - Provider does not meet the eligibility criteria for continuation of payment as set forth in 42 CFR 488.412(a)(1).\n• CMS and the state may terminate a facility's provider agreement if a facility:\n - Is not in substantial compliance with the requirements of participation, regardless of whether immediate jeopardy is present; or\n - Facility fails to submit an acceptable Corrective Action Plan (CAP) within the timeframe specified by CMS or the SMA.\n• CMS and the SMA terminate a facility's provider agreement if a facility:\n - Fails to relinquish control to the temporary manager, if CMS or the SMA imposes that remedy; or\n - Facility does not meet the eligibility criteria for continuation of payment as set forth in 42 CFR 488.412(a)(1). The effect of termination of the provider agreement ends: (1) payment to the facility, and (2) any alternative remedy.",
+    "trigger_events": {
+      "environment_based": [
+        "Receive request to terminate provider.",
+        "Receive notification of termination of provider from insurance affordability program."
+      ],
+      "interaction_based": [
+        "Receive alert from Determine Adverse Action Incident business process to cease activities with provider."
+      ]
+    },
+    "results": [
+      "Removal of provider or contractor from participation in Medicaid Program.",
+      "Alert sent to notify provider via Manage Provider Communication business process of termination proceedings.",
+      "If applicable, alert sent to notify contractor via Manage Contractor Communication business process of termination proceedings.",
+      "If applicable, alert sent to notify public via Perform Population and Member Outreach business process of termination proceedings.",
+      "Alert sent to notify business partners via Manage Business Relationship Communication business process of provider termination.",
+      "Alert sent to notify Health Insurance Marketplace of provider termination information.",
+      "Alert sent to notify insurance affordability program of provider termination information.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive request to terminate provider.",
+      "2. Review determination of noncompliance and investigation materials.",
+      "3. Send alert to notify provider via Manage Provider Communication business process of termination proceedings.",
+      "4. If applicable, send alert to notify contractor via Manage Contractor Communication business process of termination proceedings.",
+      "5. If applicable, send alert to notify public via Perform Population and Member Outreach business process of termination proceedings.",
+      "6. Conduct communications and investigations within required timeframes.",
+      "7. If provider had implemented systems and processes to ensure that the likelihood of further violation is remote, and there is adequate evidence that the provider is in compliance with the requirements, the SMA rescinds the termination action and puts the provider back into compliance.",
+      "8. If provider has not implemented systems and processes to avoid further violations, terminate the provider.",
+      "9. Send alert to notify business partners via Manage Business Relationship Communication of provider termination.",
+      "10. Send alert to notify Health Insurance Marketplace of provider termination information.",
+      "11. Send alert to notify insurance affordability program of provider termination information.",
+      "12. END: Remove provider or contractor from participation in Medicaid Program."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Provider data store including provider network and contract information",
+      "Business Activity data store including performance information",
+      "Compliance Management data store including compliance incident information",
+      "Insurance Affordability Program data store including eligibility and enrollment information"
+    ],
+    "predecessor_processes": [
+      "Determine Adverse Action Incident"
+    ],
+    "successor_processes": [
+      "Manage Provider Communication",
+      "Manage Contractor Communication",
+      "Perform Population and Member Outreach",
+      "Manage Business Relationship Communication"
+    ],
+    "constraints": "Before terminating a provider agreement, CMS and the SMA will notify the facility and the public: (1) At least two (2) calend facility with immediate jeopardy deficiencies; and (2) At least 15 calendar days before the effective date of termination for a facility with non-immediate jeopardy deficiencies that constitute noncompliance.",
+    "failures": [
+      "Unable to find requested Provider.",
+      "Provider information is not available for inquiry."
+    ],
+    "performance_measures": [
+      "Time to complete termination process = within __ days",
+      "Consistency of decisions and disposition = ___%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Provider Management/Provider Management BPT.pdf",
+    "source_page_range": "3-6",
+    "extracted_date": "2026-01-12"
+  }
+}

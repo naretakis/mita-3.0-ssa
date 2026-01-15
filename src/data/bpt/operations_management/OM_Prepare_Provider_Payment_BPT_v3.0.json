@@ -1,0 +1,72 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Operations Management",
+  "sub_category": "Payment and Reporting",
+  "process_name": "Prepare Provider Payment",
+  "process_code": "OM",
+  "process_details": {
+    "description": "The Prepare Provider Payment business process is responsible for the preparation of the payment report information. Reports sent via email, mail, or Electronic Data Interchange (EDI) to providers and used to reconcile their accounts receivable. Many Home and Community-Based Services (HCBS) are not part of the traditional Medicaid health plan. Services tend to be member specific and often arranged through a plan of care. Atypical providers who render services for HCBS waivers may not have authorization, or may not adjudicate in the same manner as other health care providers. This business process begins with receipt of HCBS information from the Process Claim business process or capitation information from Process Encounter business process, performing required manipulation according to business rules, and formatting the results into the required information. The capitation payment activity includes a per-member-per-month payment for Managed Care Organizations (MCO), Primary Care Case Managers (PCCM), and other capitated programs. This business process begins with a timetable for scheduled correspondence stipulated by Trading Partner Agreement (TPA) and includes retrieving enrollment and benefit transaction information from the Member data store, retrieving the rate information associated with the plan from the Provider or Contractor data store, and formatting the payment into the required information.",
+    "trigger_events": {
+      "environment_based": [
+        "Periodic timetable (e.g., monthly) is due for capitation payment."
+      ],
+      "interaction_based": [
+        "Alert from Process Claim business process to prepare HCBS payment.",
+        "Alert from Process Encounter business process to prepare capitation payment."
+      ]
+    },
+    "results": [
+      "Generated Provider’s payment report.",
+      "Alert to send HCBS payment information to member.",
+      "Alert to send capitation payment information to member.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive alert from Process Claim business process.",
+      "2. Perform required information manipulation according to business rules,",
+      "3. Calculate payment amount.",
+      "4. Generate payment report.",
+      "5. END: Send alert to submit HCBS payment information to member. Capitation Payment",
+      "1. START: Periodic timetable is due for capitation payment.",
+      "2. Perform required information manipulation according to business rules, including the reporting of any edit or audit errors that resulted in denials or modifications of payment from the reimbursement amount submitted on the claim, such as bundling or unbundling of services.",
+      "3. Calculate payment amount.",
+      "4. Generate payment report.",
+      "5. END: Send alert to submit capitation payment information to member."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Claims data store including payment information",
+      "Reference data store including code set, drug formulary, and service code formulary information",
+      "Care management data store including prior authorization information",
+      "Member data store including demographics and third-party insurance information",
+      "Provider data store including provider network and contract information",
+      "Contractor data store including provider network and contract information",
+      "Financial data store including accounts payable information"
+    ],
+    "predecessor_processes": [
+      "Process Claim",
+      "Process Encounter"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Contractor Payment"
+    ],
+    "constraints": "The Prepare Provider Payment business process will adhere to the federal and state policies and business rules that may differ by state.",
+    "failures": [
+      "No alerts received from Process Claim or Process Encounter business processes."
+    ],
+    "performance_measures": [
+      "Time to complete the process: e.g., Real Time response = within ___seconds, Batch Response = within ___ hours",
+      "Accuracy with which rules are applied =___%",
+      "Consistency with which rules are applied=___%",
+      "Error rate =___% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Operations Management/Operations Management BPT.pdf",
+    "source_page_range": "4-6",
+    "extracted_date": "2026-01-12"
+  }
+}

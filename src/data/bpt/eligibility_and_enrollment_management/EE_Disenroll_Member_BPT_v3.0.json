@@ -1,0 +1,101 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Eligibility and Enrollment Management",
+  "sub_category": "Member Enrollment",
+  "process_name": "Disenroll Member",
+  "process_code": "EE",
+  "process_details": {
+    "description": "The Disenroll Member business process is responsible for the termination of a member’s enrollment in a health plan or health benefit. An enrollment termination may occur due to:\n• A member is no longer eligible based on redetermination of Medicaid eligibility either on an annual basis or as a result of change reporting during the coverage year.\n\n• Upon receipt of a notification of incarceration, SMA may suspend eligibility (if State policy indicates to do so).\n• A member is no longer eligible based on change in residence.\n• The denial of eligibility for a or benefit that is based on a technical factor or non- financial characteristic.\n• A member submits a disenrollment request.\n• Disenrollment request from a provider or contractor due to issues with the member such as moving out of service area, fraud and abuse, disruptive behavior, non-compliance, or death.\n• Member is deceased.\n• Receive disenrollment request from Manage Compliance Incident Information business process for continued failure to make payments.\n• Receive disenrollment request from Determine Adverse Action Incident due to fraudulent or abuse activity.\n• The provider or contactor has a change of status or termination that requires a mass disenrollment of members.\n• A health plan or health benefit has a change that requires a mass disenrollment of members.\n• A member modifies their Manage Care Organization (MCO), Primary Care Case Manager (PCCM), or waiver provider:\n - Member changes information during Open Enrollment period.\n - As permitted by State rules, such as the following:\n ✓ Change in member’s residence.\n ✓ A provider whom the member has chosen no longer contracts with current program or MCO.\n ✓ Medicaid terminates the contract with the member’s MCO or PCCM.\n ✓ Member successfully appeals auto-assignment.\n ✓ The member has issues with the MCO, PCCM, or waiver provider that may affect quality of care.\nNOTE: Enrollment brokers may perform some of the steps in this business process.",
+    "trigger_events": {
+      "environment_based": [
+        "Receive disenrollment request from member, provider or contractor.",
+        "Change in member’s information that no longer meets eligibility criteria.",
+        "Member modifies their selection of provider, MCO, PCCM or waiver provider.",
+        "Provider or contractor modifies network information that alters their service offering.",
+        "Modifications in health plan or health benefit that alters service offering."
+      ],
+      "interaction_based": [
+        "Receive disenrollment request from insurance affordability program.",
+        "Receive disenrollment request from Manage Compliance Incident Information business process for continued failure to make payments.",
+        "Receive disenrollment request from Determine Adverse Action Incident business process to remove member from services."
+      ]
+    },
+    "results": [
+      "Member disenrolled from specific health plans and health benefits.",
+      "Member disenrolled from elected provider or contractor.",
+      "Alert sent to Manage Applicant and Member Communication business process to notify member of disenrollment and fair hearing/procedural rights.",
+      "Alert sent to Perform Population and Member Outreach business process to notify affected members with the termination of health plan, health benefit, a provider or a contractor.",
+      "Alert sent to send disenrollment information to insurance affordability program.",
+      "If applicable, alert sent to Manage Member Financial Participation to stop premium payment arrangement.",
+      "If applicable, alert sent to Manage Case Information to discontinue care management.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive disenrollment request.",
+      "2. Agency logs disenrollment request including source of disenrollment and type of request.",
+      "3. Validate request meets State disenrollment rules.",
+      "4. If applicable, terminate enrollment in Medicaid health plans and/or health benefits.",
+      "5. If applicable, go to Enroll Member to enroll member in alternative health plans and/or health benefits.",
+      "6. If applicable, terminate enrollment with provider or contractor.",
+      "7. If applicable, enroll member with alternative provider or contractor.",
+      "8. Send alert to Manage Applicant and Member Communication business process to notify member of disenrollment and procedural rights.",
+      "9. Send alert to Perform Population and Member Outreach business process to notify affected members with the termination of health plan, health benefit, a provider or a contractor.",
+      "10. If applicable, send alert to Manage Member Financial Participation to stop premium payment arrangement.",
+      "11. If applicable, send alert to Manage Case Information to discontinue care management.",
+      "12. Send alert to send disenrollment information to insurance affordability program.",
+      "13. END"
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Member data store including demographics and eligibility information",
+      "Plan data store including health policy information",
+      "Health Benefit data store including benefit package and benefit information",
+      "Provider data store including provider network information",
+      "Contractor data store including provider network information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Determine Member Eligibility",
+      "Manage Member Information",
+      "Manage Health Plan Information",
+      "Manage Health Benefit Information",
+      "Manage Provider Information",
+      "Manage Contractor Information",
+      "Manage Compliance Incident Information",
+      "Determine Adverse Action Incident"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Enroll Member",
+      "Manage Member Information",
+      "Manage Applicant and Member Communication",
+      "Manage Case Information",
+      "Manage Contractor Communication",
+      "Manage Member Financial Participation",
+      "Manage Provider Information",
+      "Manage Provider Communication",
+      "Perform Population and Member Outreach"
+    ],
+    "constraints": "Programs have different termination criteria.",
+    "failures": [
+      "Duplicate disenrollment requests - Disregard second request.",
+      "Required fields missing or not correct - Request additional or corrected information from member, provider, contractor, Health Insurance Marketplace, or insurance affordability program.",
+      "Denial of member request for disenrollment from one health plan, health benefit, provider or contractor due to modifications in circumstances, such as residence, health status, or provider access issues because the request does not meet State rules or the member is not eligible for enrollment in an alternative program.",
+      "Denial of program, provider, or contractor request to disenroll the member (e.g., modified residence, health status or compliance issues because the request does not meet State rules)."
+    ],
+    "performance_measures": [
+      "Time to complete process: member is disenrolled within __ days or __ minutes",
+      "Accuracy of decisions",
+      "Consistency of decisions and disposition = ___%",
+      "Error rate is __% or less",
+      "Inquire Member Eligibility"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Eligibility and Enrollment Management/Eligibility and Enrollment Management BPT.pdf",
+    "source_page_range": "18-22",
+    "extracted_date": "2026-01-12"
+  }
+}

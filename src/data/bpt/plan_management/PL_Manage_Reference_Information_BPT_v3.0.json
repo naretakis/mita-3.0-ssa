@@ -1,0 +1,90 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Plan Management",
+  "sub_category": "Health Benefit Administration",
+  "process_name": "Manage Reference Information",
+  "process_code": "PL",
+  "process_details": {
+    "description": "The Manage Reference Information business process is responsible for all operations aspects for the creation, modification, and deletions of reference code information. The Process Claim business process additions or adjustments trigger this business process. Additional triggers for Manage Reference Information business process include the addition of a new health plan or benefit, or the modification to an existing program due to the passage of new state or federal legislation, or budgetary modifications. The business process includes revising code information (e.g., Healthcare Common Procedure Coding System (HCPCS), Current Procedural Terminology (CPT), National Drug Code (NDC)), and/or revenue codes. Business process also adds rates associated with those codes and updates existing rates. The business process updates and adds information from the Manage Member Information and Manage Provider Information business processes as well as drug formulary, health plan and health benefit information.\nDesignate Approved Services and Drug Formulary The Designate Approved Services and Drug Formulary activity is responsible for review of new and/or modified service codes (e.g., HCPCS, International Classification of Diseases (ICD) or NDC) for possible inclusion in various Medicaid Benefit programs. The State Medicaid Agency (SMA) may include or exclude certain services and drugs in each benefit package. Internal or external team(s) of medical, policy, and rates staff review service, supply, a inclusion or exclusion of codes to various benefit plans. The review team is responsible for reviewing any legislation to determine scope of care requirements that the SMA will meet. Review includes the identification of any modifications or additions needed for regulations, policies, and or Medicaid State Plan in order to accommodate the inclusion or exclusion of service/drug codes. The review team is also responsible for the defining coverage criteria and establishing any limitations or authorization requirements for approved codes.",
+    "trigger_events": {
+      "environment_based": [
+        "Addition or modification to health plan or health benefit as directed by state or federal legislation or budgetary modifications.",
+        "Receive revised reference code set by industry standards organization.",
+        "Annual, bi-annual, quarterly or other review of newly established or modified service codes and National Drug Codes as published by maintainers of medical codes."
+      ],
+      "interaction_based": [
+        "Receive new or modification of reference information from Process Claim business process.",
+        "Receive new or modification of health plan information from Manage Health Plan Information business process.",
+        "Receive new or modification of health benefits information from Manage Health Benefit Information business process."
+      ]
+    },
+    "results": [
+      "Addition or modification of reference code set elements.",
+      "Alert sent to notify provider and contractor of reference code addition or modification.",
+      "Approved services and drug formularies established and defined.",
+      "The SMA approved or denied service codes and NDC codes for inclusion or exclusion in one or more Medicaid Health Plan.",
+      "Alert sent to notify impacted member of approved services and drug formulary.",
+      "Alert sent to Manage Rate Setting business process to establish rates for approved services and drug formulas.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive addition or modification of reference information.",
+      "2. Review addition or modification to determine impact to coverage requirements based on current benefit programs.",
+      "3. Add or update codes or rates, including pre- and post-verification for accuracy.",
+      "4. Add or update member benefits, including pre- and post-verification for",
+      "5. Add or update drug formulary information, including pre- and post-verification for accuracy.",
+      "6. Add or update program under which services are available.",
+      "7. END: Send alert to notify provider and contractor of reference code addition or modification. Designate Approved Services and Drug Formulary",
+      "1. START: Receive addition or modification of codes information.",
+      "2. Review new or modified coding to determine impact to coverage requirements based on current benefit programs.",
+      "3. Approve addition or elimination of services or NDC.",
+      "4. Determine coverage policies.",
+      "5. Review and identify modifications to Medicaid State Plan.",
+      "6. Review and identify modifications to regulations.",
+      "7. Recommend modifications to the State Medicaid Enterprise.",
+      "8. END: Send alert to notify provider, contractor, and impacted member of approved services and drug formulary."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Reference data store including code set, drug formulary, and service code formulary information",
+      "Member data store including health benefits information",
+      "Provider data store including provider network information",
+      "Contractor data store including provider network information",
+      "Health Benefit data store including benefit and rate information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Manage Rate Setting",
+      "Manage Health Plan Information",
+      "Manage Health Benefit Information",
+      "Process Claim",
+      "Process Encounter"
+    ],
+    "successor_processes": [
+      "Process Claim",
+      "Process Encounter",
+      "Manage Rate Setting",
+      "Manage Provider Communication",
+      "Manage Contractor Communication",
+      "Manage Applicant and Member Communication",
+      "Manage Data"
+    ],
+    "constraints": "The SMA will maintain the Reference data store according to federal and state- specific policies and procedures, and comply with any code authority requirements. The SMA establishes service and drug formularies. Policies and procedures may differ from state to state.",
+    "failures": [
+      "The review does not take place prior to the effective date of the codes."
+    ],
+    "performance_measures": [
+      "Time to complete process: e.g., Real Time response = within __ seconds, Batch Response = within __ days",
+      "Accuracy of decisions = ___%",
+      "Consistency of decisions and disposition = ___%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Plan Management/Plan Management BPT.pdf",
+    "source_page_range": "13-16",
+    "extracted_date": "2026-01-12"
+  }
+}

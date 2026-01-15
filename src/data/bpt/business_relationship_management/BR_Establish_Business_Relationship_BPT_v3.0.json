@@ -1,0 +1,74 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Business Relationship Management",
+  "sub_category": "Standards Management",
+  "process_name": "Establish Business Relationship",
+  "process_code": "BR",
+  "process_details": {
+    "description": "The Establish Business Relationship business process encompasses activities undertaken by the State Medicaid Agency (SMA) to enter into business partner relationships. Agreements are between state agency and its partners, including collaboration amongst intrastate agencies, the interstate and federal agencies. It contains functionality for interoperability, establishment of inter-agency service agreements, identification of the types of information exchanged, and security and privacy requirements. These include Trading Partner Agreements (TPA), Service Level Agreements (SLA), and Memoranda of Understanding (MOU) with other agencies; Electronic Data Interchange (EDI) agreements with providers, Managed Care Organizations (MCOs), and others; and Centers for Medicare & Medicaid Services (CMS), other federal agencies, and Regional Health Information Organizations (RHIO).",
+    "trigger_events": {
+      "environment_based": [
+        "Request made for business relationship (e.g., EDI, email, mail, facsimile, telephone).",
+        "Identification of the need for a business relationship (e.g., new policy, new program)."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "The SMA agrees upon Business Relationship with business partner.",
+      "Defined communication protocols for data exchange.",
+      "Alert to send notification to business partner of agreement.",
+      "Established agreement between business partners (e.g., TPA, SLA, MOU).",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive request for business relationship from partner.",
+      "2. Conduct collection of agreement information with other party.",
+      "3. Validate information submitted is correct and as complete as possible. Information complies with syntax criteria and requestor completes all required fields.",
+      "4. Validate that the provided information is authentic.",
+      "5. Decide determination for establishment of relationship. If no agreement, go to step 9.",
+      "6. Establish terms of the business relationship (e.g., TPA, SLA, MOU).",
+      "7. Establish Key Performance Indicator (KPI).",
+      "8. Establish payment agreements.",
+      "9. Establish data exchange requirements.",
+      "10. Establish authentication protocol.",
+      "11. Establish security protocol.",
+      "12. Establish privacy requirements.",
+      "13. Agreement on business relationship.",
+      "14. END: Send alert to notify business partner of agreement."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Business Partner data store including service agreement information",
+      "Contractor data store including contract information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Award Contract",
+      "Enroll Provider",
+      "Maintain Program Policy",
+      "Maintain State Plan"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Business Relationship Information",
+      "Manage Business Relationship Communication"
+    ],
+    "constraints": "Federal and state policies and regulations will constrain these agreements.",
+    "failures": [
+      "Parties are unable to agree on terms of relationship."
+    ],
+    "performance_measures": [
+      "Time to complete business process = within __ days",
+      "Accuracy with which edits are applied = ___%",
+      "Consistency of decisions and disposition = ___%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Business Relationship Management/Business Relationship Management BPT.pdf",
+    "source_page_range": "1-2",
+    "extracted_date": "2026-01-12"
+  }
+}

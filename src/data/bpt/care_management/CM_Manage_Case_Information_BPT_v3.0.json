@@ -1,0 +1,77 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Care Management",
+  "sub_category": "Case Management",
+  "process_name": "Manage Case Information",
+  "process_code": "CM",
+  "process_details": {
+    "description": "The Manage Case Information business process uses state-specific criteria and rules to ensure appropriate and cost-effective medical, medically-related social and behavioral health services are identified, planned, obtained and monitored for individuals identified as eligible for care management services under such programs as:\n• Medicaid Waiver program case management\n• Home and Community-Based Services (HCBS)\n• Other agency programs\n• Disease management\n• Catastrophic cases\n• Early Periodic Screening, Diagnosis, and Treatment (EPSDT)\n• Immunizations for children and adults The Establish Case business process creates each individual case and treatment plan. The Manage Case Information business process includes activities to confirm delivery of services and compliance with the plan. It also includes activities such as:\n• Service planning and coordination.\n• Facilitation of services (e.g., finding providers, or establishing limits or maximums).\n• Advocating for the member.\n• Monitoring and reassessment of services for need and cost effectiveness.\n - This includes assessing the member’s placement and the services received and taking necessary action to ensure that services and placement are appropriate to meet the member’s needs. The Health Information Exchange (HIE) provides health information and clinical records for member and care coordination with provider, pharmacist, and other agencies.",
+    "trigger_events": {
+      "environment_based": [
+        "Periodic timetable (e.g. monthly, quarterly) review of a case is due.",
+        "Monitor member’s case activity.",
+        "Receive case modifications (e.g., create, update, or delete)."
+      ],
+      "interaction_based": [
+        "Receive information regarding services delivered/not delivered (including claims information).",
+        "Receive health plan or health benefit modification that may affect a treatment plan.",
+        "Receive information regarding an enrollment modification, including disenrollment.",
+        "Receive information regarding modification in member’s conditions or situation."
+      ]
+    },
+    "results": [
+      "Updated case history with possible revision to the following: o Case history o Needs assessment o Treatment Plan o Associated Providers List o Case file information (e.g., contact dates and times)",
+      "Content of communications sent to providers and members.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive request to review case (review of the member’s status and needs).",
+      "2. Based on review, take follow-up action, as needed, to: o Identify services delivered, issues impeding delivery of service and/or member’s progress. o Establish appointment with member to review case status. o Contact provider(s) to review member’s progress. o Review services provided (claims payment information). o Close case for non-chronic conditions or change in member’s status.",
+      "3. Revise treatment plan to: o Add or remove services. o Change nature of plan (e.g. shifting drug regimen, shifting from drug to behavioral). o Reassess needs. o Revise expected results.",
+      "4. END: Send alert to notify of care management modifications or care coordination updates."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Member data store including demographics",
+      "Health Information Exchange (HIE) data store including health information, clinical record and clinical data",
+      "Enterprise Master Patient Index (EMPI) for single and complete view of patient information",
+      "Provider data store including provider network information",
+      "Health Benefits data store including programs and services Information",
+      "Case History data store including action lists, journal notes, reviews and approvals"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Perform Screening and Assessment",
+      "Establish Case",
+      "Authorize Referral",
+      "Authorize Service",
+      "Authorize Treatment Plan",
+      "Manage Treatment Plan and Outcomes"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Authorize Treatment Plan",
+      "Manage Applicant and Member Communication",
+      "Manage Provider Communication",
+      "Manage Population Health Outreach",
+      "Manage Registry",
+      "Submit Electronic Attachment",
+      "Manage Data"
+    ],
+    "constraints": "States and programs within States use different criteria to manage cases. Diseases included in Disease Management differ from state to state. States define and treat catastrophic cases differently. States will conform to required Affordable Care Act requirements for EPSDT and immunizations case management.",
+    "failures": [
+      "Information required to manage case is not available or is inaccurate."
+    ],
+    "performance_measures": [
+      "The State Medicaid Agency (SMA) updates cases within the timeframe specified by state policy.",
+      "Movements towards desired health care outcomes because of improvements in case management practices."
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Care Management/Care Management BPT.pdf",
+    "source_page_range": "4-7",
+    "extracted_date": "2026-01-12"
+  }
+}

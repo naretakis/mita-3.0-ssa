@@ -1,0 +1,109 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Financial Management",
+  "sub_category": "Fiscal Management",
+  "process_name": "Manage Fund",
+  "process_code": "FM",
+  "process_details": {
+    "description": "The Manage Fund business process oversees Medicaid funds, ensures accuracy in their allocation and the reporting of funding sources. Funding for Medicaid services may come from a variety of sources, and often, state funds span across state agency administrations, e.g., Mental Health, Aging, Substance Abuse, physical health, as well as state counties and local jurisdictions. The Manage Fund business process monitors funds through ongoing tracking and reporting of expenditures and corrects any improperly accounted expenditure. It also deals with projected and actual over and under fund allocations.\nManage Federal Medical Assistance Percentages (FMAP) The Manage FMAP activity periodically reviews and modifies, as appropriate, FMAP and Enhanced Federal Medical Assistance Percentages (enhanced FMAP) rate used. (See 42 CFR 433.10). The U.S. Department of Health & Human Services (HHS) notifies the state of the FMAP and (enhanced FMAP) that HHS will use in determining the amount of federal matching for state medical assistance (Medicaid), Children's Health Insurance Program (CHIP), and Recovery Audit Contractor (RAC) expenditures for a specified federal fiscal year. The State Medicaid Agency (SMA) reviews and approves the FMAP rates for application in enterprise accounting.\nManage Federal Financial Participation (FFP) The Manage FFP business activity includes the creation and management of business rules for assigning claims, service payments, and recoveries (including RAC recoveries) to the appropriate FMAP, and the application of administrative costs to the state accounting system. It also includes the oversight of reporting and monitoring Advance Planning Documents or other program documents necessary to secure and maintain FFP.\nDraw and Report FFP The Draw and Report FFP business activity assures that the SMA properly draws federal funds and reports to Centers for Medicare & Medicaid Services (CMS). The SMA is responsible for assuring that the correct FFP rate applies to all expenditures in determining the amount of federal funds to draw. When CMS has approved a Medicaid State Plan, it makes quarterly grant awards to the SMA to cover the federal share of expenditures for services, training, and administration. The grant award authorizes the SMA to draw federal funds as needed in accordance with the Cash Management Improvement Act (CMIA) to pay the federal share of disbursements. The SMA receives FFP in expenditures for the CHIP program.",
+    "trigger_events": {
+      "environment_based": [
+        "A request from the legislature, or a new budget approved.",
+        "Periodic timetable (e.g., weekly, monthly, quarterly, annual, 3-year plan, 5-year plan) is due for generating required reports.",
+        "Receive new match rates or rate modifications from HHS.",
+        "Receive notification to apply FMAP rate to service expenditures or recoveries.",
+        "Periodic timetable (e.g., quarterly) is due for a statement of expenditures.",
+        "Continuous oversight of expenditures for an FFP.",
+        "The SMA adds a new health plan or health benefit.",
+        "Periodic timetable is due for an audit."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "Tracking and trending of all program expenditures and management of them within budget constraints.",
+      "Produces updated FMAP.",
+      "Service expenditure and recovery information with applied FMAP rate.",
+      "Calculation of FFP available for all eligible members, systems, and administration of the State Medicaid Enterprise.",
+      "Content prepared for the following reports: o CHIP Program Budget Report (CMS-21B) o Medicaid Program Budget Report (CMS-37) o Quarterly CHIP Statement of Expenditures (CMS-21) o Quarterly Expense Report (CMS-64) NOTE: The Generate Financial Report business process generates and sends the CMS report.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Establish state appropriation for federal and state funds.",
+      "2. Allocate funds to direct and indirect budget categories.",
+      "3. Establish reporting requirements.",
+      "4. Define report content, frequency, and media.",
+      "5. Prepare the information.",
+      "6. Compare fund usage with categories, flag funds improperly used.",
+      "7. Trend rate of usage of funds versus amounts available, flag-computed shortfalls.",
+      "8. Generate defined reports.",
+      "9. Review reports for accuracy.",
+      "10. Distribute reports.",
+      "11. END: Review trends and improper use of funds, and manage funds as needed to deal with shortfalls and over allocations. Manage FMAP",
+      "1. START: Receive notification of FMAP rates or rate modifications.",
+      "2. Review and analyze notification.",
+      "3. Verify accuracy of rates in notification.",
+      "4. Notify HHS of any disagreement.",
+      "5. Resolve any disagreement with HHS.",
+      "6. END: Publish/load approved rates. Manage FFP",
+      "1. Prepare information necessary to create the reports (e.g., CMS-21, CMS-37 and CMS-64).",
+      "2. Generate reports.",
+      "3. Review generated reports for accuracy and deficiencies.",
+      "4. Monitor expenditures, cost, budget, and so forth.",
+      "5. Analyze potential program additions, modifications, or deletions for fiscal impact.",
+      "6. Modify and update impacted reports and budget.",
+      "7. Finalize report.",
+      "8. END: Send report via the Send Outbound Transaction. Draw and Report FFP",
+      "1. START: Submit Form CMS-37 and Form CMS-21B through the Medicaid Budget and Expenditure System/CHIP Budget and Expenditure System (MBES/CBES).",
+      "2. Review the quarterly grant request.",
+      "3. Receive the grant award from CMS regardless of whether there are open issues with CMS. The Payment Management System (PMS) deposits funds into the Medicaid account based upon the CMS 37 estimates.",
+      "4. Determine the federal share of current expenditures taking into consideration receipts (e.g. estate recovery, recoupments of incorrect billings) and draw federal funds in accordance with the terms of the CMIA.",
+      "5. At end of each quarter, complete cash management reconciliation using the PMS 272 report.",
+      "6. Submit Form CMS-64 and Form CMS-21 to MBES/CBES.",
+      "7. CMS may increase or decrease the grant request amount already deposited according to the resolution of issues process. The SMA sends supporting documentation to the CMS Regional Office for use in its quarterly review to support State Medicaid Enterprise numbers and to address deferrals,",
+      "8. The SMA cooperates with CMS reviews of program and administration expenditures and implements corrective action if CMS Financial Management Review (FMR) or Office of Inspector General reviews reveal any federal requirement compliance problems.",
+      "9. Arrange for annual Single Audit for the Comprehensive Annual Financial Report conducted by a state-contracted Certified Public Accountant (CPA) firm in accordance with the provisions of OMB Circular A-133.",
+      "10. END: Follow-up and corrective action(s) on audit findings includes the preparation of a summary schedule of prior audit findings and submission of a Corrective Action Plan (CAP)."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Financial data store including budget, accounts receivable, and accounts payable information",
+      "Plan data store including health plan information",
+      "Health Benefit data store including benefit package and benefits information",
+      "State Financial Management Applications",
+      "Reference data store including code sets information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Manage Health Plan Information",
+      "Manage Health Benefit Information"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Accounts Receivable Information",
+      "Manage Accounts Payable Information"
+    ],
+    "constraints": "State legislative or agency policies augment the information. FMAP applies to Medicaid expenditures for services under the Medicaid State Plan with the exception of the following: family planning services, services provided through Indian Health Service facilities, services provided to members eligible under the optional Breast and Cervical Cancer program, and Medicare Part B premiums for Qualified Individuals. Manage FFP will conform to state-specific and CMS FFP assignment requirements.",
+    "failures": [
+      "The SMA lacks money for budget or is short of revenue.",
+      "Natural disaster strikes impacting budget management.",
+      "System failure prevents new rates from loading or rates are loaded incorrectly.",
+      "The SMA encounters errors in FMAP rate or assignment of rate to individual services.",
+      "The SMA is unable to balance reports.",
+      "The SMA is unable to access all information required for reporting.",
+      "There are discrepancies in information invalidate FFP calculations."
+    ],
+    "performance_measures": [
+      "Time to complete process: e.g., Real Time response = within __ seconds, Batch Response = within __hours",
+      "Accuracy of decisions = ___%",
+      "Consistency of decisions and disposition = ___%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Financial Management/Financial Management BPT.pdf",
+    "source_page_range": "35-39",
+    "extracted_date": "2026-01-12"
+  }
+}

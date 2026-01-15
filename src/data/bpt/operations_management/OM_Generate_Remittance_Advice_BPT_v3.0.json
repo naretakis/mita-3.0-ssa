@@ -1,0 +1,55 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Operations Management",
+  "sub_category": "Payment and Reporting",
+  "process_name": "Generate Remittance Advice",
+  "process_code": "OM",
+  "process_details": {
+    "description": "The Generate Remittance Advice business process describes the activity of preparing remittance advice/encounter Electronic Data Interchange (EDI) transactions that providers use to reconcile their accounts receivables. This business process begins with receipt of information resulting from the Process Claim business process, performing required manipulation according to business rules and formatting the results into the required output information that process sends to Send Outbound Transaction.",
+    "trigger_events": {
+      "environment_based": [],
+      "interaction_based": [
+        "Receive the claims information from the Process Claim business process."
+      ]
+    },
+    "results": [
+      "Alert to send to provider Accredited Standards Committee (ASC) X12 835 Health Care Claim Payment/Advice transaction.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive claims information from the Process Claim business process.",
+      "2. Perform required information manipulation according to business rules, including the reporting of any edit or audit errors that resulted in denials or modifications of payment from the reimbursement amount submitted on the claim, e.g., bundling or unbundling of services.",
+      "3. Generate remittance advice transaction.",
+      "4. Send alert to send to provider ASC X12 835 Health Care Claim Payment/Remittance Advice transactions.",
+      "5. END: If applicable, receive alert from receiver via ASC X12 TA1 Interchange Acknowledgment, 997 Functional Acknowledgment, 999 Implementation Acknowledgment, and/or the 824 Application Advice transaction(s) per Trading Partner Agreement (TPA)."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Provider data store including provider network and contract information",
+      "Claims data store including payment information"
+    ],
+    "predecessor_processes": [
+      "Process Claim"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Data"
+    ],
+    "constraints": "Remittance Advice-Encounter Reports conforms to the format and content in accordance with federal and state-specific reporting requirements, e.g., using HIPAA Transaction Standard Companion Guide that may differ based on situational fields determined by state policy.",
+    "failures": [
+      "Unresolved conflicts in the reported details in the remittance advice."
+    ],
+    "performance_measures": [
+      "Time to complete the process: e.g., Real Time response = within __ seconds, Batch Response = within __ hours",
+      "Accuracy with which remittance advice/encounter report rules are applied = ___%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Operations Management/Operations Management BPT.pdf",
+    "source_page_range": "1-2",
+    "extracted_date": "2026-01-12"
+  }
+}

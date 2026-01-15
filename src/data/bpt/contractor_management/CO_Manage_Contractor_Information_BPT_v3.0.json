@@ -1,0 +1,70 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Contractor Management",
+  "sub_category": "Contractor Information Management",
+  "process_name": "Manage Contractor Information",
+  "process_code": "CO",
+  "process_details": {
+    "description": "The Manage Contractor Information business process is responsible for managing all operational aspects of the Contractor (e.g., managed care, at-risk mental health or dental care, primary care physician, Recovery Audit Contractor (RAC)) data store. This business process receives a request for addition, deletion, or modification to Contractor information, validates the request, and applies the instruction.\nNOTE: Requires billing agents, clearinghouses, or other alternate payees (as defined by the Secretary) to register with Medicaid agency.",
+    "trigger_events": {
+      "environment_based": [
+        "Receive request to create, inquire, delete, or modify contractor information from authorized individuals via email, mail, facsimile, telephone or web.",
+        "Receive request to verify contractor information from authorized external parties."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "The State Medicaid Agency (SMA) creates, inquires on, deletes, or modifies contractor information.",
+      "Alert sent to notify Health Insurance Marketplace of provider network modification information.",
+      "Alert sent to notify insurance affordability program of provider network modification.",
+      "Alert to Manage Contractor Communication business process to notify contractor of relevant modifications.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive request from authorized individuals or agencies to create, inquire, delete or modify contractor information.",
+      "2. Agency logs request for contractor information.",
+      "3. Validate information submitted is correct and as complete as possible. Information complies with syntax criteria and requestor has completed all required fields.",
+      "4. Validate authorization of requestor to acquire contactor information.",
+      "5. Find appropriate contractor.",
+      "6. Create, inquire, delete or modify relevant contractor information.",
+      "7. Send alert to notify Health Insurance Marketplace of provider network modification.",
+      "8. Send alert to notify insurance affordability program of provider network modification.",
+      "9. Send alert to Manage Contractor Communication business process to notify provider of relevant modifications.",
+      "10. END: The SMA creates, inquires on, deletes, or modifies contractor information."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Contractor data store including contract information"
+    ],
+    "predecessor_processes": [
+      "Manage Contract",
+      "Close Out Contract"
+    ],
+    "successor_processes": [
+      "Perform Contractor Outreach",
+      "Manage Contractor Grievance and Appeal",
+      "Manage Contractor Communication",
+      "Manage Data"
+    ],
+    "constraints": "Information requirements and data structures for the contractor data store may differ from state to state.",
+    "failures": [
+      "The SMA cannot find contractor information.",
+      "The SMA cannot respond to a request (e.g., cannot change tax ID because it would change the contracted entity).",
+      "Validation failed (e.g., address is not a legal address).",
+      "Contract provides incomplete information (e.g., missing required information elements)."
+    ],
+    "performance_measures": [
+      "Timeliness to complete process = within __ days",
+      "Accuracy with which changes are applied = ___%",
+      "Consistency of decisions and disposition = ___%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Contractor Management/Contractor Management BPT.pdf",
+    "source_page_range": "1-2",
+    "extracted_date": "2026-01-12"
+  }
+}

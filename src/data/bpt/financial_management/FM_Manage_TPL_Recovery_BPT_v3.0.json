@@ -1,0 +1,79 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Financial Management",
+  "sub_category": "Accounts Receivable Management",
+  "process_name": "Manage TPL Recovery",
+  "process_code": "FM",
+  "process_details": {
+    "description": "The Manage TPL Recovery business process begins by receiving Third-Party Liability (TPL) information from various sources such as external and internal information matches, tips, referrals, attorneys, compliance management incident, Medicaid Fraud Control Unit (MFCU), providers, and insurance companies. The business process:\n• Identifies the provider or TPL carrier, locates recoverable claims.\n• Creates the coordination of benefits file.\n• Creates post-payment recovery files.\n• Sends notification to other payer or provider from the Manage Provider Communication business process.",
+    "trigger_events": {
+      "environment_based": [
+        "Receive third-party liability information from outside sources via the Determine Member Eligibility business process.",
+        "Receive third-party liability information from internal and external eligibility information matches. State transition-based Trigger Events:",
+        "Receive claims payment information from Process Claim or Process Encounter business process."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "Alert sent to notify third-party liability of recovery request.",
+      "Alert sent to Manage Accounts Receivable Information business process to monitor for payment.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive third-party liability information.",
+      "2. Identify the provider or TPL carrier.",
+      "3. Locate recoverable claims.",
+      "4. Create coordination of benefit files.",
+      "5. Create post-payment recovery files.",
+      "6. Send alert to notify provider or other payer of recovery request.",
+      "7. Conduct follow-up necessary and record activities.",
+      "8. Send alert to monitor recoupment activities to Manage Accounts Receivable Information business process.",
+      "9. END: Close and archive TPL Recovery case file upon conclusion of activities."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Financial data store including accounts receivable information",
+      "Member data store including enrollment information",
+      "Provider data store including provider network and carrier information",
+      "Health Insurance Marketplace data store",
+      "Compliance Management data store including compliance incident information",
+      "Other Agency Information: ",
+      "Department of Motor Vehicles (DMV) ",
+      "Veterans Administration (VA) ",
+      "Indian Health Service ",
+      "Immigration and Naturalization Service ",
+      "Medicaid Fraud Control Unit (MFCU)"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Determine Adverse Action Incident",
+      "Determine Member Eligibility",
+      "Process Claim",
+      "Process Encounter"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Provider Communication",
+      "Manage Accounts Receivable Information"
+    ],
+    "constraints": "States differ in the rules applied to TPL recoveries. Capabilities related to information matches vary and some States utilize recovery services contractors. The state’s integration of eligibility determination systems also has significant impact on their ability to cost avoid versus cost recover.",
+    "failures": [
+      "Inability to identify third-party payer from received third-party liability information.",
+      "Identified third-party payer denies liability or otherwise refuses to pay."
+    ],
+    "performance_measures": [
+      "Time to complete the process = Real Time response = within __ seconds, Batch Response = within __hours",
+      "Accuracy with which the TPL rules are applied = __%",
+      "Consistency with which the TPL rules are applied = __%",
+      "Amount of dollars recovered = ___%",
+      "Error rate (false recovery demands) = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Financial Management/Financial Management BPT.pdf",
+    "source_page_range": "3-5",
+    "extracted_date": "2026-01-12"
+  }
+}

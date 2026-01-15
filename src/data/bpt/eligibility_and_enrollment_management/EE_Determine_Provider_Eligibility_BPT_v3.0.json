@@ -1,0 +1,102 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Eligibility and Enrollment Management",
+  "sub_category": "Provider Enrollment",
+  "process_name": "Determine Provider Eligibility",
+  "process_code": "EE",
+  "process_details": {
+    "description": "The Determine Provider Eligibility business process collects enrollment application from Health Care Provider, or collects re-enrollment or revalidation information from existing Provider. The business process verifies syntax and semantic of information, checks status tracking (e.g., initial, modification, duplicate, cancelation), requests additional information when necessary, determines screening level (i.e., limited, moderate or high), verifies applicant information with external entities, collects application fees, and notifies Health Care Provider or Provider of enrollment eligibility determination (e.g., accepted, denied, or suspended). Determine Provider Eligibility business process sends enrollment determination alert signals to subscribing business processes Enroll Provider and Manage Provider Communication. Determine Provider Eligibility sends alert signal to Manage Accounts Receivable Funds business process to collect application fee.\n The Determine Provider Eligibility business process works in conjunction with Medicare and the processing of dual eligibles. Medicare agency conducts provider screening activities, application fee collection, and revalidation for those providers who are dual eligible. Determine Provider Eligibility business process is responsible for the provider screening activities, application fee collection, and revalidation for only Medicaid providers.\nNOTE: External contractors such as quality assurance and credentialing verification services may perform some of these steps.",
+    "trigger_events": {
+      "environment_based": [
+        "Receive the following from either a Health Care Provider or existing Provider: o Requester completes enrollment application information (e.g., Provider name, Provider address, Provider National Provider Identifier (NPI), etc.). o Requestor resubmits enrollment application information. o Requestor modifies or cancels application. o Disenrolled Provider submits re-enrollment application information. o Requestor submits additional information in support of an enrollment application.",
+        "Periodic review is due or receipt of request to: o Determine revalidation of credentials. Revalidation takes place every five (5) years except for Durable Medical Equipment Prosthetic, Orthotics & Supplies which is every three (3) years; revalidation also requires an application fee. o Monitor sanctions applied to a Provider. o Assist in program integrity review."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "Agency accepts, denies, or suspends the requestor’s application.",
+      "Agency notifies the requestor of enrollment eligibility (i.e., accepted, denied or suspended).",
+      "Alert sent to Enroll Provider business process to assign contracting parameters; establish payment rates and other activities for eligible requestor.",
+      "Alert sent to Manage Accounts Receivable Funds business process to collect application fee.",
+      "If applicable, alert sent to Disenroll Provider business process to remove provider from services.",
+      "Alert sent to notify provider via Manage Provider Communication business process of enrollment eligibility determination.",
+      "If applicable, alert sent to notify Medicare of both dual eligible and regular Medicaid providers information.",
+      "Tracking information as needed for measuring performance and business",
+      "activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Health Care Provider completes and submits an enrollment application or existing Provider submits enrollment application for revalidation.",
+      "2. Requestor identifies Office of the National Coordinator for Health Information Technology (ONC) Authorized Testing and Certification Body (ATCB) certification for electronic health record incentive.",
+      "3. Requestor identifies if they are currently participating in Medicare or Children’s Health Insurance Program (CHIP). If yes, skip to step 14.",
+      "4. Requestor selects application fee payment option including designation of hardship or exclusions from payment.",
+      "5. Requestor provides appropriate payment information.",
+      "6. Receive enrollment application and other pertinent enrollment communication information.",
+      "7. Validate application syntax/semantic conformance.\n  a. END: If validation fails, business process stops (see Failures).",
+      "8. If necessary, request missing information from requestor. Go step 14.",
+      "9. Determine submission status by querying the Provider data store. Application status may be initial, resubmitted with modification, or duplicate.\n  a. If resubmitted application, message contains only updated information and process may skip irrelevant steps below.\n  b. END: If duplicate application, produce result messages and stop business process (see Failures).\n  c. Other communications may be requests to cancel application, and to deactivate or reactivate enrollment.",
+      "10. Determine applicant type/Provider taxonomy (e.g., primary, rendering, pay to, billing, or other).",
+      "11. Determine designated categorical risk (e.g., limited, moderate, or high) based on provider/supplier’s category.",
+      "12. Assess categorical risk to determine appropriate required screening level.\n  a. Limited Risk includes:\n    i. Verification of any provider/supplier-specific requirements established by Medicare\n    ii. License verifications (may include licensure checks across state)\n    iii. Database Checks (to verify Social Security Number (SSN), the National Provider Identifier (NPI), the National Practitioner Data Bank (NPDB) licensure, an Office of the Inspector General (OIG) exclusion; taxpayer identification number; tax delinquency; death of individual practitioner, owner, authorized official, delegated official, or supervising physician)",
+      "13. Conduct screening based on required screening level with automated transactions except where manual verification if necessary.",
+      "14. Determine enrollment eligibility (e.g., accepted, denied, or suspended) based on federal and state rules.",
+      "15. Determine if there are enrollment caps due to moratoriums issued. If yes, skip to step 19.",
+      "16. If Medicaid accepts enrollment application, send alert to Enroll Provider business process to assign contracting parameters, establish payment rates, and other activities for eligible requestor.",
+      "17. Alert sent to Manage Accounts Receivable Funds business process to collect application fee.",
+      "18. If Medicaid denies the enrollment application for existing Provider, send alert to Disenroll Provider business process to remove provider from services.",
+      "19. If applicable, send alert to notify Medicare of both dual eligible and regular Medicaid providers information.",
+      "20. END: Send enrollment eligibility determination to Manage Provider Communication business process to send relevant information to requestor. Alternate Business Process Path: Determine Provider Eligibility business process results in a denial or suspension of an enrollment eligibility request for reasons such as:  Requestor fails to meet screening requirements.  Requestor fails to meet state enrollment requirements.  National Plan and Provider Enumeration System (NPPES) or any other national enumeration systems cannot enumerate Health Care Provider."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Centers for Medicare & Medicaid Services (CMS) Medicare Dual Eligible Provider data store",
+      "Provider data store including application information (NPI, Provider demographics, Provider taxonomy)",
+      "NPI and Provider demographics exchanged with the National Plan and Provider",
+      "Enumeration System (NPPES) and any other national enumeration systems",
+      "Provider sanction information from:",
+      "",
+      "The OIG or the General Accounting Office (GAO) sanction lists of individuals, vendors, and/or suppliers excluded from participation in Medicare, Medicaid, and other federally funded Sate programs from databases such as the List of",
+      "Excluded Individuals/Entities (LEIE) and the Excluded Parties List System (EPLS). ",
+      "State Provider Licensing Authority ",
+      "Healthcare Integrity and Protection Data Bank (HIPDB) data store ",
+      "National Practitioner Databank (NPDB) ",
+      "State Prescription Monitoring Program (PMP)",
+      "Tax identifiers: Employer ID Number (EIN), Social Security Number (SSN), Taxpayer Identification Number (TIN) from applicant and verified with tax identifier verification sources and any other information required for Form 1099 production",
+      "Disclosure information including: ",
+      "Information on ownership and control ",
+      "Information related to business transactions ",
+      "Information on persons convicted of crimes ",
+      "Disclosure by providers and State Medicaid agencies.",
+      "Multiple office locations, pay to addresses, business associates, and key contract personnel",
+      "CMS caps and limits moratorium information",
+      "Insurance Affordability Program data store including eligibility and enrollment information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction"
+    ],
+    "successor_processes": [
+      "Manage Accounts Receivable Funds",
+      "Enroll Provider",
+      "Disenroll Provider",
+      "Manage Provider Communication"
+    ],
+    "constraints": "The Provider application process will accommodate the full range of Provider types, organizations, specialties, different types of applicants (e.g., the primary Provider, billing agent, pay-to entity), and care settings (e.g., solo office practice, group practice, rural health clinic); as well as, appropriate applications (e.g., New, Modification, Cancellation, Update). Different business rules may apply to each of these different types. Affiliations - Managed Care Organization (MCO) or subpart relationship.",
+    "failures": [
+      "Duplicate or cancelled applications.",
+      "Failure to validate application edits.",
+      "Requires additional information to process application."
+    ],
+    "performance_measures": [
+      "Time to complete Enrollment process = within __ days",
+      "Accuracy with which edits are applied = ___%",
+      "Consistency of decisions and disposition = ___%",
+      "Error rate = __% or less Provider Enrollment Variations Type Subtypes Information Institutional Provider The Institutional Provider application will accommodate a range of institutional Provider types (e.g., inpatient, nursing home, day care), different types of applicants (e.g., the primary Provider, billing agent, pay-to entity), and care settings (e.g., outpatient, emergency room, assisted living). NPI, entity type, taxonomy, type of facility, bed size, equipment, type of institutional services, ownership, trading partner information, billing and payment information, tax code, Diagnosis Related Group (DRG) or other payment type Individual Provider The Individual Billing Provider application will accommodate a range of professional billing Provider types (e.g., Physician, Osteopath, Podiatrist, Chiropractor, Clinic, Lab, Radiology, other). NPI, entity type, taxonomy, affiliation, location, trading partner information, billing and payment information Individual Rendering Provider The Individual Rendering Provider application will accommodate a range of professional rendering Provider types (e.g. Physician, Osteopath, Podiatrist, Chiropractor, Clinic, Lab,"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Eligibility and Enrollment Management/Eligibility and Enrollment Management BPT.pdf",
+    "source_page_range": "24-30",
+    "extracted_date": "2026-01-12"
+  }
+}

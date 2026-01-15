@@ -1,0 +1,70 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Plan Management",
+  "sub_category": "Health Benefit Administration",
+  "process_name": "Manage Rate Setting",
+  "process_code": "PL",
+  "process_details": {
+    "description": "The Manage Rate Setting business process responds to requests to add or modify rates for any service or product covered by the Medicaid Program.",
+    "trigger_events": {
+      "environment_based": [
+        "Receive official request for rate setting addition or modification.",
+        "Periodic timetable is due for rate addition or modification.",
+        "Receive the addition or modification of rate information."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "The State Medicaid Agency (SMA) defines new rate with effective date and date span.",
+      "The SMA rejects rate request.",
+      "Alert sent to notify provider and contractor of rate modification.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START. Receive notification of request for addition or modification of rate.",
+      "2. Research and analyze rate, which may include request information to determine initial or updated rate.",
+      "3. Validate rate requested or establish rate.",
+      "4. Optional: Perform What-if scenarios analysis.",
+      "5. Create rate update or deny the request.",
+      "6. END: Send alert to notify provider and contractor of rate addition or modification."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Business Activity data store including performance measures Consumer",
+      "Assessment of Healthcare Providers and Systems (CAPHS) and Healthcare",
+      "Effectiveness Data and Information Set (HEDIS))information",
+      "Plan data store including policy information",
+      "Health Benefit data store including benefit package and benefit information",
+      "Claims data store including payment information",
+      "Provider data store including provider network and Contract information",
+      "Contractor data store including provider network information"
+    ],
+    "predecessor_processes": [
+      "Manage Health Plan Information"
+    ],
+    "successor_processes": [
+      "Manage Health Plan Information",
+      "Manage Health Benefit Information",
+      "Manage Provider Communication",
+      "Manage Contractor Communication",
+      "Manage Reference Information"
+    ],
+    "constraints": "The SMA will conform to mandates from the legislature or court. For a new service, procedure or product, information may not exist to assist in establishing a rate.",
+    "failures": [
+      "The SMA does not have enough information to validate rate or perform What-if scenario analysis delaying or interrupting the process.",
+      "Process includes possible denial of rate setting request."
+    ],
+    "performance_measures": [
+      "Time to establish/update rate or reject rate request = __ hours or days",
+      "Accuracy: The process produces acceptable results __ % of the time",
+      "Efficiency: Combination of staff plus automated processes results in utilization of __ FTEs per occurrence of this process"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Plan Management/Plan Management BPT.pdf",
+    "source_page_range": "16-17",
+    "extracted_date": "2026-01-12"
+  }
+}

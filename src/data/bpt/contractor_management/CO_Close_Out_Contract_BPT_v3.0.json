@@ -1,0 +1,64 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Contractor Management",
+  "sub_category": "Contract Management",
+  "process_name": "Close Out Contract",
+  "process_code": "CO",
+  "process_details": {
+    "description": "The Close Out Contract business process begins with an expired contract or an order to terminate a contract. The business process ensures the obligations of the current contract are complete and the turnover to the new contractor proceeds according to contractual obligations.",
+    "trigger_events": {
+      "environment_based": [
+        "Contract reaches the end of its effective period."
+      ],
+      "interaction_based": [
+        "Receive alert from Determine Adverse Action Incident business process to cease activities with contractor."
+      ]
+    },
+    "results": [
+      "The contract closes.",
+      "Alert sent to notify contractor of termination of contract.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive expired contract or instruction to terminate a contract.",
+      "2. Validate information submitted is correct and as complete as possible. Information complies with syntax criteria and submitter has completed all required fields.",
+      "3. If applicable, request additional information.",
+      "4. Validate information provided is authentic.",
+      "5. Identify all requirements for termination of contract.",
+      "6. Monitor closure activities.",
+      "7. Officially terminate contract.",
+      "8. END: Send alert to notify contractor of termination of contract."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Contractor data store including contract information"
+    ],
+    "predecessor_processes": [
+      "Award Contract",
+      "Determine Adverse Action Incident"
+    ],
+    "successor_processes": [
+      "Manage Contractor Communication",
+      "Manage Contractor Information"
+    ],
+    "constraints": "Each state may have its own requirements for contract termination.",
+    "failures": [
+      "The State Medicaid Agency (SMA) receives incomplete termination instructions.",
+      "Contractor data store contains invalid information."
+    ],
+    "performance_measures": [
+      "Time to complete process = ___ months; ___ weeks",
+      "Accuracy of information = ___ %",
+      "Accessibility of information for terminating contract = ___ months; ___ weeks",
+      "Consistency of decisions and disposition = ___ %",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Contractor Management/Contractor Management BPT.pdf",
+    "source_page_range": "16-17",
+    "extracted_date": "2026-01-12"
+  }
+}

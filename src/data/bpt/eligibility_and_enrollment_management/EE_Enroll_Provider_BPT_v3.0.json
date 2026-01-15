@@ -1,0 +1,103 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Eligibility and Enrollment Management",
+  "sub_category": "Provider Enrollment",
+  "process_name": "Enroll Provider",
+  "process_code": "EE",
+  "process_details": {
+    "description": "The Enroll Provider business process is responsible for enrolling providers into Medicaid that includes:\n• Determination of contracting parameters (e.g., Provider taxonomy, type, category of service that the Provider can bill).\n• Establishment of payment rates and funding sources, taking into consideration service area, incentives or discounts.\n• Alert sent to Manage Contract business process to negotiate contracts.\n• Supporting receipt and verification of program contractor’s Provider enrollment roster information (e.g., from Managed Care Organization (MCO) and Home and Community-Based Services (HCBS)).\n• Alert sent to Manage Provider Information business process to load initial and modified enrollment information, including Providers contracted with program contractors into the Provider data store.\n• Alert sent to Manage Provider Information business process to provide timely and accurate notification, or to make enrollment information required for operations available to all parties and affiliated business processes, including:\n - Alert sent to Prepare Provider Payment business process for capitation and premium payments.\n - To prepare Provider Electronic Funds Transfer (EFT) or check with the Manage Accounts Payable Disbursement business process.\n - The appropriate communications and outreach processes for follow- with the affected parties, including informing parties of their procedural rights.\n• Periodic review is due or receipt of request to:\n - Negotiate payment rates.\n - Notify Provider of enrollment determination. Enroll Provider business process supports receipt and verification of program contractor’s Provider enrollment roster information (e.g., name, identification, contract information, type, specialty and services) from Managed Care Organization (MCO) and HCBS organizations.",
+    "trigger_events": {
+      "environment_based": [
+        "Periodic review is due or receipt of to: o Renegotiate payment rates. o Reevaluate enrollment based criteria such as performance measures, or triggered by date such as anniversary date based on Medicaid policy to verify information based on a contractual duration (e.g. year or months).",
+        "Receive program enrollment or disenrollment information from Medicaid or CHIP.",
+        "Receive request for provider’s enrollment roster information."
+      ],
+      "interaction_based": [
+        "Receive newly eligible Provider from Determine Provider Eligibility business process.",
+        "Receive newly eligibility contractor from Award Contract business process.",
+        "Receive alert from Manage Performance Measures to revalidate provider."
+      ]
+    },
+    "results": [
+      "Enrolled, re-enrolled, suspended, or denied enrollment of provider or contractor into programs.",
+      "If applicable, alert sent to notify provider via Manage Provider Communication business process of enrollment determination.",
+      "If applicable, alert sent to notify contractor via Manage Contractor Communication business process of enrollment determination.",
+      "If applicable, alert sent to Manage Contractor Payment for payment arrangement.",
+      "Alert sent to Perform Provider Outreach to send relevant state policy information.",
+      "Alert sent to Manage Contract business process to negotiate contract.",
+      "If applicable, send response for Provider enrollment roster information.",
+      "Alert sent to notify Health Insurance Marketplace of provider enrollment",
+      "information.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Determine contracting parameters (e.g., Provider taxonomy, categories of service for which the Provider can bill), eligible Provider types, payment types, contract terms and maximums, member enrollment levels, panel size, and any contractor specific benefit packages and procedures.",
+      "2. Assign any identifiers used internally.",
+      "3. Determine if there are enrollment limits due to moratoriums issued. If yes, skip to step 9.",
+      "4. Assign to programs and determine rates: Includes identifying type of rate (e.g., negotiated, Medicare, percent of charges, case management fee, other via look-ups in the reference and benefit repositories).",
+      "5. If applicable, send alert to Manage Contractor Payment business process for payment arrangement.",
+      "6. Send alert to Perform Provider Outreach business process to send relevant state policy information.",
+      "7. Send alert to Manage Contract business process to negotiate contract.",
+      "8. If applicable, send alert to notify contractor via Manage Contractor Communication business process of enrollment determination.",
+      "9. If applicable, provide response to request for Provider enrollment roster information.",
+      "10. Send alert to notify Health Insurance Marketplace of provider enrollment information.",
+      "11. END: Send alert to notify provider via Manage Provider Communication business process of enrollment determination."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Provider data store including: ",
+      "Provider demographics ",
+      "Provider network ",
+      "Contract information o",
+      "Type o",
+      "Specialty o",
+      "Enrolled Program o",
+      "Jurisdiction o",
+      "Payment Information ",
+      "Provider taxonomy",
+      "",
+      "Service Location Information o",
+      "Category of Service o",
+      "Services o",
+      "Limitations o",
+      "Business Arrangement",
+      "Contractor data store including provider network information",
+      "Plan data store including health benefit and fees information",
+      "Moratorium data store including Caps and Limits information",
+      "Health Insurance Marketplace including provider enrollment information"
+    ],
+    "predecessor_processes": [
+      "Determine Provider Eligibility",
+      "Manage Provider Communication",
+      "Manage Performance Measures",
+      "Award Contract"
+    ],
+    "successor_processes": [
+      "Manage Provider Information",
+      "Manage Provider Communication",
+      "Manage Contractor Information",
+      "Manage Contractor Communication",
+      "Perform Provider Outreach",
+      "Manage Contract"
+    ],
+    "constraints": "The Provider enrollment process will accommodate the full range of Provider types, organizations, specialties, different types of applicants (e.g., the primary Provider, billing agent, pay-to entity), and care settings (e.g., solo office practice, group practice, rural health clinic) as well as different types of applications (e.g., New, Modification, Cancellation, Update). Different business rules may apply to each of these different types. Affiliations - MCO or subpart relationship.",
+    "failures": [
+      "Lack of applicable rates.",
+      "Provider meets caps or limits moratorium."
+    ],
+    "performance_measures": [
+      "Time to complete Enrollment process = within __ days",
+      "Accuracy with which edits are applied = ___%",
+      "Consistency of decisions and disposition = ___%",
+      "Error rate = __% or less",
+      "Provider Enrollment Variations Type Subtypes Information Institutional Provider The Institutional Provider application will accommodate a range of institutional Provider types (e.g., inpatient, nursing home, day care), different types of applicants (e.g., the primary Provider, billing agent, pay-to entity), and care settings (e.g., outpatient, emergency room, assisted living). NPI, entity type, taxonomy, type of facility, bed size, equipment, type of institutional services, ownership, trading partner information, billing and payment information, tax code, DRG or other payment type Individual Provider The Individual Billing Provider application will accommodate a range of professional billing"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Eligibility and Enrollment Management/Eligibility and Enrollment Management BPT.pdf",
+    "source_page_range": "30-35",
+    "extracted_date": "2026-01-12"
+  }
+}

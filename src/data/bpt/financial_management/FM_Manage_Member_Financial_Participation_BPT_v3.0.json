@@ -1,0 +1,71 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Financial Management",
+  "sub_category": "Accounts Payable Management",
+  "process_name": "Manage Member Financial Participation",
+  "process_code": "FM",
+  "process_details": {
+    "description": "The Manage Member Financial Participation business process is responsible for all operations aspects of preparing member premium payments. This includes premiums for Medicare, also known as Medicare Buy-in, and other health insurance. The business process begins with the alert to determine if the State Medicaid Agency (SMA) should pay a member’s premium. The SMA will assist low-income Medicare beneficiaries in Medicare cost-sharing, defined as premiums, deductibles, and co-insurance in a process referred to as buy- in. Under the buy-in process the SMA, the Social Security Administration (SSA), and U.S. Department of Health & Human Services (HHS) enter into a contract where States pay the Medicare beneficiary share of premium costs, and, in some instances, deductibles, and co-insurance. An exchange of eligibility information between Medicare and the SMA initiates Medicare premium payments. The service agreement between the SMA and business partner determines the intervals for this business process to execute. The business process receives eligibility information from Medicare, performs a matching process against the State Medicaid Enterprise member data store, generates buy-in files to Centers for Medicare & Medicaid Services (CMS) for verification, receives premium payment information from and generates payments to CMS. The SMA will pay the private health insurance premiums for members who have private health insurance benefits, if it determines the insurance to be cost effective. In these circumstances, the SMA prepares and sends a premium to the member’s private health insurance company. Health insurance premium payment initiates with an application for Medicaid where the applicant indicates they have third-party health coverage or by receiving eligibility information via referrals from Home and Community-Based Services (HCBS) Offices, schools, community services organizations, or phone calls directly from members. The business process checks for internal eligibility status as well as eligibility with other payers, producing a report identifying individuals where paying premiums would be cost effective, and notifying members via Manage Applicant and Member Communication business process.\nNOTE: This business process does not include sending the premium payments as an Electronic Data Interchange (EDI) transaction.",
+    "trigger_events": {
+      "environment_based": [
+        "Periodic timetable is due for receipt of Medicare eligibility information.",
+        "Periodic timetable (e.g., monthly) is due for insurance premium eligibility redetermination and payments.",
+        "Receive insurance information either by the member or through a referral."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "Modification to Medicare buy-in reporting.",
+      "Identification of individuals where paying insurance premiums is cost effective.",
+      "Alert to send notification of premium payment to member via Manage Applicant and Member Communication business process.",
+      "Alert to send notification of premium payment to Medicaid.",
+      "Alert to Manage Accounts Payable Information business process for conducting premium payment.",
+      "If applicable, alert send notification to business partner of member premium payment via Manage Business Relationship Communication business process.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Alert to determine if the State Medicaid Agency (SMA) should pay a member’s premium.",
+      "2. Prepare Medicaid Premium Payment.\n  a. Receive State Data Exchange (SDX), Enrollment Data Base (EDB) file, and/or the SSA Beneficiary Data Exchange (BENDEX) eligibility files from the Receive Inbound Transaction.\n  b. Perform a matching process against the Member data store.\n  c. Generate buy-in file, containing both Medicare Part A and Medicare Part B members (includes all requests for action including discrepancies from previous month).\n  d. Send buy-in file to CMS.\n  e. Receive CMS responses to the buy-in file (i.e., the Billing File for both Part A and Part B) including eligibles, responses to errors, and Medicare buy-in file information.\n  f. Process CMS responses to the submitted buy-in file and assess the file for accuracy and completeness.\n  g. Post buy-in modifications to the Member data store.\n  h. Produce buy-in reports reflecting potential Medicare eligibles including any additions or deletions to existing Member data store as well as other discrepancies.\n    i. Staff researches unmatched and discrepancies to determine appropriate eligibility.\n  j. Send problem discrepancy form(s) reflecting potential Medicare eligibles, unmatched, and discrepancies to the Buy-in Administration, and update final Medicare buy-in file for internal use.",
+      "3. Prepare Health Insurance Premium Payment (HIPP):\n  a. Receive insurance information either from an applicant or through a referral.\n  b. Check internal and external eligibility information.\n  c. Edit eligibility information.\n  d. Determine cost effectiveness by collecting information such as policy coverage, past usage, and by making a determination of future need - the requirements for determining cost effectiveness will vary among States.\n  e. Produce a report of individuals where paying premiums is cost effective for the SMA.",
+      "4. Send alert to conduct premium payment to Manage Accounts Payable Information business process.",
+      "5. If applicable, send alert to notify member of premium payment via Manage Applicant and Member Communication business process.",
+      "6. If applicable, send alert to notify business partner of member premium payment via Manage Business Relationship Communication business process.",
+      "7. END: If applicable, send alert to notify Medicare of member premium payment."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Member data store including demographics, cost share, third-party insurance, and premium information",
+      "Health Insurance Marketplace data store including applicant eligibility and member enrollment information (i.e., dual-eligibility)",
+      "Financial data store including accounts payable information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Determine Member Eligibility"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Member Information",
+      "Manage Applicant and Member Communication",
+      "Manage Business Relationship Communication",
+      "Manage Accounts Payable Information",
+      "Manage Accounts Receivable Information"
+    ],
+    "constraints": "The Manage Member Financial Participation business process will adhere to the federal policies and business rules.",
+    "failures": [
+      "State Medicaid dual eligibility information does not match Medicare dual eligibility information - errors in BENDEX, EDB, or SDX files."
+    ],
+    "performance_measures": [
+      "Time to complete the process: e.g., Real Time response = within ___seconds, Batch Response = within ___ hours",
+      "Accuracy with which rules are applied =___%",
+      "Consistency with which rules are applied=___%",
+      "Error rate =___% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Financial Management/Financial Management BPT.pdf",
+    "source_page_range": "18-21",
+    "extracted_date": "2026-01-12"
+  }
+}

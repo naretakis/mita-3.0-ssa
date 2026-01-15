@@ -1,0 +1,110 @@
+import { useNavigate } from 'react-router-dom';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Container,
+  Grid,
+  Typography,
+} from '@mui/material';
+import SecurityIcon from '@mui/icons-material/Security';
+import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
+import StorageIcon from '@mui/icons-material/Storage';
+import AssessmentIcon from '@mui/icons-material/Assessment';
+
+export default function Home() {
+  const navigate = useNavigate();
+
+  const features = [
+    {
+      icon: <SecurityIcon sx={{ fontSize: 40, color: 'primary.main' }} />,
+      title: 'Privacy First',
+      description: 'All your data stays in your browser. Nothing is transmitted to any server.',
+    },
+    {
+      icon: <OfflineBoltIcon sx={{ fontSize: 40, color: 'primary.main' }} />,
+      title: 'Works Offline',
+      description: 'After the first load, use the app anytime — even without internet.',
+    },
+    {
+      icon: <StorageIcon sx={{ fontSize: 40, color: 'primary.main' }} />,
+      title: 'Local Storage',
+      description: 'Your assessments are saved locally and persist across sessions.',
+    },
+    {
+      icon: <AssessmentIcon sx={{ fontSize: 40, color: 'primary.main' }} />,
+      title: 'MITA 3.0 Framework',
+      description: 'Assess your maturity against the official CMS MITA 3.0 capabilities.',
+    },
+  ];
+
+  return (
+    <Container maxWidth="lg" sx={{ py: 3 }}>
+      <Box sx={{ textAlign: 'center', py: 6 }}>
+        <Typography variant="h3" component="h1" gutterBottom fontWeight={600}>
+          MITA Self-Assessment Tool
+        </Typography>
+        <Typography variant="h5" color="text.secondary" paragraph>
+          Evaluate your Medicaid IT maturity against the MITA 3.0 framework
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto', mb: 4 }}>
+          This tool helps Medicaid agencies assess their current capabilities and identify 
+          opportunities for improvement across business processes defined in the Medicaid 
+          Information Technology Architecture (MITA) framework.
+        </Typography>
+
+        <Box sx={{ 
+          backgroundColor: 'success.light', 
+          color: 'success.contrastText',
+          py: 2, 
+          px: 3, 
+          borderRadius: 2,
+          maxWidth: 500,
+          mx: 'auto',
+          mb: 4
+        }}>
+          <Typography variant="body1" fontWeight={500}>
+            🔒 No accounts required. No data collection. Your assessments never leave your device.
+          </Typography>
+        </Box>
+
+        <Button
+          variant="contained"
+          size="large"
+          onClick={() => navigate('/dashboard')}
+          sx={{ px: 4, py: 1.5 }}
+        >
+          Get Started
+        </Button>
+      </Box>
+
+      <Grid container spacing={3} sx={{ mb: 6 }}>
+        {features.map((feature, index) => (
+          <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
+            <Card sx={{ height: '100%', textAlign: 'center' }}>
+              <CardContent>
+                <Box sx={{ mb: 2 }}>{feature.icon}</Box>
+                <Typography variant="h6" gutterBottom>
+                  {feature.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {feature.description}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+
+      <Box sx={{ textAlign: 'center', py: 4, borderTop: 1, borderColor: 'divider' }}>
+        <Typography variant="body2" color="text.secondary">
+          Based on CMS MITA Framework v3.0 (February 2012)
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          This is an independent tool and is not affiliated with or endorsed by CMS.
+        </Typography>
+      </Box>
+    </Container>
+  );
+}

@@ -1,0 +1,71 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Plan Management",
+  "sub_category": "Plan Administration",
+  "process_name": "Maintain Program Policy",
+  "process_code": "PL",
+  "process_details": {
+    "description": "The Maintain Program Policy Business Process responds to requests or needs for change in the enterprise’s programs, benefits, or business rules, based on factors such as federal or state regulations, governing board or commission directives, Quality Improvement Organization’s findings, federal or state audits, enterprise decisions, or consumer pressure.",
+    "trigger_events": {
+      "environment_based": [
+        "Periodic timetable (e.g., annual) is due for review of program policy.",
+        "Periodic timetable (e.g., annual) is due to implement new program policy or modification.",
+        "Ad hoc request for program policy updates."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "The State Medicaid Agency (SMA) defines new or modified statement of program policy.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive request to add, delete, or change policy.",
+      "2. Request information to analyze policy.",
+      "3. Assess impact of policy on budget, stakeholders, and other benefits.",
+      "4. Formulate and publish policy.",
+      "5. Hold public hearings.",
+      "6. Revise policy.",
+      "7. Seek all federal and state administrative and regulatory approvals.",
+      "8. If applicable, assess impact of requested revisions.",
+      "9. Determine effective date and date span for policy in coordination with other enterprise considerations.",
+      "10. If applicable, develop training plan for new policy.",
+      "11. Develop implementation plan for policy.",
+      "12. END: Disseminate policy."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Plan data store including Medicaid State Plan, health plan, health benefits, performance measures, and benchmarks information",
+      "Business Activity data store including performance information (e.g., Consumer",
+      "Assessment of Healthcare Providers and Systems (CAPHS) and Healthcare",
+      "Effectiveness Data and Information Set (HEDIS) measures)"
+    ],
+    "predecessor_processes": [
+      "Develop Agency Goals and Objectives",
+      "Manage Performance Measures",
+      "Maintain State Plan"
+    ],
+    "successor_processes": [
+      "Manage Health Plan Information",
+      "Manage Health Benefit Information",
+      "Maintain State Plan",
+      "Manage Performance Measures",
+      "Establish Business Relationship"
+    ],
+    "constraints": "Economic conditions shift, making less revenue available to fund the approved and planned budget. The SMA will comply with federal and state regulations.",
+    "failures": [
+      "Cost/benefit analysis does not support proposed policy.",
+      "Inability to obtain necessary approvals."
+    ],
+    "performance_measures": [
+      "Time to complete the process = within __ days, ___ weeks",
+      "Achievement of goals and objectives linked to policy implementation"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Plan Management/Plan Management BPT.pdf",
+    "source_page_range": "2-4",
+    "extracted_date": "2026-01-12"
+  }
+}

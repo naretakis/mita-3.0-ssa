@@ -1,0 +1,84 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Operations Management",
+  "sub_category": "Claims Adjudication",
+  "process_name": "Submit Electronic Attachment",
+  "process_code": "OM",
+  "process_details": {
+    "description": "The Submit Electronic Attachment business process begins with receiving attachment information that either a payer requests (solicited) or a provider submits (unsolicited). The solicited attachment information can be in response to requests for more information from the following business processes for example: Proce Claim, Process Encounter, Authorize Service, Authorize Treatment Plan, and Manage Estate Recovery. The business process links attachment information to the associated applicable transaction (e.g., claim, prior authorization, treatment plan) or suspends for a predetermined time set by state specific business rules, after which the business process purges information. The business process validates the successfully associated attachment information using application-level edits, determining whether the information provides the additional information necessary to adjudicate (i.e., approve, suspend or deny) the transaction.",
+    "trigger_events": {
+      "environment_based": [
+        "Periodic timetable to associate suspended attachment information with subsequently received transactions."
+      ],
+      "interaction_based": [
+        "Receive claim via Accredited Standards Committee (ASC) X12 837 Health Care Claim transaction.",
+        "Receive Retail Pharmacy Claim Transaction (National Council for Prescription Drug Programs (NCPDP) Telecommunications Standard).",
+        "Receive ASC X12 277 Health Care Information Status Notification requesting additional information.",
+        "Receive ASC X12 278 Health Care Servicer Review Information transaction."
+      ]
+    },
+    "results": [
+      "The State Medicaid Agency (SMA) accepts and associates attachment information with the appropriate transaction (e.g., claim, prior authorization, treatment plan, etc.).",
+      "If applicable, the SMA rejects attachment information as invalid.",
+      "If applicable, the SMA suspends attachment information awaiting the receipt of a matching transaction.",
+      "If applicable, the SMA purges attachment after duration of predetermined time.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive attachment information.",
+      "2. Validate attachment provides all required information.",
+      "3. Associate attachment information with applicable transaction.",
+      "4. Validate application level edits such as provider, member, and benefit information, and association with transaction.",
+      "5. Determine whether the attachment supplies the additional information as required by state business rules.",
+      "6. If applicable, reject attachment information as invalid. END: Business process stops.",
+      "7. If applicable, suspend attachment information awaiting the receipt of a matching transaction. END: Business process stops.",
+      "8. If applicable, purge attachment after duration of predetermined time. END: Business process stops.",
+      "9. END: The SMA accepts and associates attachment information with the appropriate transaction."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Claims data store with transaction information",
+      "Provider data store with provider network information",
+      "Member data store with demographic information",
+      "Care Management data store with authorization information",
+      "Financial data store including accounts receivable information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Process Claim",
+      "Process Encounter",
+      "Authorize Service",
+      "Authorize Treatment Plan",
+      "Authorize Referral",
+      "Manage Estate Recovery"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Process Claim",
+      "Process Encounter",
+      "Authorize Service",
+      "Authorize Treatment Plan",
+      "Authorize Referral",
+      "Manage Estate Recovery"
+    ],
+    "constraints": "The attachment information will conform to the format and content in accordance with national standards and state-specific rule-reporting requirements, e.g., using HIPAA Transaction Standard Companion Guide, and contain valid required information content based on several criterion (e.g., type of claim, type of service, provider type, and member demographic). The attachment will be consistent with the associated original transaction per state rules, and will contain the correct information for this business process to execute.",
+    "failures": [
+      "Quality of the image too bad to render as usable.",
+      "Cannot locate applicable transaction (i.e., claim, prior authorization).",
+      "Attachment is missing required information."
+    ],
+    "performance_measures": [
+      "Time to complete the process: Real Time response = within __ seconds, Batch Response = within __ hours",
+      "Accuracy with which the SMA applies and associates attachments rules = __%",
+      "Number of attachments = __% of total claims. (Processing a higher percentage of claims attachments may indicate that a state is able to utilize more clinical information when determining whether a claim meets state payment rules)",
+      "Error rate of correctly re-associating attachment information = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Operations Management/Operations Management BPT.pdf",
+    "source_page_range": "21-25",
+    "extracted_date": "2026-01-12"
+  }
+}

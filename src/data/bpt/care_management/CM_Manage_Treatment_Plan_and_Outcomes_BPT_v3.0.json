@@ -1,0 +1,75 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Care Management",
+  "sub_category": "Case Management",
+  "process_name": "Manage Treatment Plan and Outcomes",
+  "process_code": "CM",
+  "process_details": {
+    "description": "The Manage Treatment Plan and Outcomes business process uses federal and state specific criteria and rules to ensure that the providers/contractors chosen and services delivered optimizes member and member population outcomes. It includes activities to track and assess effectiveness of the services, treatment plan, providers/contractors, service planning and coordination, episodes of care, support services, and other relevant factors. It also includes ongoing monitoring, management, and reassessment of services and treatment plans for need, appropriateness, and effectiveness, and monitoring of special member populations (e.g., pregnant women and children, and HIV/intravenous drug users). Health Information Exchange (HIE) monitors a member’s health information.",
+    "trigger_events": {
+      "environment_based": [
+        "Periodic review of member’s treatment plan is due.",
+        "Receive request to review member’s treatment plan."
+      ],
+      "interaction_based": [
+        "Receipt from Health Information Exchange (HIE) of a modification in member’s health outcome.",
+        "Receive treatment plan from Establish Case business process."
+      ]
+    },
+    "results": [
+      "Member’s treatment plan and outcomes are appropriate for their needs.",
+      "Send modification (e.g., creates, update, delete) to member’s treatment plan sent to Health Information Exchange (HIE).",
+      "Member, provider and care coordinators notified of modifications in treatment plan or benefits.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive member’s treatment plan from Establish Case business process.",
+      "2. Review of effectiveness of the services, treatment plan, providers/contractors, service planning and coordination, episodes of care, support services, and other relevant factors.",
+      "3. Determine if modifications are necessary for effective treatment outcome.",
+      "4. Record required modifications to member’s treatment plan.",
+      "5. END: Send notification to member, provider and other care coordinators of modification in treatment or benefits. Alternate Path:",
+      "1. START: Receive treatment plan from Health Information Exchange (HIE).",
+      "2. Review of effectiveness of the services, treatment plan, providers/contractors, service planning and coordination, episodes of care, support services, and other relevant factors.",
+      "3. Determine if modifications are necessary for effective treatment outcome.",
+      "4. Record required modifications to member’s treatment plan.",
+      "5. Send notification to member, provider, and other care coordinators of modification in treatment or benefits.",
+      "6. END: Send modification to member’s treatment plan or benefits to Health Information Exchange (HIE)."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Member data store including demographic and social information",
+      "Health Information Exchange (HIE) data store including health information, medically-related social and support services, clinical record, and clinical data",
+      "Case History data store including action lists, journal notes, reviews, and approvals"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Establish Case",
+      "Authorize Treatment Plan"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Authorize Treatment Plan",
+      "Manage Case Information",
+      "Manage Applicant and Member Communication",
+      "Manage Provider Communication",
+      "Manage Contractor Communication"
+    ],
+    "constraints": "Agencies do not coordinate amongst each other in order to share information. Potential political and inter-agency conflicts over appropriate use of health care information.",
+    "failures": [
+      "Care Manager is unable to acquire treatment plan information."
+    ],
+    "performance_measures": [
+      "Timeliness to complete process = within __ days",
+      "Accuracy with which changes are applied = ___%",
+      "Consistency of decisions and disposition = ___%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Care Management/Care Management BPT.pdf",
+    "source_page_range": "12-14",
+    "extracted_date": "2026-01-12"
+  }
+}

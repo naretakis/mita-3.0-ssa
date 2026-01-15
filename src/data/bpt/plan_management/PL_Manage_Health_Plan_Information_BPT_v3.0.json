@@ -1,0 +1,93 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Plan Management",
+  "sub_category": "Health Plan Administration",
+  "process_name": "Manage Health Plan Information",
+  "process_code": "PL",
+  "process_details": {
+    "description": "The Manage Health Plan Information business process includes evaluation of federal or state regulations, legislative and judicial mandates, federal or state audits governing board or commission directives, Quality Improvement Organization’s findings, enterprise decisions, and consumer pressure to develop or enhance enterprise business rules, benefit plans and services available to members. The State Medicaid Agency (SMA) collaboratively develops Health Plan service offerings with input and review by other agencies and stakeholders. This business process ensures the organization is on track with the goals and objectives of the SMA and is in concert with statewide goals.",
+    "trigger_events": {
+      "environment_based": [
+        "Periodic timetable (e.g., annual) is due for review of policy.",
+        "Periodic timetable (e.g., annual) is due to implement new policy or modification.",
+        "Ad hoc request for program policy updates."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "The SMA defines new or modified policy.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Notification of legal or administrative mandates that have potential impact to Health Plan policy.",
+      "2. Analyze legal or administrative mandates and determine whether to create, revise, or terminate Health Plan policy.",
+      "3. Assess impact of policy on budget, stakeholders, and other benefits.",
+      "4. Create, revise, or terminate Health Plan policy and publish new, revised Health Plan policy, or notification of intent to terminate existing Health Plan policy.",
+      "5. Hold public hearings regarding Health Plan policy.",
+      "6. Revise Health Plan policy as necessary.",
+      "7. Submit Health Plan policy to federal and state administrative and regulatory agencies for approval.",
+      "8. Assess impact of requested revisions, if applicable.",
+      "9. Determine effective date and duration for Health Plan policy in coordination with other enterprise considerations.",
+      "10. Develop training plan for new, revised or discontinued Health Plan policy.",
+      "11. Develop implementation or transition plan for new, revised, or discontinued Health Plan policy.",
+      "12. Implement Health Plan policy.",
+      "13. END: Send Health Plan policy to Health Insurance Marketplace for certification."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Financial data store including budget information",
+      "Member data store including demographic information",
+      "Contractor data store including provider network information",
+      "Provider data store including provider network information",
+      "Plan data store including policy information",
+      "Health Benefit data store including benefit program and benefit information",
+      "Reference data store including code set information",
+      "Authorization data store including authorization and treatment plan information",
+      "Business Activity data store including performance information (e.g., Consumer",
+      "Assessment of Healthcare Providers and Systems (CAPHS) and Healthcare",
+      "Effectiveness Data and Information Set (HEDIS) measures)"
+    ],
+    "predecessor_processes": [
+      "Develop Agency Goals and Objectives",
+      "Maintain Program Policy",
+      "Maintain State Plan",
+      "Manage Health Benefit Information",
+      "Manage Performance Measures",
+      "Formulate Budget",
+      "Manage Budget Information"
+    ],
+    "successor_processes": [
+      "Manage Health Benefit Information",
+      "Manage Reference Information",
+      "Manage Rate Setting",
+      "Manage Performance Measures",
+      "Manage Applicant and Member Communication",
+      "Perform Population and Member Outreach",
+      "Manage Provider Communication",
+      "Perform Provider Outreach",
+      "Manage Contractor Communication",
+      "Perform Contractor Outreach",
+      "Manage Business Relationship Communication",
+      "Establish Compliance Incident",
+      "Manage Compliance Incident Information",
+      "Formulate Budget",
+      "Manage Data"
+    ],
+    "constraints": "Economic conditions shift, making less revenue available to fund the approved and planned budget. The SMA will comply with federal and state regulations.",
+    "failures": [
+      "Cost/benefit analysis does not support proposed policy.",
+      "Inability to obtain necessary approvals."
+    ],
+    "performance_measures": [
+      "Time to complete the process = within __ days, ___ weeks",
+      "Achievement of goals and objectives linked to policy implementation"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Plan Management/Plan Management BPT.pdf",
+    "source_page_range": "6-8",
+    "extracted_date": "2026-01-12"
+  }
+}

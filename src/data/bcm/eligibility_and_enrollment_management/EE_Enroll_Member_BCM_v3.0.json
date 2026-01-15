@@ -1,0 +1,129 @@
+{
+  "document_type": "BCM",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Eligibility and Enrollment Management",
+  "sub_category": "Member Enrollment",
+  "process_name": "Enroll Member",
+  "process_code": "EE",
+  "maturity_model": {
+    "capability_questions": [
+      {
+        "category": "Business Capability Descriptions",
+        "question": "Is the process primarily manual or automated?",
+        "levels": {
+          "level_1": "The process consists primarily of manual activity to accomplish tasks.",
+          "level_2": "SMA uses a mix of manual and automated processes to accomplish tasks.",
+          "level_3": "SMA provides electronic delivery system and plan selection opportunities for individuals that are eligible based on MAGI.",
+          "level_4": "SMA provides electronic delivery system and plan selection opportunities for individuals that are eligible based on MAGI. SMA fully integrates with CHIP and Marketplace plan choice and enrollment process.",
+          "level_5": "SMA provides electronic delivery system and plan selection opportunities for individuals that are eligible based on MAGI or non-MAGI. SMA fully integrates with CHIP and Marketplace plan choice and enrollment process."
+        },
+        "note": "Applications and Accounts: An individual seeking health insurance applies online, via phone, via mail, or in person. Accepted application data is managed in an “account” by the receiving program to enable access to this information during the verification and eligibility determination processes, as well as after the conclusion of the process to support enrollment, change reporting and for other purposes."
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "Does the State Medicaid Agency use standards in the process?",
+        "levels": {
+          "level_1": "SMA focuses on meeting compliance thresholds for state and federal regulations using state-specific standards.",
+          "level_2": "SMA applies a mix of HIPAA and state- specific standards.",
+          "level_3": "SMA adopts national standards (e.g. HIPAA, Administrative Simplification, Health Information Technology Enrollment and Standards Protocols) for exchange of enrollment information.",
+          "level_4": "SMA adopts industry standards (e.g., HIPAA, Administrative Simplification, Health Information Technology Enrollment and Standards Protocols), and actively participates in the ongoing development of related standards.",
+          "level_5": "SMA adopts industry standards e.g., HIPAA, Administrative Simplification, Health Information Technology Enrollment and Standards Protocols), actively participates in the ongoing development of standards, and works with other States and federal agencies to develop and adopt standards related to enrollment process, not limited to data exchange."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "How does the State Medicaid Agency collaborate with other agencies or entities in performing the process?",
+        "levels": {
+          "level_1": "Very little collaboration occurs with other agencies to standardize information exchange or business tasks.",
+          "level_2": "SMA collaborates with other agencies and entities to adopt HIPAA standards and EDI transactions.",
+          "level_3": "SMA collaborates with agencies administering other insurance affordability programs to develop and implement common enrollment standards.",
+          "level_4": "SMA participates in a joint governance effort with the Marketplace and CHIP agency to manage a shared enrollment process for all MAGI populations and to conduct joint planning and population management efforts. The SMA documents the arrangement in an agreement that is dynamic and updated as conditions change.",
+          "level_5": "SMA participates in a joint governance effort with the Marketplace and CHIP agency to manage a shared enrollment process and to conduct joint planning and population management efforts. The SMA documents the arrangement in an agreement that is dynamic and updated as conditions change."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Timeliness of Process",
+        "question": "How timely is the end-to-end process?",
+        "levels": {
+          "level_1": "SMA sometimes meets threshold or mandated requirements for timeliness (e.g., the process achieves results within the time specified by law, or regulation). SMA takes multiple weeks to complete paper handling, and does not have the capacity to process enrollments without human intervention.",
+          "level_2": "SMA improves timeliness through increased use of automation. Timeliness always meets legal requirements. To the extent that SMA requires paper, SMA takes multiple weeks to complete paper handling.",
+          "level_3": "SMA improves timeliness through increased use of automation. When an individual utilizes the electronic delivery system and plan selection process, SMA notifies delivery system or plan in overnight batch processing. SMA takes multiple days to complete paper handling.",
+          "level_4": "SMA further improves timeliness through increased use of automation. When an individual utilizes the electronic delivery system and plan selection process, SMA notifies delivery system or plan in near real- time. SMA processes all paper requests within 72 hours of receipt.",
+          "level_5": "SMA further improves timeliness through increased use of automation. When an individual utilizes the electronic delivery system and plan selection process, SMA notifies delivery system or plan in near real- time and provides temporary ID card. SMA processes all paper requests within 24 hours of receipt."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Data Access and Accuracy",
+        "question": "How accurate is the information in the process?",
+        "levels": {
+          "level_1": "Use of direct data entry for information collection is manually intensive and susceptible to inconsistent or incorrect information. Stakeholders are unable to rely on information for decision-making.",
+          "level_2": "HIPAA standard transactions improve accuracy of information but the decision-making process may be erroneous or misleading. Accuracy is higher than at Level 1.",
+          "level_3": "Electronic delivery system and plan selection process means that information is collected in a shared enrollment service and therefore is significantly more accurate than in a paper process. SMA’s automation of MAGI eligibility determination results in more reliable information for use in enrollment process; automation of enrollment process eliminates the vast majority of human error from the process. Accuracy challenges still exist for paper enrollment requests, but SMA reduces errors as much as possible through standard operating procedures.",
+          "level_4": "Electronic delivery system and plan selection process means that information is collected in a shared enrollment service and therefore is significantly more accurate than in a paper process. SMA’s automation of MAGI eligibility determination results in more reliable information for use in enrollment process; automation of enrollment process eliminates the vast majority of human error from the process. SMA uses shared eligibility service for MAGI determinations to eliminate inaccuracy in application of rules across insurance affordability programs, which has a corresponding effect on enrollment accuracy. Accuracy challenges still exist for paper enrollment requests, but SMA reduces errors as much as possible through standard operating procedures.",
+          "level_5": "Electronic delivery system and plan selection process means that information is collected in a shared enrollment service and therefore is significantly more accurate than in a paper process. SMA’s automation of MAGI and non-MAGI eligibility determination results in more reliable information for use in enrollment process; automation of enrollment process eliminates the vast majority of human error from the process. SMA uses shared eligibility service for MAGI and non-MAGI determinations to eliminate inaccuracy in application of rules across insurance affordability programs, which has a corresponding effect on enrollment accuracy. Accuracy challenges still exist for paper enrollment requests, but SMA reduces errors as much as possible through standard operating procedures."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Data Access and Accuracy",
+        "question": "How accessible is the information in the process?",
+        "levels": {
+          "level_1": "SMA stores information in disparate systems including paper storage. Systems experience extended scheduled and unscheduled downtime.",
+          "level_2": "SMA stores information in disparate systems, but use of electronic information, automation, and HIPAA standards increase accessibility over Level 1. Systems experience extended scheduled and unscheduled downtime.",
+          "level_3": "SMA easily exchanges information with delivery systems and plans based on MITA Framework and industry standards. SMA maintains individual information in an electronic account that is accessible to the individual for review and self- service. Self-service for non-MAGI populations is limited. Electronic account is accessible 24/7 through the portal except during state- approved maintenance timeframes.",
+          "level_4": "SMA easily exchanges information with delivery systems and plans based on MITA Framework and industry standards. SMA maintains individual information in an electronic account that is accessible to the individual for review and self- service. Self-service for non-MAGI populations has a greater level of automation then level 3. Electronic account is accessible 24/7 through the portal except during state- approved maintenance timeframes.",
+          "level_5": "SMA easily exchanges information with delivery systems and plans based on MITA Framework and industry standards. SMA maintains individual information in an electronic account that is accessible to the individual for review and self- service. Electronic account is accessible 24/7 through the portal except during state- approved maintenance timeframes."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Cost Effectiveness",
+        "question": "What is the cost of the process compared to the benefits of its results?",
+        "levels": {
+          "level_1": "High relative cost due to low number of automated, standardized tasks.",
+          "level_2": "Automation improves process and allows focus on exception resolution, increasing cost effectiveness ratio over Level 1.",
+          "level_3": "SMA adopts Seven Standards and Conditions, MITA Framework, and intrastate standard messages and other nationally recognized standards further increasing cost effectiveness ratio over Level 2.",
+          "level_4": "SMA adopts Seven Standards and Conditions, MITA Framework, regional standard messages and other nationally recognized standards for enrollment. SMA increases cost effectiveness ratio over Level 3.",
+          "level_5": "SMA adopts Seven Standards and Conditions, MITA Framework, national standard messages and other nationally recognized standards for national enrollment. SMA increases cost effectiveness ratio over level 4."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Effort to Perform; Efficiency",
+        "question": "How efficient is the process?",
+        "levels": {
+          "level_1": "Process is labor intensive. There is wasted effort or expense to accomplish tasks. Process meets minimum state process guidelines and agency performance standards. Efficiency is low.",
+          "level_2": "Automation and state standards increase productivity. Efficiency is higher than Level 1.",
+          "level_3": "SMA adopts automation of enrollment process improving efficiency to 90% or higher.",
+          "level_4": "SMA adopts shared enrollment services for MAGI population, improving efficiency to 95% or higher.",
+          "level_5": "SMA uses shared enrollment services for all populations, improving efficiency to 98% or higher."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Accuracy of Process Results",
+        "question": "How accurate are the results of the process?",
+        "levels": {
+          "level_1": "SMA applies business rules manually and inconsistently, producing inconsistent and incorrect enrollments.",
+          "level_2": "SMA applies some automated business rules, which increases accuracy of enrollments. Results remain inconsistent based on mix of automated and manual processes. Accuracy is higher than at Level 1.",
+          "level_3": "SMA automates enrollment for MAGI populations eliminating the vast majority of human error from the process. Accuracy challenges still exist in the manual processing of enrollment requests. SMA reduces errors as much as possible through standard operating procedures.",
+          "level_4": "SMA automates enrollment for MAGI populations eliminating the vast majority of human error from the process. SMA uses shared enrollment service increasing standardization across insurance affordability programs. Accuracy challenges still exist in the manual processing of enrollment requests, but SMA reduces errors as much as possible through standard operating procedures.",
+          "level_5": "SMA automates enrollment for MAGI and non-MAGI populations, eliminating the vast majority of human error from the process. SMA uses shared enrollment service to eliminate inaccuracy in application of rules across insurance affordability programs. Accuracy challenges still exist in the manual processing of enrollment requests, but SMA reduces errors as much possible through standard operating procedures."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Utility or Value to Stakeholders",
+        "question": "How satisfied are the stakeholders?",
+        "levels": {
+          "level_1": "Stakeholders lack confidence in information negatively affecting stakeholder satisfaction with the process.",
+          "level_2": "Automation and standardization provides clear and useful information. Stakeholder satisfaction is greater than Level 1.",
+          "level_3": "Automation of MAGI eligibility process and reliance on electronic delivery system and plan selection improve stakeholder satisfaction to 80% or higher.",
+          "level_4": "Use of shared enrollment service for MAGI populations increases the efficiency, speed, and accuracy of information improving stakeholder satisfaction to 90% or higher.",
+          "level_5": "Use of shared enrollment service that incorporates MAGI and non-MAGI populations increases the efficiency, speed, and accuracy of information improving stakeholder satisfaction to 98% or higher."
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bcm/Eligibility and Enrollment Management/Eligibility and Enrollment Management BCM.pdf",
+    "source_page_range": "12-21",
+    "extracted_date": "2026-01-12"
+  }
+}

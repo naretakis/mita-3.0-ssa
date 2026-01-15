@@ -1,0 +1,73 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Financial Management",
+  "sub_category": "Accounts Receivable Management",
+  "process_name": "Manage Estate Recovery",
+  "process_code": "FM",
+  "process_details": {
+    "description": "Manage Estate Recovery is a business process that requires States to recover certain Medicaid benefits correctly paid on behalf of an individual, by filing liens against a deceased member’s or deceased spouse’s estate to recover the costs of Medicaid benefits correctly paid during the time the member was eligible for Medicaid. Estate recovery usually applies to permanently institutionalized individuals such as persons in a nursing facility, Intermediate Care Facility for Persons with Mental Retardation (ICF/MR), or other medical institution. The Manage Estate Recovery business process begins by receiving estate recovery information from multiple sources (e.g., vital statistics and Social Security Administration (SSA) date of death matches, probate petition notices, tips from caseworkers, and reports of death from nursing homes). It generates correspondence (e.g., demand of notice to probate court via Send Outbound Transaction, to member’s personal representative, generating notice of intent to file claim and exemption questionnaire) via the Manage Applicant and Member Communication business process. In addition, the business process:\n• Opens a formal estate recovery case based on estate ownership and value of property.\n• Determines the value of the estate lien.\n• Files a petition for a lien.\n• Files an estate claim of lien.\n• Conducts case follow-up.\n• Sends an alert to Manage Accounts Receivable Information business process, releasing the estate lien when recovery is complete.\n• Sends an alert to Manage Member Information business process, updating Member data store.\nNOTE: Do not confuse this with settlements that are recoveries for certain Medicaid benefits correctly paid on behalf of an individual because of a legal ruling or award involving accidents.",
+    "trigger_events": {
+      "environment_based": [],
+      "interaction_based": [
+        "Receive member or provider death certificates. * Many States have Medicaid Estate Recovery Plans used to recover an equitable amount of the state and federal shares of the cost paid for the member from the estates of members of medical assistance."
+      ]
+    },
+    "results": [
+      "Estate recovery case file closed upon Receive maximum possible payment.",
+      "Tracking information as needed for measuring performance and business",
+      "activity monitoring."
+    ],
+    "process_steps": [
+      "10. START: Receive estate recovery referral information via several different sources (e.g., vital statistics and Social Security Administration (SSA) date of death match, probate petition notices, eligibility caseworker, and nursing homes).",
+      "11. Send demand notice information to member correspondence (e.g., onto probate court).",
+      "12. Send alert to notify deceased representative to complete estate recovery questionnaire.",
+      "13. Open estate recovery case.",
+      "14. Determine value of estate lien by analyzing all Medicaid claims from age 55 forward (e.g., all paid claims equals lien amount).",
+      "15. If applicable, member may file an undue hardship waiver based on state regulations. If the State Medicaid Agency (SMA) grants hardship, staff defers or closes the case.",
+      "16. Generate estate recovery proceedings information (e.g., lien petition, notice of pendency of action) and send via Send Outbound Transaction.",
+      "17. Upon court approval, file estate claim of lien.",
+      "18. Case follow-up occurs (every 30 to 90 days).",
+      "19. Send alert to monitor recovery activities to Manage Accounts Receivable Information business process.",
+      "20. If applicable, send alert to Manage Member Information business process, updating Member data store.",
+      "21. END: Closed and archive estate recovery case file upon conclusion of activities."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Financial data store including accounts receivable information",
+      "Member data store including demographics",
+      "Claims data store including payment information",
+      "Vital Statistic records",
+      "SSA records",
+      "Centers for Medicare & Medicaid Services (CMS) Medicare/Medicaid Dual Eligibility reporting",
+      "Health Insurance Marketplace data store",
+      "Judicial records"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Applicant and Member Communication",
+      "Manage Accounts Receivable Information",
+      "Submit Electronic Attachment"
+    ],
+    "constraints": "The Manage Estate Recovery business process will be in accordance with state specific policy.",
+    "failures": [
+      "The SMA or member’s representative is unable to meet filing timelines."
+    ],
+    "performance_measures": [
+      "Time to complete the process = e.g., ___ months, ___ weeks or ___ days",
+      "Accuracy with which rules are applied = __%",
+      "Consistency with which rules are applied = __%",
+      "Error rate = __% or less",
+      "Amount of dollars recovered = ___%"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Financial Management/Financial Management BPT.pdf",
+    "source_page_range": "5-7",
+    "extracted_date": "2026-01-12"
+  }
+}

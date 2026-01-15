@@ -1,0 +1,62 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Plan Management",
+  "sub_category": "Plan Administration",
+  "process_name": "Develop Agency Goals and Objectives",
+  "process_code": "PL",
+  "process_details": {
+    "description": "The Develop Agency Goals and Objectives business process periodically assesses and prioritizes the current mission statement, goals, and objectives to determine if changes are necessary. Goals and objectives may warrant change for example, under a new administration, in response to changes in demographics, public opinion or medical industry trends, or in response to regional or national disasters.",
+    "trigger_events": {
+      "environment_based": [
+        "Periodic timetable (e.g., annual) is due for review of goals and objectives.",
+        "Periodic timetable (e.g., annual) is due to implement new goals or objectives.",
+        "Ad hoc request for goals or objectives updates."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "The State Medicaid Agency (SMA) defines new or modified statement of goals or objectives.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START. Receive notice that the SMA requires a review of current goals and objectives or the review interval is due.",
+      "2. Review existing goals, objectives, and priorities.",
+      "3. Review information such as current performance measurements, industry successes, budget, and other States/programs successes.",
+      "4. Convene Stakeholders.",
+      "5. Develop consensus on changes and priorities.",
+      "6. END. Publish new or revised statement of goals and objectives, including performance measurements and priorities."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Plan data store including Medicaid State Plan, health plan, health benefits, performance measures, and benchmarks information",
+      "Business Activity data store including performance information (e.g., Consumer",
+      "Assessment of Healthcare Providers and Systems (CAPHS) and Healthcare",
+      "Effectiveness Data and Information Set (HEDIS) measures)"
+    ],
+    "predecessor_processes": [
+      "Manage Performance Measures"
+    ],
+    "successor_processes": [
+      "Manage Health Plan Information",
+      "Manage Health Benefit Information",
+      "Maintain Program Policy",
+      "Maintain State Plan",
+      "Manage Performance Measures"
+    ],
+    "constraints": "Economic conditions shift, making less revenue available to fund the approved and planned budget. The State Medicaid Agency will comply with federal and state regulations.",
+    "failures": [
+      "Stakeholders are unable to reach consensus on the SMA goals and objectives."
+    ],
+    "performance_measures": [
+      "Time to complete the process = within __ days, ___ weeks",
+      "Achievement of goals and objectives linked to policy implementation"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Plan Management/Plan Management BPT.pdf",
+    "source_page_range": "1-2",
+    "extracted_date": "2026-01-12"
+  }
+}

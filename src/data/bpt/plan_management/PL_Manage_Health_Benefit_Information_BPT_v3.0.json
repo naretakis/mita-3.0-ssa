@@ -1,0 +1,78 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Plan Management",
+  "sub_category": "Health Benefit Administration",
+  "process_name": "Manage Health Benefit Information",
+  "process_code": "PL",
+  "process_details": {
+    "description": "The Manage Health Benefit Information business process includes the activities for development and implementation of health benefit packages to accommodate service delivery to targeted member populations.\nThe health benefit package accommodates information to support current and future health benefit packages for members eligible for programs administered by the State Medicaid Agency (SMA). The SMA determines benefit terms and limitations, and applicable periods for services defined within a health benefit package.\n Health benefit package administration involves the ability to determine, define and coordinate and modify the following parameters within the SMA, as the Medicaid Enterprise policies, funding and business decisions dictate:\n• Multiple health benefit package definitions targeted to specific populations.\n• Service categories to define available covered service.\n• Federal and state regulations define service limitations to restrict utilization.\n• Customization of edits and audits relative to SMA policy.\n• Utilization tracking of limited services at the member level.\n• Generation of state and federal reporting requirements.",
+    "trigger_events": {
+      "environment_based": [],
+      "interaction_based": [
+        "Receive inquiry for health benefit information from enterprise business processes.",
+        "Receive an inquiry from authorized external parties (e.g., a legislator requests outcome measures for a particular program). Environmental Trigger Events:",
+        "Periodic or near real-time transmission of program information to authorized external parties or systems, (e.g., Centers for Medicare & Medicaid Services (CMS) or Medicaid Statistical Information System (MSIS))."
+      ]
+    },
+    "results": [
+      "Response to inquiries from authorized requestors and/or applications.",
+      "Provision to all other Health Plan Management business processes with program information as needed (i.e., to develop benefit packages and drug formularies, set rates, analyze and project budgets, perform accounting functions, manage federal financial participation (FFP), measure quality, outcomes and performance, and develop policies and strategic initiatives, etc.).",
+      "Provision to all MITA business processes with program information needed (e.g., to manage communications, manage business relationships, perform outreach and education, and manage contracts).",
+      "Delivery of information to external parties or systems for reporting (e.g., CMS Medicaid Statistical Information System (MSIS) and public health for population health studies).",
+      "Delivery of modification to health benefits to Health Insurance Marketplace for",
+      "certification.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: The modification of health plan policy determines the health plan benefit packages that require definition or modifications to comply with the policy.",
+      "2. Create and modify health plan benefit packages that support definition of services available for various SMA programs.",
+      "3. Define the effective date and duration of the health plan benefit packages.",
+      "4. Define the health plan benefit package coverage narrative.",
+      "5. Define services specific to unique health plan benefit packages.",
+      "6. Specify limitations at both the service and monetary levels relative to health plan benefit packages and service categories.",
+      "7. Define any applicable member monetary constraints that include co-pay, co- insurance, deductible, and share of cost amounts, limits, and lifetime maximums.",
+      "8. END: Send health plan benefit services to Health Insurance Marketplace for certification."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Business Activity data store including performance information (e.g., Consumer",
+      "Assessment of Healthcare Providers and Systems (CAPHS) and Healthcare",
+      "Effectiveness Data and Information Set (HEDIS) measures)",
+      "Plan data store including policy and health benefit information",
+      "Health Benefit data store including benefit package and benefits information",
+      "Provider data store including provider network and contract information",
+      "Contractor data store including provider network and contract information",
+      "Member data store including applicant or member demographics, enrollment, financial, social, functional and clinical information",
+      "Claims data store including payment history"
+    ],
+    "predecessor_processes": [
+      "Develop Agency Goals and Objectives",
+      "Maintain Program Policy",
+      "Maintain State Plan",
+      "Manage Health Plan Information",
+      "Manage Rate Setting",
+      "Manage Reference Information"
+    ],
+    "successor_processes": [
+      "Manage Health Plan Information",
+      "Manage Reference Information",
+      "Manage Data"
+    ],
+    "constraints": "Policies and procedures will differ by state, especially those relating to information standards, record keeping, and privacy.",
+    "failures": [
+      "Inability or failure to load initial records, properly analyze, update, or locate existing records in the Business Activity data store."
+    ],
+    "performance_measures": [
+      "Time to store information = within __ minutes",
+      "Time to access information = within __ minutes",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Plan Management/Plan Management BPT.pdf",
+    "source_page_range": "10-13",
+    "extracted_date": "2026-01-12"
+  }
+}

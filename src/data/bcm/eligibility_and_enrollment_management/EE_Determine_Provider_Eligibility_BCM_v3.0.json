@@ -1,0 +1,183 @@
+{
+  "document_type": "BCM",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Eligibility and Enrollment Management",
+  "sub_category": "Provider Enrollment",
+  "process_name": "Determine Provider Eligibility",
+  "process_code": "EE",
+  "maturity_model": {
+    "capability_questions": [
+      {
+        "category": "Business Capability Descriptions",
+        "question": "Does enrollment process meet state and federal regulations or policies?",
+        "levels": {
+          "level_1": "Meets state and federal requirements for processing applications timely and accurately.",
+          "level_2": "SMA exceeds state and federal requirements for processing applications timely and accurately.",
+          "level_3": "SMA exceeds state and federal requirements for processing provider enrollment applications timely and accurately including includes one-stop collaboration across SMA including dual- eligibility with Medicare and CHIP as well as enhancing background check and screening by level of risk with federal agencies.",
+          "level_4": "SMA exceeds state and federal requirements for processing provider enrollment applications timely and accurately. SMA collaborates with federal agencies for regional validation of background information and screening by level of risk in near-real time enrollment based on taxonomy.",
+          "level_5": "SMA exceeds state and federal requirements for processing provider enrollment applications timely and accurately. SMA uses federated registries that identify providers across the country, who qualify to serve special populations or are disqualified based on criminal activity."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "Is the process primarily manual or automatic?",
+        "levels": {
+          "level_1": "The process consists primarily of manual activity to receive and process paper enrollments provider submits via mail.",
+          "level_2": "SMA uses a mix of manual and automatic processes to accomplish process paper and web-based applications.",
+          "level_3": "The enrollment application process is fully automatic to the extent possible within the intrastate. SMA receives a majority of Provider applications online. SMA produces audit trail of determination results 100% of the time.",
+          "level_4": "The enrollment application process is fully automatic to the extent possible within the region.",
+          "level_5": "The enrollment application process is fully automatic to the extent possible across the nation."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "Does the State Medicaid Agency use standards in the process?",
+        "levels": {
+          "level_1": "SMA focuses on meeting compliance thresholds for state and federal regulations using state-specific standards.",
+          "level_2": "SMA applies a mix of HIPAA and state- specific standards.",
+          "level_3": "SMA adopts MITA Framework, standard enrollment application interfaces, and other nationally recognized standards for intrastate exchange of information.",
+          "level_4": "SMA adopts MITA Framework, standard enrollment application interfaces, and other nationally recognized standards for regional exchange of information.",
+          "level_5": "SMA adopts MITA Framework, standard enrollment application interfaces, and other nationally recognized standards for national exchange of information."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "Does the State Medicaid Agency use required screening requirements?",
+        "levels": {
+          "level_1": "SMA uses state- specific screening requirements.",
+          "level_2": "SMA uses a mix of federal screening and state-specific requirements",
+          "level_3": "SMA adopts all federal screening requirements for low, medium and high risk providers within the intrastate.",
+          "level_4": "SMA adopts all federal screening requirements for low, medium and high risk providers within the region.",
+          "level_5": "SMA adopts all federal screening requirements for low, medium and high risk providers across the nation."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "What provider identifier is used?",
+        "levels": {
+          "level_1": "SMA uses local identifier the state assigns to provider.",
+          "level_2": "SMA cross- references National Provider Identifier (NPI) to state identification.",
+          "level_3": "The NPI is the identification of record for all health care providers. SMA enumerates atypical providers differently. SMA retains legacy identifiers for some business purposes, but newly enrolled providers use national identifiers.",
+          "level_4": "SMA widely uses the NPI for those providers that are required to do so. SMA uses atypical provider identification within the region.",
+          "level_5": "SMA widely uses the NPI for those providers that are required to do so. SMA uses atypical provider identification across the nation."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "How does the State Medicaid Agency verify credentials (e.g., college degree, license, certification, NPI, Employer Identification Number (EIN), Social Security Number (SSN))?",
+        "levels": {
+          "level_1": "SMA manually validates information. Staff contact external and internal document verification sources via telephone, facsimile, mail. Decisions on information verifications take three (3) to seven (7) business days. Validation is manual and subjective.",
+          "level_2": "Many application information validations are automatic SSN, address, birth certificate, etc.). Validation is consistent and based on business rules",
+          "level_3": "SMA adopts MITA Framework, enrollment application standard messages, and national standards within the intrastate that use standardized business rules definitions for consistent validation.",
+          "level_4": "SMA adopts MITA Framework, enrollment application standard interfaces, and national standards across the interstate region that use a regional standardized business rules definitions for consistent validation.",
+          "level_5": "SMA adopts MITA Framework, enrollment application standard messages, and national standards across the nation that use a national standardized business rules definitions for consistent validation."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "Is there a process for revalidation of credentials?",
+        "levels": {
+          "level_1": "SMA re-enrolls providers as needed. SMA revalidates credentials manually.",
+          "level_2": "SMA re-enrolls providers periodically and revalidates credentials via a mix of manual and automatic processes (consistent with enrollment process).",
+          "level_3": "SMA revalidates credentials automatically within the intrastate and staff receive alerts when adverse results occur (e.g., provider license is terminated; provider is added to a criminal investigation list).",
+          "level_4": "SMA revalidates credentials automatically across the interstate region and staff receives alerts when adverse results occur.",
+          "level_5": "SMA revalidates credentials automatically across the nation and staff receives alerts when adverse results occur."
+        }
+      },
+      {
+        "category": "Business Capability Descriptions",
+        "question": "How does the State Medicaid Agency collaborate with other agencies or entities in performing the process?",
+        "levels": {
+          "level_1": "Very little collaboration occurs with other agencies to standardize information exchange or business tasks. Information is verified manually using telephone, facsimile and mail.",
+          "level_2": "SMA collaborates with other agencies and entities to adopt HIPAA standards and Electronic Data Interchange (EDI) transactions for information verification with credentialing organization and identification sources",
+          "level_3": "SMA collaborates with other intrastate agencies and entities to adopt national standards, and to develop and share reusable business services for information verification.",
+          "level_4": "SMA collaborates with other regional agencies and entities to adopt national standards, and to develop and share reusable enrollment application processes for information verification.",
+          "level_5": "SMA collaborates with national agencies and entities for national (and international) interoperability improvements that maximize automation of routine enrollment application operations."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Timeliness of Process",
+        "question": "How timely is the end-to-end process?",
+        "levels": {
+          "level_1": "Process meets threshold or mandated requirements for timeliness (i.e., the process achieves results within the time specified by law or regulation). Average end-to-end process is completed in 30-60 business days.",
+          "level_2": "Process timeliness improves through use of automation. Average end-to-end process completes in 15-30 business days",
+          "level_3": "Timeliness improves via state and federal collaboration, use of enrollment application information sharing, standards, and regional information exchange hubs. Turnaround time on application decision for 85% or higher of enrollments is no more than 24 hours. Exceptions may be those requiring extensive credentialing or site visits. SMA distributes eligibility determination notice of appeal rights within 15 minutes or less 100% of the time.",
+          "level_4": "Enrollment application information and verification is available in near real time. SMA has regional interoperability. Turnaround time on application decision for 95% or higher of enrollments is no more than four (4) hours.",
+          "level_5": "Enrollment application information is available in real time. Enrollment application processes improve further through connectivity with other States and with federal agencies. Most processes execute at the point of service. Results are almost immediate."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Data Access and Accuracy",
+        "question": "How accurate is the information in the process?",
+        "levels": {
+          "level_1": "Use of direct data entry for information collection is manually intensive and susceptible to inconsistent or incorrect information. Stakeholders are unable to rely on information for decision-making.",
+          "level_2": "HIPAA standard transactions improve accuracy of information but the decision-making process may be erroneous or misleading. Accuracy is higher than at Level 1",
+          "level_3": "Automation of enrollment application and verification information collection increases the reliability of SMA’s internal information. External sources of enrollment application and verification information use MITA Framework and industry standards for information exchange and verification. Decision-making is automatic using standardized business rules definitions. Accuracy rating is at 99% or higher.",
+          "level_4": "Automation of enrollment application and verification information collection increases the reliability of regional sources of information. SMA adopts MITA Framework and industry standards for information exchange and verification by regional agencies. Decision-making is automatic using regional standardized business rules definitions. Accuracy rating is at 99% or higher.",
+          "level_5": "SMA adopts MITA Framework and industry standards for national enrollment application and verification information exchange and verification. Decision-making is automatic using national standardized business rules definitions. Accuracy rating is at 99% or higher."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Data Access and Accuracy",
+        "question": "How accessible is the information in the process?",
+        "levels": {
+          "level_1": "SMA stores information in disparate systems including paper storage and obtains information manually.",
+          "level_2": "SMA stores information in disparate systems, but automation and HIPAA standards increase accessibility over Level 1.",
+          "level_3": "SMA obtains enrollment application and verification information easily and exchanges with intrastate agencies and entities based on MITA Framework and industry standards. System produces enrollment reports showing status of entire Medicaid population in graphical format for management use. Accessibility is greater than Level 2.",
+          "level_4": "SMA obtains enrollment application and verification information easily and exchanges with regional agencies and entities. Accessibility is greater than Level 3.",
+          "level_5": "SMA obtains enrollment application and verification information easily and exchanges with national agencies and entities. Accessibility is greater than Level 4."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Cost Effectiveness",
+        "question": "What is the cost of the process compared to the benefits of its results?",
+        "levels": {
+          "level_1": "High relative cost due to low number of automatic, standardized tasks.",
+          "level_2": "Automation improves process and allows focus on exception resolution, improving cost effectiveness ratio over Level 1.",
+          "level_3": "SMA adopts MITA Framework, enrollment application and verification standard interfaces, and other nationally recognized standards further improving cost effectiveness ratio over Level 2.",
+          "level_4": "SMA adopts MITA Framework, enrollment application and verification standard messages, and other nationally recognized standards for regional information exchange improving cost effectiveness ratio over Level 3.",
+          "level_5": "SMA adopts MITA Framework, enrollment application and verification standard messages, and other nationally recognized standards for national (and international) information exchange. SMA increases cost effectiveness ratio over level 4."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Effort to Perform; Efficiency",
+        "question": "How efficient is the process?",
+        "levels": {
+          "level_1": "Process is labor intensive. There is wasted effort or expense to accomplish tasks. Process meets minimum state process guidelines and SMA performance standards. Efficiency is low.",
+          "level_2": "Automation and state standards increase productivity. Efficiency is higher than Level 1",
+          "level_3": "SMA adopts MITA Framework and enrollment application and verification standard messages with intrastate agencies and entities improving efficiency to 99%.",
+          "level_4": "SMA adopts MITA Framework and enrollment application and verification standard messages with by regional agencies and entities improving efficiency to 99%.",
+          "level_5": "SMA adopts MITA Framework and enrollment application and verification standard messages with national agencies and entities improving efficiency to 99%."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Accuracy of Process Results",
+        "question": "How accurate are the results of the process?",
+        "levels": {
+          "level_1": "Manual processes result in greater opportunity for human error. Accuracy is low.",
+          "level_2": "Automation and standardized business rules definitions reduce error and improve accuracy above Level 1.",
+          "level_3": "SMA adopts MITA Framework and enrollment application and verification standard messages with intrastate agencies and entities improving accuracy to 90% or higher.",
+          "level_4": "SMA adopts MITA Framework and enrollment application and verification standard messages with regional agencies and entities improving accuracy to 98% or higher.",
+          "level_5": "SMA adopts MITA Framework and enrollment application and verification standard messages with national agencies and entities improving accuracy to 98% or higher."
+        }
+      },
+      {
+        "category": "Business Capability Quality: Utility or Value to Stakeholders",
+        "question": "Does the business process satisfy stakeholders?",
+        "levels": {
+          "level_1": "Stakeholders lack confidence in information negatively affecting stakeholder satisfaction with the process.",
+          "level_2": "Automation and standardization provides clear and useful information. Stakeholder satisfaction is greater than Level 1",
+          "level_3": "SMA adopts MITA Framework and enrollment application and verification standard messages with intrastate agencies and entities improving stakeholder satisfaction to 90% or higher. SMA uses survey or questionnaire for information collection.",
+          "level_4": "SMA adopts MITA Framework and enrollment application and verification standard messages with regional agencies and entities improving stakeholder satisfaction to 95% or higher.",
+          "level_5": "SMA adopts MITA Framework and enrollment application and verification standard messages with national agencies and entities improving stakeholder satisfaction to 98% or higher."
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bcm/Eligibility and Enrollment Management/Eligibility and Enrollment Management BCM.pdf",
+    "source_page_range": "33-42",
+    "extracted_date": "2026-01-12"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Financial Management",
+  "sub_category": "Accounts Receivable Management",
+  "process_name": "Manage Drug Rebate",
+  "process_code": "FM",
+  "process_details": {
+    "description": "The Manage Drug Rebate business process describes the process of managing drug rebate that the State Medicaid Agency (SMA) collects from manufacturers. This business process:\n• Receives quarterly drug rebate information from Centers for Medicare & Medicaid Services (CMS).\n• Compares drug rebate to quarterly payment history information.\n• Identifies drug information matches based on manufacturer and drug code.\n• Applies the rebate factor and volume indicators.\n• Calculates the total rebate per manufacturer.\n• Prepares drug rebate invoices.\n• Sorts the invoices by manufacturer and drug code.\n• Sends the invoice information to the drug manufacturer via the Send Outbound Transaction.\n• Sends an alert to Manage Accounts Receivable Information to monitor for rebate payment.",
+    "trigger_events": {
+      "environment_based": [],
+      "interaction_based": [
+        "Receive the CMS quarterly drug rebate information from Receive Inbound Transaction."
+      ]
+    },
+    "results": [
+      "Alert sent to invoice the drug manufacturer.",
+      "Alert sent to Manage Accounts Receivable Information business process to monitor for payment.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: The state receives a quarterly file from CMS containing the rebate factors by manufacturer, drug code, and volume.",
+      "2. Compare file to the corresponding claims history extract for the same quarter.",
+      "3. Select drug claims matching the manufacturer and drug codes based on the CMS Drug Product Data.",
+      "4. Sort drug claims selected for invoice processing by manufacturer and drug code.",
+      "5. Apply the rebate factor and volume indicators to calculate a rebate total per manufacturer.",
+      "6. Send alert to invoice manufacturer.",
+      "7. END: Send alert to monitor payment activities to Manage Accounts Receivable Information business process."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "CMS Unit Rebate Amount (URA) information",
+      "Claims data store including both professional and drug payment information",
+      "Reference data store including drug code and manufacturer information",
+      "Financial data store including accounts receivable information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Contractor Communication",
+      "Manage Accounts Receivable Information"
+    ],
+    "constraints": "The Manage Drug Rebate business process will be in accordance with state- specific drug formulary, business rules, and reporting requirements that may differ by state, and will comply with federal mandates.",
+    "failures": [
+      "CMS does not send quarterly drug rebate information.",
+      "There are no drug claims for rebate matching the manufacturer and drug codes based on the CMS Drug Product Data for the period. NOTE: the process could complete with errors (e.g., errors in rebate rates, drug payment file errors), and the SMA would correct these errors or disputed amounts in the Manage Accounts Receivable Information business process."
+    ],
+    "performance_measures": [
+      "Time to complete the process = e.g., ___ months, ___ weeks or ___ days",
+      "Accuracy with which the Drug Rebate rules are applied = __%",
+      "Consistency with which the Drug Rebate rules are applied = __%",
+      "Amount of drug rebate dollars recovered quarterly = ___%",
+      "Error rate = __% or less"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Financial Management/Financial Management BPT.pdf",
+    "source_page_range": "7-9",
+    "extracted_date": "2026-01-12"
+  }
+}

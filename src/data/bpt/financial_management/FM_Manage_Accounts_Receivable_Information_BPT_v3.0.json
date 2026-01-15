@@ -1,0 +1,73 @@
+{
+  "document_type": "BPT",
+  "version": "3.0",
+  "version_date": "May 2014",
+  "business_area": "Financial Management",
+  "sub_category": "Accounts Receivable Management",
+  "process_name": "Manage Accounts Receivable Information",
+  "process_code": "FM",
+  "process_details": {
+    "description": "The Manage Accounts Receivable Information business process is responsible for all operational aspects of collecting money owed to the State Medicaid Agency (SMA). Activities in this business process comply with CFR 45, Cash Management Improvement Act (CMIA), Governmental Accounting Standards Board (GASB) standards and Generally Accepted Accounting Principles (GAAP). Activities included in this business process can be as follows:\n• Periodic reconciliations between the State Medicaid Enterprise and the state accounting system.\n• Assign account coding to transactions processed in State Medicaid Enterprise.\n• Process accounts receivable invoicing (estate recovery, co-pay, drug rebate, recoupment, Third-Party Liability (TPL) recovery, and member premiums).\n• Manage cash receipting process.\n\n• Manage payment-offset process to collect receivables.\n• Respond to inquiries concerning accounts receivable.\nNOTE: States use a variety of solutions including outsourcing to another department or use of a Commercial Off-the-Shelf (COTS) package.",
+    "trigger_events": {
+      "environment_based": [
+        "Receive initial invoice from Manage Provider Recoupment, Manage TPL Recovery, Manage Estate Recovery, Manage Drug Rebate, or Manage Cost Settlement business processes.",
+        "Receive account receivable information from state accounting system. This may be a lien, levy or state judgment from other agencies."
+      ],
+      "interaction_based": []
+    },
+    "results": [
+      "The SMA modifies account receivables information.",
+      "Alert sent to collect payment to Manage Accounts Receivable Funds business process.",
+      "Tracking information as needed for measuring performance and business activity monitoring."
+    ],
+    "process_steps": [
+      "1. START: Receive initial Accounts Receivable invoice to establish the receivable amount and demographic information for the debt owner.",
+      "2. Record Accounts Receivable payments to the account balance.",
+      "3. Adjust balance for additional Accounts Receivable amounts. An adjustment may increase or decrease the balance.\n  a. The adjustments include settlements, liens, levies, and/or judgments against the Accounts Receivable.\n  b. The SMA may receive the adjustment from Manage Provider Recoupment, Manage TPL Recovery, Manage Estate Recovery, Manage Drug Rebate, or Manage Cost Settlement business processes or other state or federal agencies.",
+      "4. Produce month-end accounts receivable balance and statement. This includes invoices to the debt owner and summary information for financial reports.",
+      "5. Update the state accounting system.",
+      "6. Send alert to collect payment to Manage Accounts Receivable Funds business process.",
+      "7. END: Send response to requested function."
+    ],
+    "diagrams": [],
+    "shared_data": [
+      "Financial data store including accounts receivable information",
+      "Claims data store including premium and payment information",
+      "Contractor data store including contract information",
+      "Member data store including demographics, spend-down, cost share, and patient",
+      "liability information",
+      "Provider data store including provider network information",
+      "State accounting system accounts receivable information"
+    ],
+    "predecessor_processes": [
+      "Receive Inbound Transaction",
+      "Manage Cost Settlement",
+      "Manage Drug Rebate",
+      "Manage TPL Recovery",
+      "Manage Estate Recovery",
+      "Manage Provider Recoupment",
+      "Prepare Member Premium Invoice"
+    ],
+    "successor_processes": [
+      "Send Outbound Transaction",
+      "Manage Accounts Receivable Funds",
+      "Generate Financial Report",
+      "Manage Data"
+    ],
+    "constraints": "The SMA will conform to state-specific accounting and financial requirements.",
+    "failures": [
+      "Failure to account for expenditures in accordance with GAAP can result in disallowance of Federal Funding Participation (FFP)."
+    ],
+    "performance_measures": [
+      "Time to complete the process = within __ hours",
+      "Accuracy with which updates are applied = __%",
+      "Consistency with which updates are applied = __%",
+      "Error rate = __%"
+    ]
+  },
+  "metadata": {
+    "source_file": "source-pdfs/may-2014-update/bpt/Financial Management/Financial Management BPT.pdf",
+    "source_page_range": "11-13",
+    "extracted_date": "2026-01-12"
+  }
+}
