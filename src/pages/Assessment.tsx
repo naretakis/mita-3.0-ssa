@@ -33,11 +33,14 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import EditIcon from '@mui/icons-material/Edit';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { useCapabilityAssessment, useCapabilityAssessments } from '../hooks/useCapabilityAssessments';
 import { useRatings } from '../hooks/useRatings';
 import { useTags } from '../hooks/useTags';
+import { useAttachments } from '../hooks/useAttachments';
 import { getCapabilityByCode } from '../services/blueprint';
 import { db } from '../services/db';
+import { AttachmentUpload } from '../components/assessment';
 import type { CapabilityQuestion } from '../types';
 
 const SIDEBAR_WIDTH = 600;
@@ -460,23 +463,41 @@ function QuestionCard({
   assessmentId,
   onDirty,
   readOnly = false,
+  attachmentHandlers,
 }: {
   question: CapabilityQuestion;
   questionIndex: number;
   assessmentId: string;
   onDirty: () => void;
   readOnly?: boolean;
+  attachmentHandlers: {
+    getAttachmentsForRating: (ratingId: string) => ReturnType<typeof useAttachments>['attachments'];
+    uploadAttachment: (ratingId: string, file: File, description?: string) => Promise<string>;
+    deleteAttachment: (attachmentId: string) => Promise<void>;
+    downloadAttachment: (attachment: ReturnType<typeof useAttachments>['attachments'][0]) => void;
+  };
 }) {
   const { getRating, saveRating } = useRatings(assessmentId);
   const rating = getRating(questionIndex);
   const [notes, setNotes] = useState(rating?.notes || '');
   const [notesExpanded, setNotesExpanded] = useState(!!rating?.notes || readOnly);
+  const [attachmentsExpanded, setAttachmentsExpanded] = useState(false);
+
+  // Get attachments for this rating
+  const attachments = rating?.id ? attachmentHandlers.getAttachmentsForRating(rating.id) : [];
 
   // Sync notes when rating changes
   useEffect(() => {
     setNotes(rating?.notes || '');
     if (rating?.notes) setNotesExpanded(true);
   }, [rating?.notes]);
+
+  // Auto-expand attachments section if there are attachments
+  useEffect(() => {
+    if (attachments.length > 0) {
+      setAttachmentsExpanded(true);
+    }
+  }, [attachments.length]);
 
   const handleLevelChange = async (level: 1 | 2 | 3 | 4 | 5) => {
     if (readOnly) return;
@@ -490,6 +511,24 @@ function QuestionCard({
       onDirty();
       saveRating(questionIndex, rating?.level || null, notes);
     }
+  };
+
+  const handleUpload = async (file: File, description?: string) => {
+    if (!rating?.id) {
+      // Need to create a rating first - saveRating returns the new rating ID
+      const newRatingId = await saveRating(questionIndex, null, notes);
+      if (newRatingId) {
+        await attachmentHandlers.uploadAttachment(newRatingId, file, description);
+      }
+    } else {
+      await attachmentHandlers.uploadAttachment(rating.id, file, description);
+    }
+    onDirty();
+  };
+
+  const handleDeleteAttachment = async (attachmentId: string) => {
+    await attachmentHandlers.deleteAttachment(attachmentId);
+    onDirty();
   };
 
   // Check if this level was the previous selection (carry-forward hint)
@@ -512,6 +551,15 @@ function QuestionCard({
               {question.category}
             </Typography>
           </Box>
+          {attachments.length > 0 && (
+            <Chip
+              icon={<AttachFileIcon />}
+              label={attachments.length}
+              size="small"
+              variant="outlined"
+              color="default"
+            />
+          )}
           {rating?.carriedForward && rating?.previousLevel && !rating?.level && (
             <Chip
               icon={<HistoryIcon />}
@@ -592,6 +640,7 @@ function QuestionCard({
           </RadioGroup>
         </FormControl>
 
+        {/* Notes section */}
         <Box sx={{ mt: 1.5 }}>
           {!readOnly && (
             <Button
@@ -624,6 +673,34 @@ function QuestionCard({
                 size="small"
               />
             )
+          )}
+        </Box>
+
+        {/* Attachments section */}
+        <Box sx={{ mt: 1.5 }}>
+          {!readOnly && (
+            <Button
+              size="small"
+              startIcon={<AttachFileIcon />}
+              onClick={() => setAttachmentsExpanded(!attachmentsExpanded)}
+              sx={{ mb: 1 }}
+            >
+              {attachmentsExpanded 
+                ? 'Hide Attachments' 
+                : attachments.length > 0 
+                  ? `Show Attachments (${attachments.length})` 
+                  : 'Add Attachments'}
+            </Button>
+          )}
+          {(attachmentsExpanded || (readOnly && attachments.length > 0)) && (
+            <AttachmentUpload
+              attachments={attachments}
+              onUpload={handleUpload}
+              onDelete={handleDeleteAttachment}
+              onDownload={attachmentHandlers.downloadAttachment}
+              disabled={readOnly}
+              uploadId={`q${questionIndex}`}
+            />
           )}
         </Box>
       </CardContent>
@@ -713,6 +790,7 @@ export default function Assessment() {
   const { assessment } = useCapabilityAssessment(id);
   const { finalizeAssessment, updateTags, discardAssessment, revertEdit } = useCapabilityAssessments();
   const { getProgress, getAnsweredCount, getAverageScore } = useRatings(id);
+  const { getAttachmentsForRating, uploadAttachment, deleteAttachment, downloadAttachment } = useAttachments(id);
 
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
   const [sidebarWidth, setSidebarWidth] = useState(SIDEBAR_WIDTH);
@@ -952,6 +1030,12 @@ export default function Assessment() {
               assessmentId={id!}
               onDirty={markDirty}
               readOnly={isViewMode}
+              attachmentHandlers={{
+                getAttachmentsForRating,
+                uploadAttachment,
+                deleteAttachment,
+                downloadAttachment,
+              }}
             />
           ))}
 

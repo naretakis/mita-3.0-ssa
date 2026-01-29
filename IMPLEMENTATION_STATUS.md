@@ -2,7 +2,7 @@
 
 This document tracks what has been implemented, deviations from the original plan, and rationale for changes made during development.
 
-**Last Updated:** January 9, 2026
+**Last Updated:** January 29, 2026
 
 ---
 
@@ -12,9 +12,67 @@ This document tracks what has been implemented, deviations from the original pla
 |----------|---------|-------------|-------|
 | v1.0 Core Features | 100% | 100% | All MVP features complete |
 | v2.0 Redesign | 100% | 100% | Core refactor complete |
+| v3.0 Features | 100% | 100% | Attachments, Export/Import, PDF |
 | UI/UX | 100% | ~95% | Toast notifications deferred |
 | PWA | 100% | ~70% | Icons and testing remaining |
 | Deployment | 100% | 0% | Ready but not deployed |
+
+---
+
+## v3.0 Features Status (January 29, 2026)
+
+Ported features from MITA 4.0 reference implementation, adapted for 3.0 data model.
+
+### Phase 3.1: Attachments System ✅
+
+| Task | Status | Notes |
+|------|--------|-------|
+| Add `Attachment` type | ✅ | Blob storage in IndexedDB |
+| Add `attachments` table to database | ✅ | Schema v5 |
+| Add `attachmentIds` to Rating type | ✅ | Links ratings to attachments |
+| Create `useAttachments` hook | ✅ | CRUD operations for attachments |
+| Create `AttachmentUpload` component | ✅ | Drag-drop, file validation, descriptions |
+| Integrate into Assessment page | ✅ | Per-question attachment support |
+| Update `useCapabilityAssessments` | ✅ | Delete attachments on assessment delete |
+
+### Phase 3.2: Export Services ✅
+
+| Task | Status | Notes |
+|------|--------|-------|
+| Create export types | ✅ | `ExportData`, `ExportOptions`, etc. |
+| Create PDF styles | ✅ | Colors, margins, typography |
+| Create JSON export | ✅ | Full data export |
+| Create ZIP export | ✅ | JSON + attachments with manifest |
+| Create PDF export | ✅ | Professional report with jsPDF |
+| Add progress callbacks | ✅ | For UI feedback |
+
+### Phase 3.3: Import Services ✅
+
+| Task | Status | Notes |
+|------|--------|-------|
+| Create import service | ✅ | Handles JSON and ZIP files |
+| Implement merge strategy | ✅ | Newer → current, older → history |
+| Restore attachments from ZIP | ✅ | Extracts and stores blobs |
+| Validate import data | ✅ | Version and structure checks |
+
+### Phase 3.4: UI Pages ✅
+
+| Task | Status | Notes |
+|------|--------|-------|
+| Create Import/Export page | ✅ | Stats, export options, import |
+| Create Guide page | ✅ | How-to steps, data info, MITA info |
+| Create StateNameDialog | ✅ | Prompts for state name on export |
+| Create ImportDialog | ✅ | File selection, preview, progress |
+| Update Home page | ✅ | "How It Works" section, privacy alert |
+
+### Phase 3.5: Navigation Updates ✅
+
+| Task | Status | Notes |
+|------|--------|-------|
+| Add Import/Export to nav | ✅ | Header navigation item |
+| Add Guide to nav | ✅ | Header navigation item |
+| Logo navigates to landing | ✅ | `/` route |
+| Remove About nav item | ✅ | Landing page covers this |
 
 ---
 
@@ -323,7 +381,7 @@ Major architectural change from multi-capability assessments to single-capabilit
 
 ---
 
-## File Structure (v2.0)
+## File Structure (v3.0)
 
 ```
 mita-3.0-ssa/
@@ -331,26 +389,43 @@ mita-3.0-ssa/
 ├── public/favicon.svg
 ├── src/
 │   ├── components/
+│   │   ├── assessment/
+│   │   │   ├── AttachmentUpload.tsx    # v3.0 - new
+│   │   │   └── index.ts                # v3.0 - new
+│   │   ├── export/
+│   │   │   ├── ImportDialog.tsx        # v3.0 - new
+│   │   │   ├── StateNameDialog.tsx     # v3.0 - new
+│   │   │   └── index.ts                # v3.0 - new
 │   │   └── layout/Layout.tsx
 │   ├── data/
 │   │   ├── bcm/                 # 72 BCM JSON files
 │   │   └── bpt/                 # 72 BPT JSON files
 │   ├── hooks/
-│   │   ├── useCapabilityAssessments.ts  # v2.0 - main CRUD + edit/finalize
-│   │   ├── useRatings.ts                # v2.0 - updated for new model
-│   │   ├── useScores.ts                 # v2.0 - updated for new model
-│   │   ├── useHistory.ts                # v2.0 - new
-│   │   └── useTags.ts                   # v2.0 - new
+│   │   ├── useAttachments.ts            # v3.0 - new
+│   │   ├── useCapabilityAssessments.ts  # v2.0 - updated v3.0
+│   │   ├── useRatings.ts                # v2.0 - updated v3.0
+│   │   ├── useScores.ts                 # v2.0 - updated v3.0
+│   │   ├── useHistory.ts                # v2.0
+│   │   └── useTags.ts                   # v2.0
 │   ├── pages/
-│   │   ├── Assessment.tsx       # v2.0 - BPT sidebar, tags, no auto-edit
-│   │   ├── Dashboard.tsx        # v2.0 - tag filter, actions, edit handling
-│   │   └── Home.tsx
+│   │   ├── Assessment.tsx       # v2.0 - updated v3.0
+│   │   ├── Dashboard.tsx        # v2.0
+│   │   ├── Guide.tsx            # v3.0 - new
+│   │   ├── Home.tsx             # v3.0 - updated
+│   │   └── ImportExport.tsx     # v3.0 - new
 │   ├── services/
 │   │   ├── blueprint.ts
-│   │   └── db.ts                # v4 schema (compound indexes)
+│   │   ├── db.ts                # v5 schema (attachments)
+│   │   └── export/              # v3.0 - new directory
+│   │       ├── exportService.ts
+│   │       ├── importService.ts
+│   │       ├── index.ts
+│   │       ├── pdfExport.ts
+│   │       ├── pdfStyles.ts
+│   │       └── types.ts
 │   ├── theme/index.ts
-│   ├── types/index.ts           # v2.0 - new types
-│   ├── App.tsx                  # v2.0 - removed /new route
+│   ├── types/index.ts           # v3.0 - updated
+│   ├── App.tsx                  # v3.0 - updated routes
 │   └── main.tsx
 ├── index.html
 ├── package.json
@@ -358,9 +433,13 @@ mita-3.0-ssa/
 └── vite.config.ts
 ```
 
-**Removed in v2.0:**
-- `src/pages/NewAssessment.tsx`
-- `src/hooks/useAssessments.ts`
+**Added in v3.0:**
+- `src/components/assessment/` directory
+- `src/components/export/` directory
+- `src/services/export/` directory
+- `src/pages/Guide.tsx`
+- `src/pages/ImportExport.tsx`
+- `src/hooks/useAttachments.ts`
 
 ---
 
@@ -432,6 +511,77 @@ mita-3.0-ssa/
 ---
 
 ## Changelog
+
+### January 29, 2026 - v3.0 Attachments, Export/Import, PDF Reports
+
+**Attachments System:**
+- Added `Attachment` type with blob storage in IndexedDB
+- Created `useAttachments` hook for CRUD operations
+- Created `AttachmentUpload` component with drag-drop, file validation
+- Integrated attachments into Assessment page (per-question)
+- Database upgraded to v5 with attachments table
+- Added `attachmentIds` field to Rating type
+
+**Export Services:**
+- Created comprehensive export service with JSON, ZIP, and PDF formats
+- ZIP exports include JSON data + attachments folder with manifest
+- PDF reports generated with jsPDF + jspdf-autotable
+- Professional PDF layout with cover page, executive summary, business area details
+- Progress callbacks for UI feedback during export
+
+**Import Services:**
+- Created import service supporting JSON and ZIP files
+- Implemented "merge with history" strategy:
+  - Newer imported data becomes current, existing moves to history
+  - Older imported data added to history, current unchanged
+- Automatic attachment restoration from ZIP backups
+- Data validation for version and structure
+
+**New Pages:**
+- Import/Export page with stats summary, export options, import functionality
+- Guide page with step-by-step instructions, data privacy info, MITA 3.0 overview
+- StateNameDialog for prompting state name on exports
+- ImportDialog with file selection, preview, and progress tracking
+
+**Navigation Updates:**
+- Added Import/Export and Guide to header navigation
+- Logo now navigates to landing page (`/`)
+- Removed About nav item (landing page covers this)
+- Updated Home page with "How It Works" section and data privacy alert
+
+**Dependencies Added:**
+- jszip ^3.10.1 (ZIP file handling)
+- jspdf ^4.0.0 (PDF generation)
+- jspdf-autotable ^5.0.7 (PDF tables)
+
+**Files Added:**
+- `src/hooks/useAttachments.ts`
+- `src/components/assessment/AttachmentUpload.tsx`
+- `src/components/assessment/index.ts`
+- `src/components/export/ImportDialog.tsx`
+- `src/components/export/StateNameDialog.tsx`
+- `src/components/export/index.ts`
+- `src/services/export/types.ts`
+- `src/services/export/pdfStyles.ts`
+- `src/services/export/exportService.ts`
+- `src/services/export/pdfExport.ts`
+- `src/services/export/importService.ts`
+- `src/services/export/index.ts`
+- `src/pages/ImportExport.tsx`
+- `src/pages/Guide.tsx`
+
+**Files Modified:**
+- `src/types/index.ts` - Added Attachment type, attachmentIds to Rating
+- `src/services/db.ts` - Schema v5 with attachments table
+- `src/hooks/useRatings.ts` - Initialize attachmentIds
+- `src/hooks/useCapabilityAssessments.ts` - Delete attachments on assessment delete
+- `src/hooks/useScores.ts` - Added getOverallScore, total to getStatusCounts
+- `src/pages/Assessment.tsx` - Attachment integration
+- `src/pages/Home.tsx` - How It Works section, privacy alert
+- `src/components/layout/Layout.tsx` - Updated navigation
+- `src/App.tsx` - Added new routes
+
+---
 
 ### January 9, 2026 - v2.2 Dashboard Redesign & Carry-Forward Suggestions
 

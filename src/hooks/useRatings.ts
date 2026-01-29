@@ -16,15 +16,17 @@ export function useRatings(capabilityAssessmentId: string | undefined) {
 
   /**
    * Save a rating for a question
+   * Returns the rating ID (useful for attachments)
    */
   const saveRating = async (
     questionIndex: number,
     level: 1 | 2 | 3 | 4 | 5 | null,
     notes: string = ''
-  ) => {
-    if (!capabilityAssessmentId) return;
+  ): Promise<string | undefined> => {
+    if (!capabilityAssessmentId) return undefined;
 
     const now = new Date();
+    let ratingId: string | undefined;
 
     // Use transaction to prevent race conditions creating duplicate ratings
     await db.transaction('rw', [db.ratings, db.capabilityAssessments], async () => {
@@ -42,15 +44,18 @@ export function useRatings(capabilityAssessmentId: string | undefined) {
           carriedForward: false, // Clear carried forward flag on edit
           updatedAt: now,
         });
+        ratingId = existing.id;
       } else {
         // Create new rating
+        ratingId = uuidv4();
         const rating: Rating = {
-          id: uuidv4(),
+          id: ratingId,
           capabilityAssessmentId,
           questionIndex,
           level,
           notes,
           carriedForward: false,
+          attachmentIds: [], // Initialize empty attachments array
           updatedAt: now,
         };
         await db.ratings.add(rating);
@@ -61,6 +66,8 @@ export function useRatings(capabilityAssessmentId: string | undefined) {
         updatedAt: now,
       });
     });
+
+    return ratingId;
   };
 
   /**

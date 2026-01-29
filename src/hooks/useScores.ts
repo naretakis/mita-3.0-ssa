@@ -1,6 +1,6 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../services/db';
-import { getCapabilityByCode } from '../services/blueprint';
+import { getCapabilityByCode, getCapabilities } from '../services/blueprint';
 import type { CapabilityAssessment } from '../types';
 
 export interface CapabilityScoreData {
@@ -182,8 +182,10 @@ export function useScores() {
   /**
    * Get assessment counts by status
    */
-  const getStatusCounts = (): { finalized: number; inProgress: number; notAssessed: number } => {
-    if (!scoreData) return { finalized: 0, inProgress: 0, notAssessed: 0 };
+  const getStatusCounts = (): { total: number; finalized: number; inProgress: number; notAssessed: number } => {
+    const totalCapabilities = getCapabilities().length;
+    
+    if (!scoreData) return { total: totalCapabilities, finalized: 0, inProgress: 0, notAssessed: totalCapabilities };
     
     let finalized = 0;
     let inProgress = 0;
@@ -193,8 +195,27 @@ export function useScores() {
       else if (data.status === 'in_progress') inProgress++;
     }
     
-    // Note: notAssessed would need total capability count from blueprint
-    return { finalized, inProgress, notAssessed: 0 };
+    const notAssessed = totalCapabilities - finalized - inProgress;
+    return { total: totalCapabilities, finalized, inProgress, notAssessed };
+  };
+
+  /**
+   * Get overall average score across all finalized assessments
+   */
+  const getOverallScore = (): number | null => {
+    if (!scoreData) return null;
+    
+    const scores: number[] = [];
+    for (const data of scoreData.capabilityScores.values()) {
+      if (data.status === 'finalized' && data.score !== null) {
+        scores.push(data.score);
+      }
+    }
+    
+    if (scores.length === 0) return null;
+    
+    const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+    return Math.round(avg * 10) / 10;
   };
 
   return {
@@ -208,5 +229,6 @@ export function useScores() {
     getAllTagsInUse,
     getCapabilitiesByTag,
     getStatusCounts,
+    getOverallScore,
   };
 }

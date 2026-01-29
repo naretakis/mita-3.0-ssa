@@ -4,6 +4,7 @@ import type {
   Rating, 
   AssessmentHistory, 
   Tag,
+  Attachment,
 } from '../types';
 
 // ============================================
@@ -15,6 +16,7 @@ const db = new Dexie('MitaSSADatabase') as Dexie & {
   ratings: EntityTable<Rating, 'id'>;
   assessmentHistory: EntityTable<AssessmentHistory, 'id'>;
   tags: EntityTable<Tag, 'id'>;
+  attachments: EntityTable<Attachment, 'id'>;
 };
 
 // Fresh v2.0 schema - clean slate
@@ -31,6 +33,15 @@ db.version(4).stores({
   ratings: 'id, capabilityAssessmentId, [capabilityAssessmentId+questionIndex]',
   assessmentHistory: 'id, capabilityCode, snapshotDate',
   tags: 'id, name, usageCount, lastUsed',
+});
+
+// v5: Add attachments table for file storage
+db.version(5).stores({
+  capabilityAssessments: 'id, capabilityCode, status, updatedAt',
+  ratings: 'id, capabilityAssessmentId, [capabilityAssessmentId+questionIndex]',
+  assessmentHistory: 'id, capabilityCode, snapshotDate',
+  tags: 'id, name, usageCount, lastUsed',
+  attachments: 'id, capabilityAssessmentId, ratingId, uploadedAt',
 });
 
 export { db };

@@ -17,12 +17,14 @@ import {
   useTheme,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import HomeIcon from '@mui/icons-material/Home';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import ImportExportIcon from '@mui/icons-material/ImportExport';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 const navItems = [
   { label: 'Dashboard', path: '/dashboard', icon: <DashboardIcon /> },
-  { label: 'About', path: '/', icon: <HomeIcon /> },
+  { label: 'Import/Export', path: '/import-export', icon: <ImportExportIcon /> },
+  { label: 'Guide', path: '/guide', icon: <InfoOutlinedIcon /> },
 ];
 
 export default function Layout() {
@@ -94,7 +96,7 @@ export default function Layout() {
               cursor: 'pointer',
               mr: 4,
             }}
-            onClick={() => navigate('/dashboard')}
+            onClick={() => navigate('/')}
           >
              MITA 3.0 SS-A
           </Typography>

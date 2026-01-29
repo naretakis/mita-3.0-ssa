@@ -88,6 +88,7 @@ export function useCapabilityAssessments() {
             questionIndex: r.questionIndex,
             level: r.level as 1 | 2 | 3 | 4 | 5,
             notes: r.notes,
+            attachmentIds: r.attachmentIds || [],
           })),
         blueprintVersion: assessment.blueprintVersion,
       };
@@ -166,13 +167,15 @@ export function useCapabilityAssessments() {
             questionIndex: r.questionIndex,
             level: r.level as 1 | 2 | 3 | 4 | 5,
             notes: r.notes,
+            attachmentIds: r.attachmentIds || [],
           })),
         blueprintVersion: existingFinalized.blueprintVersion,
       };
 
       await db.assessmentHistory.add(historyEntry);
 
-      // Delete the old finalized assessment and its ratings
+      // Delete the old finalized assessment and its ratings and attachments
+      await db.attachments.where('capabilityAssessmentId').equals(existingFinalized.id).delete();
       await db.ratings.where('capabilityAssessmentId').equals(existingFinalized.id).delete();
       await db.capabilityAssessments.delete(existingFinalized.id);
     }
@@ -209,10 +212,11 @@ export function useCapabilityAssessments() {
   };
 
   /**
-   * Delete an assessment and its ratings
+   * Delete an assessment and its ratings and attachments
    */
   const deleteAssessment = async (assessmentId: string): Promise<void> => {
-    await db.transaction('rw', [db.capabilityAssessments, db.ratings], async () => {
+    await db.transaction('rw', [db.capabilityAssessments, db.ratings, db.attachments], async () => {
+      await db.attachments.where('capabilityAssessmentId').equals(assessmentId).delete();
       await db.ratings.where('capabilityAssessmentId').equals(assessmentId).delete();
       await db.capabilityAssessments.delete(assessmentId);
     });
@@ -220,10 +224,11 @@ export function useCapabilityAssessments() {
 
   /**
    * Discard an in-progress assessment (for new assessments that were never finalized)
-   * Deletes the assessment and all its ratings
+   * Deletes the assessment and all its ratings and attachments
    */
   const discardAssessment = async (assessmentId: string): Promise<void> => {
-    await db.transaction('rw', [db.capabilityAssessments, db.ratings], async () => {
+    await db.transaction('rw', [db.capabilityAssessments, db.ratings, db.attachments], async () => {
+      await db.attachments.where('capabilityAssessmentId').equals(assessmentId).delete();
       await db.ratings.where('capabilityAssessmentId').equals(assessmentId).delete();
       await db.capabilityAssessments.delete(assessmentId);
     });
@@ -270,6 +275,7 @@ export function useCapabilityAssessments() {
         level: r.level,
         notes: r.notes,
         carriedForward: false,
+        attachmentIds: r.attachmentIds || [],
         updatedAt: now,
       }));
 

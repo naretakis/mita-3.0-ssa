@@ -29,7 +29,21 @@ export interface Rating {
   previousLevel?: 1 | 2 | 3 | 4 | 5; // Suggested level from previous assessment (carry-forward hint)
   notes: string;
   carriedForward: boolean;        // True if copied from previous assessment
+  attachmentIds: string[];        // Array of attachment IDs linked to this rating
   updatedAt: Date;
+}
+
+// Attachment stored in IndexedDB
+export interface Attachment {
+  id: string;
+  capabilityAssessmentId: string; // FK to CapabilityAssessment
+  ratingId: string;               // FK to Rating
+  fileName: string;
+  fileType: string;
+  fileSize: number;
+  blob: Blob;
+  description?: string;
+  uploadedAt: Date;
 }
 
 // Historical snapshot of a finalized assessment
@@ -47,6 +61,7 @@ export interface HistoricalRating {
   questionIndex: number;
   level: 1 | 2 | 3 | 4 | 5;
   notes: string;
+  attachmentIds: string[];        // Preserve attachment references in history
 }
 
 // Tag record for autocomplete

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import {
+  Alert,
   Box,
   Button,
   Card,
@@ -12,6 +13,7 @@ import SecurityIcon from '@mui/icons-material/Security';
 import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
 import StorageIcon from '@mui/icons-material/Storage';
 import AssessmentIcon from '@mui/icons-material/Assessment';
+import WarningIcon from '@mui/icons-material/Warning';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -77,6 +79,61 @@ export default function Home() {
         >
           Get Started
         </Button>
+      </Box>
+
+      {/* Data Privacy Warning */}
+      <Alert 
+        severity="warning" 
+        icon={<WarningIcon />}
+        sx={{ mb: 4, maxWidth: 700, mx: 'auto' }}
+      >
+        <Typography variant="body2">
+          <strong>Important:</strong> Your data is stored locally in your browser. Clearing browser 
+          data will delete your assessments. Use the Import/Export page to create backups regularly.
+        </Typography>
+      </Alert>
+
+      {/* How It Works */}
+      <Box sx={{ mb: 6 }}>
+        <Typography variant="h5" component="h2" textAlign="center" gutterBottom>
+          How It Works
+        </Typography>
+        <Grid container spacing={2} sx={{ mt: 2 }}>
+          {[
+            { step: '1', title: 'Select a Capability', desc: 'Choose from 75+ MITA 3.0 capabilities organized by business area' },
+            { step: '2', title: 'Rate Each Question', desc: 'Assess your maturity level (1-5) for each BCM question' },
+            { step: '3', title: 'Export Results', desc: 'Download your assessment as PDF, ZIP, or JSON' },
+          ].map((item) => (
+            <Grid size={{ xs: 12, md: 4 }} key={item.step}>
+              <Box sx={{ textAlign: 'center', p: 2 }}>
+                <Box
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: '50%',
+                    bgcolor: 'primary.main',
+                    color: 'white',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    mx: 'auto',
+                    mb: 2,
+                    fontSize: 20,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {item.step}
+                </Box>
+                <Typography variant="h6" gutterBottom>
+                  {item.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {item.desc}
+                </Typography>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
       </Box>
 
       <Grid container spacing={3} sx={{ mb: 6 }}>
