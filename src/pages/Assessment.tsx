@@ -12,12 +12,9 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Drawer,
   FormControl,
   FormControlLabel,
-  IconButton,
   LinearProgress,
-  Paper,
   Radio,
   RadioGroup,
   TextField,
@@ -26,13 +23,9 @@ import {
   useTheme,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HistoryIcon from '@mui/icons-material/History';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import EditIcon from '@mui/icons-material/Edit';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { useCapabilityAssessment, useCapabilityAssessments } from '../hooks/useCapabilityAssessments';
 import { useRatings } from '../hooks/useRatings';
@@ -40,421 +33,10 @@ import { useTags } from '../hooks/useTags';
 import { useAttachments } from '../hooks/useAttachments';
 import { getCapabilityByCode } from '../services/blueprint';
 import { db } from '../services/db';
-import { AttachmentUpload } from '../components/assessment';
+import { AttachmentUpload, BptSidebar } from '../components/assessment';
 import type { CapabilityQuestion } from '../types';
 
 const SIDEBAR_WIDTH = 600;
-const SIDEBAR_WIDTH_MOBILE = 320;
-const SIDEBAR_MIN_WIDTH = 280;
-const SIDEBAR_MAX_WIDTH = 800;
-
-// Helper to render formatted BPT description with notes, paragraphs, and lists
-function FormattedDescription({ text }: { text: string }) {
-  // Split by newlines to get paragraphs/lines
-  const lines = text.split('\n');
-  
-  const elements: React.ReactNode[] = [];
-  let currentListItems: { indent: number; marker: string; text: string }[] = [];
-  
-  const flushList = () => {
-    if (currentListItems.length > 0) {
-      elements.push(
-        <Box key={`list-${elements.length}`} sx={{ mb: 1.5 }}>
-          {currentListItems.map((item, idx) => (
-            <Box
-              key={idx}
-              sx={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: 1,
-                pl: item.indent * 2,
-                mb: 0.5,
-              }}
-            >
-              <Typography
-                component="span"
-                variant="body2"
-                sx={{
-                  color: item.marker === '✓' ? 'success.main' : 'text.secondary',
-                  fontWeight: item.marker === '✓' ? 600 : 400,
-                  flexShrink: 0,
-                  minWidth: item.marker === '✓' ? 16 : 12,
-                }}
-              >
-                {item.marker}
-              </Typography>
-              <Typography variant="body2" sx={{ lineHeight: 1.6 }}>
-                {item.text}
-              </Typography>
-            </Box>
-          ))}
-        </Box>
-      );
-      currentListItems = [];
-    }
-  };
-  
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    const trimmed = line.trim();
-    
-    if (!trimmed) continue;
-    
-    // Check for different list item types
-    // Level 1: • bullet
-    const bulletMatch = trimmed.match(/^[•]\s*(.+)$/);
-    // Level 2: - dash
-    const dashMatch = trimmed.match(/^[-–]\s*(.+)$/);
-    // Special: ✓ checkmark (verification items)
-    const checkMatch = trimmed.match(/^[✓]\s*(.+)$/);
-    
-    if (bulletMatch) {
-      currentListItems.push({ indent: 0, marker: '•', text: bulletMatch[1] });
-      continue;
-    }
-    
-    if (dashMatch) {
-      currentListItems.push({ indent: 1, marker: '–', text: dashMatch[1] });
-      continue;
-    }
-    
-    if (checkMatch) {
-      // Checkmarks are special verification items, indent based on context
-      const indent = currentListItems.length > 0 && currentListItems[currentListItems.length - 1].marker === '–' ? 2 : 1;
-      currentListItems.push({ indent, marker: '✓', text: checkMatch[1] });
-      continue;
-    }
-    
-    // Not a list item - flush any pending list
-    flushList();
-    
-    // Check if this is a NOTE
-    if (trimmed.startsWith('NOTE:')) {
-      const noteContent = trimmed.replace(/^NOTE:\s*/, '');
-      elements.push(
-        <Paper
-          key={`note-${elements.length}`}
-          elevation={0}
-          sx={{
-            p: 1.5,
-            mb: 1.5,
-            backgroundColor: 'info.50',
-            borderLeft: 3,
-            borderColor: 'info.main',
-          }}
-        >
-          <Box sx={{ display: 'flex', gap: 1, alignItems: 'flex-start' }}>
-            <InfoOutlinedIcon sx={{ fontSize: 18, color: 'info.main', mt: 0.25 }} />
-            <Typography variant="body2" sx={{ lineHeight: 1.6 }}>
-              {noteContent}
-            </Typography>
-          </Box>
-        </Paper>
-      );
-      continue;
-    }
-    
-    // Regular paragraph
-    elements.push(
-      <Typography key={`p-${elements.length}`} variant="body2" paragraph sx={{ lineHeight: 1.6, mb: 1.5 }}>
-        {trimmed}
-      </Typography>
-    );
-  }
-  
-  // Flush any remaining list
-  flushList();
-  
-  return <>{elements}</>;
-}
-
-// Helper to render process steps with alternate path support
-function ProcessSteps({ steps }: { steps: string[] }) {
-  // Group steps by sections (main flow + alternate paths)
-  const sections: { title: string | null; steps: string[] }[] = [];
-  let currentSection: { title: string | null; steps: string[] } = { title: null, steps: [] };
-  
-  for (const step of steps) {
-    // Check for alternate path header: --- Alternate Path: ... ---
-    const altPathMatch = step.match(/^-{3}\s*(.+?)\s*-{3}$/);
-    if (altPathMatch) {
-      // Save current section if it has steps
-      if (currentSection.steps.length > 0) {
-        sections.push(currentSection);
-      }
-      // Start new section with this title
-      currentSection = { title: altPathMatch[1], steps: [] };
-    } else {
-      currentSection.steps.push(step);
-    }
-  }
-  // Don't forget the last section
-  if (currentSection.steps.length > 0) {
-    sections.push(currentSection);
-  }
-  
-  return (
-    <>
-      {sections.map((section, sectionIdx) => (
-        <Box key={sectionIdx} sx={{ mb: 2 }}>
-          {section.title && (
-            <Typography 
-              variant="subtitle2" 
-              sx={{ 
-                mt: 2, 
-                mb: 1, 
-                py: 0.5,
-                px: 1,
-                backgroundColor: 'grey.100',
-                borderRadius: 1,
-                fontStyle: 'italic',
-              }}
-            >
-              {section.title}
-            </Typography>
-          )}
-          <ol style={{ margin: 0, paddingLeft: 20 }}>
-            {section.steps.map((step, i) => (
-              <li key={i}>
-                <Typography variant="body2" sx={{ mb: 0.5 }}>
-                  {step.replace(/^\d+\.\s*/, '')}
-                </Typography>
-              </li>
-            ))}
-          </ol>
-        </Box>
-      ))}
-    </>
-  );
-}
-
-// BPT Sidebar Component
-function BptSidebar({ 
-  capability, 
-  open, 
-  onClose,
-  isMobile,
-  width,
-  onWidthChange,
-  collapsed,
-  onCollapsedChange,
-}: { 
-  capability: ReturnType<typeof getCapabilityByCode>;
-  open: boolean;
-  onClose: () => void;
-  isMobile: boolean;
-  width: number;
-  onWidthChange: (width: number) => void;
-  collapsed: boolean;
-  onCollapsedChange: (collapsed: boolean) => void;
-}) {
-  const [isResizing, setIsResizing] = useState(false);
-
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    setIsResizing(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isResizing) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const newWidth = Math.min(SIDEBAR_MAX_WIDTH, Math.max(SIDEBAR_MIN_WIDTH, e.clientX));
-      onWidthChange(newWidth);
-    };
-
-    const handleMouseUp = () => {
-      setIsResizing(false);
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [isResizing, onWidthChange]);
-  if (!capability) return null;
-  
-  const { process_details } = capability.bpt;
-
-  const content = (
-    <Box sx={{ p: 2, height: '100%', overflow: 'auto' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-        <Typography variant="h6" sx={{ fontSize: '1rem' }}>
-          Process Details (BPT)
-        </Typography>
-        {isMobile ? (
-          <IconButton onClick={onClose} size="small">
-            <CloseIcon />
-          </IconButton>
-        ) : (
-          <IconButton onClick={() => onCollapsedChange(true)} size="small" title="Collapse sidebar">
-            <ChevronLeftIcon />
-          </IconButton>
-        )}
-      </Box>
-
-      <FormattedDescription text={process_details.description} />
-
-      {(process_details.trigger_events.environment_based.length > 0 || 
-        process_details.trigger_events.interaction_based.length > 0) && (
-        <Box sx={{ mb: 2 }}>
-          <Typography variant="subtitle2" gutterBottom color="primary">
-            Trigger Events
-          </Typography>
-          {process_details.trigger_events.environment_based.length > 0 && (
-            <Box sx={{ mb: 1 }}>
-              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 500 }}>
-                Environment-Based
-              </Typography>
-              <ul style={{ margin: 0, paddingLeft: 20 }}>
-                {process_details.trigger_events.environment_based.map((event, i) => (
-                  <li key={`env-${i}`}><Typography variant="body2" sx={{ mb: 0.5 }}>{event}</Typography></li>
-                ))}
-              </ul>
-            </Box>
-          )}
-          {process_details.trigger_events.interaction_based.length > 0 && (
-            <Box sx={{ mb: 1 }}>
-              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 500 }}>
-                Interaction-Based
-              </Typography>
-              <ul style={{ margin: 0, paddingLeft: 20 }}>
-                {process_details.trigger_events.interaction_based.map((event, i) => (
-                  <li key={`int-${i}`}><Typography variant="body2" sx={{ mb: 0.5 }}>{event}</Typography></li>
-                ))}
-              </ul>
-            </Box>
-          )}
-        </Box>
-      )}
-
-      {process_details.process_steps.length > 0 && (
-        <Box sx={{ mb: 2 }}>
-          <Typography variant="subtitle2" gutterBottom color="primary">
-            Process Steps
-          </Typography>
-          <ProcessSteps steps={process_details.process_steps} />
-        </Box>
-      )}
-
-      {process_details.results.length > 0 && (
-        <Box sx={{ mb: 2 }}>
-          <Typography variant="subtitle2" gutterBottom color="primary">
-            Results
-          </Typography>
-          <ul style={{ margin: 0, paddingLeft: 20 }}>
-            {process_details.results.map((result, i) => (
-              <li key={i}><Typography variant="body2" sx={{ mb: 0.5 }}>{result}</Typography></li>
-            ))}
-          </ul>
-        </Box>
-      )}
-
-      {process_details.shared_data.length > 0 && (
-        <Box sx={{ mb: 2 }}>
-          <Typography variant="subtitle2" gutterBottom color="primary">
-            Shared Data
-          </Typography>
-          <ul style={{ margin: 0, paddingLeft: 20 }}>
-            {process_details.shared_data.map((data, i) => (
-              <li key={i}><Typography variant="body2" sx={{ mb: 0.5 }}>{data}</Typography></li>
-            ))}
-          </ul>
-        </Box>
-      )}
-    </Box>
-  );
-
-  if (isMobile) {
-    return (
-      <Drawer
-        anchor="left"
-        open={open}
-        onClose={onClose}
-        sx={{ '& .MuiDrawer-paper': { width: SIDEBAR_WIDTH_MOBILE } }}
-      >
-        {content}
-      </Drawer>
-    );
-  }
-
-  // Collapsed state - show thin bar with expand button
-  if (collapsed) {
-    return (
-      <Box
-        sx={{
-          width: 40,
-          flexShrink: 0,
-          borderRight: 1,
-          borderColor: 'divider',
-          backgroundColor: 'grey.50',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          pt: 1,
-        }}
-      >
-        <IconButton 
-          onClick={() => onCollapsedChange(false)} 
-          size="small" 
-          title="Expand sidebar"
-        >
-          <ChevronRightIcon />
-        </IconButton>
-        <Typography
-          variant="caption"
-          sx={{
-            writingMode: 'vertical-rl',
-            textOrientation: 'mixed',
-            mt: 2,
-            color: 'text.secondary',
-          }}
-        >
-          Process Details
-        </Typography>
-      </Box>
-    );
-  }
-
-  return (
-    <Box
-      sx={{
-        width: width,
-        flexShrink: 0,
-        borderRight: 1,
-        borderColor: 'divider',
-        backgroundColor: 'grey.50',
-        height: '100%',
-        overflow: 'hidden',
-        position: 'relative',
-        userSelect: isResizing ? 'none' : 'auto',
-      }}
-    >
-      {content}
-      {/* Resize handle */}
-      <Box
-        onMouseDown={handleMouseDown}
-        sx={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          width: 6,
-          height: '100%',
-          cursor: 'col-resize',
-          backgroundColor: isResizing ? 'primary.main' : 'transparent',
-          transition: 'background-color 0.15s',
-          '&:hover': {
-            backgroundColor: 'primary.light',
-          },
-        }}
-      />
-    </Box>
-  );
-}
 
 // Question Card Component
 function QuestionCard({
@@ -479,25 +61,23 @@ function QuestionCard({
 }) {
   const { getRating, saveRating } = useRatings(assessmentId);
   const rating = getRating(questionIndex);
-  const [notes, setNotes] = useState(rating?.notes || '');
-  const [notesExpanded, setNotesExpanded] = useState(!!rating?.notes || readOnly);
-  const [attachmentsExpanded, setAttachmentsExpanded] = useState(false);
-
+  
+  // Use rating notes as source of truth, local state only for editing
+  const [localNotes, setLocalNotes] = useState('');
+  const [isEditingNotes, setIsEditingNotes] = useState(false);
+  
+  // Derive notes value: use local when editing, otherwise use rating
+  const notes = isEditingNotes ? localNotes : (rating?.notes || '');
+  
+  // Derive expanded states from data
+  const notesExpanded = readOnly ? !!rating?.notes : (!!rating?.notes || isEditingNotes);
+  
   // Get attachments for this rating
   const attachments = rating?.id ? attachmentHandlers.getAttachmentsForRating(rating.id) : [];
-
-  // Sync notes when rating changes
-  useEffect(() => {
-    setNotes(rating?.notes || '');
-    if (rating?.notes) setNotesExpanded(true);
-  }, [rating?.notes]);
-
-  // Auto-expand attachments section if there are attachments
-  useEffect(() => {
-    if (attachments.length > 0) {
-      setAttachmentsExpanded(true);
-    }
-  }, [attachments.length]);
+  
+  // Derive attachments expanded from whether there are attachments
+  const [attachmentsManuallyExpanded, setAttachmentsManuallyExpanded] = useState(false);
+  const attachmentsExpanded = attachments.length > 0 || attachmentsManuallyExpanded;
 
   const handleLevelChange = async (level: 1 | 2 | 3 | 4 | 5) => {
     if (readOnly) return;
@@ -505,12 +85,21 @@ function QuestionCard({
     saveRating(questionIndex, level, notes);
   };
 
+  const handleNotesChange = (value: string) => {
+    if (!isEditingNotes) {
+      setLocalNotes(rating?.notes || '');
+      setIsEditingNotes(true);
+    }
+    setLocalNotes(value);
+  };
+
   const handleNotesBlur = () => {
     if (readOnly) return;
-    if (notes !== (rating?.notes || '')) {
+    if (isEditingNotes && localNotes !== (rating?.notes || '')) {
       onDirty();
-      saveRating(questionIndex, rating?.level || null, notes);
+      saveRating(questionIndex, rating?.level || null, localNotes);
     }
+    setIsEditingNotes(false);
   };
 
   const handleUpload = async (file: File, description?: string) => {
@@ -645,10 +234,17 @@ function QuestionCard({
           {!readOnly && (
             <Button
               size="small"
-              onClick={() => setNotesExpanded(!notesExpanded)}
+              onClick={() => {
+                if (!isEditingNotes) {
+                  setLocalNotes(rating?.notes || '');
+                  setIsEditingNotes(true);
+                } else {
+                  handleNotesBlur();
+                }
+              }}
               sx={{ mb: 1 }}
             >
-              {notesExpanded ? 'Hide Notes' : (rating?.notes ? 'Show Notes' : 'Add Notes')}
+              {isEditingNotes ? 'Done' : (rating?.notes ? 'Edit Notes' : 'Add Notes')}
             </Button>
           )}
           {notesExpanded && (
@@ -668,7 +264,7 @@ function QuestionCard({
                 rows={3}
                 placeholder="Add notes or rationale for your rating..."
                 value={notes}
-                onChange={(e) => setNotes(e.target.value)}
+                onChange={(e) => handleNotesChange(e.target.value)}
                 onBlur={handleNotesBlur}
                 size="small"
               />
@@ -682,7 +278,7 @@ function QuestionCard({
             <Button
               size="small"
               startIcon={<AttachFileIcon />}
-              onClick={() => setAttachmentsExpanded(!attachmentsExpanded)}
+              onClick={() => setAttachmentsManuallyExpanded(!attachmentsManuallyExpanded)}
               sx={{ mb: 1 }}
             >
               {attachmentsExpanded 
@@ -797,14 +393,16 @@ export default function Assessment() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [finalizeDialogOpen, setFinalizeDialogOpen] = useState(false);
   const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
-  const [localTags, setLocalTags] = useState<string[]>([]);
   
-  // Track original status when page loads (for cancel behavior)
-  const [originalStatus, setOriginalStatus] = useState<'in_progress' | 'finalized' | null>(null);
   // Track if user has made any changes (dirty state)
   const [isDirty, setIsDirty] = useState(false);
   // Track if this assessment has history (was previously finalized)
   const [hasHistory, setHasHistory] = useState(false);
+  
+  // Track original status - initialized once when assessment loads
+  const [originalStatus, setOriginalStatus] = useState<'in_progress' | 'finalized' | null>(null);
+  const [tagsInitialized, setTagsInitialized] = useState(false);
+  const [localTags, setLocalTags] = useState<string[]>([]);
 
   // Get capability data
   const capability = useMemo(() => {
@@ -816,30 +414,38 @@ export default function Assessment() {
   const progress = getProgress(totalQuestions);
   const answeredCount = getAnsweredCount();
 
-  // Capture original status when assessment first loads
+  // Initialize original status once when assessment first loads
+  // This is a one-time initialization, not a sync pattern
   useEffect(() => {
     if (assessment && originalStatus === null) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- One-time initialization
       setOriginalStatus(assessment.status);
     }
   }, [assessment, originalStatus]);
+  
+  // Initialize local tags once when assessment first loads
+  useEffect(() => {
+    if (assessment?.tags && !tagsInitialized) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- One-time initialization
+      setLocalTags(assessment.tags);
+      setTagsInitialized(true);
+    }
+  }, [assessment?.tags, tagsInitialized]);
 
   // Check if this assessment has history (was previously finalized)
   useEffect(() => {
+    let cancelled = false;
     if (assessment) {
       db.assessmentHistory
         .where('capabilityCode')
         .equals(assessment.capabilityCode)
         .count()
-        .then(count => setHasHistory(count > 0));
+        .then(count => {
+          if (!cancelled) setHasHistory(count > 0);
+        });
     }
+    return () => { cancelled = true; };
   }, [assessment]);
-
-  // Sync local tags with assessment tags when assessment loads
-  useEffect(() => {
-    if (assessment?.tags) {
-      setLocalTags(assessment.tags);
-    }
-  }, [assessment?.tags]);
 
   // Mark as dirty when user makes changes
   const markDirty = useCallback(() => {
@@ -909,7 +515,7 @@ export default function Assessment() {
     <Box sx={{ display: 'flex', height: 'calc(100vh - 64px)' }}>
       {/* BPT Sidebar */}
       <BptSidebar 
-        capability={capability} 
+        bpt={capability.bpt}
         open={sidebarOpen} 
         onClose={() => setSidebarOpen(false)}
         isMobile={isMobile}
