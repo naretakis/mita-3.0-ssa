@@ -1,7 +1,7 @@
-import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '../services/db';
-import { getCapabilityByCode, getCapabilities } from '../services/blueprint';
-import type { CapabilityAssessment } from '../types';
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from "../services/db";
+import { getCapabilityByCode, getCapabilities } from "../services/blueprint";
+import type { CapabilityAssessment } from "../types";
 
 export interface CapabilityScoreData {
   capabilityCode: string;
@@ -9,7 +9,7 @@ export interface CapabilityScoreData {
   assessmentId: string | null;
   assessmentDate: Date | null;
   tags: string[];
-  status: 'not_assessed' | 'in_progress' | 'finalized';
+  status: "not_assessed" | "in_progress" | "finalized";
   questionProgress: number; // 0-100 percentage of questions answered
 }
 
@@ -21,22 +21,23 @@ export function useScores() {
   const scoreData = useLiveQuery(async () => {
     // Get all capability assessments
     const assessments = await db.capabilityAssessments.toArray();
-    
+
     // Get all ratings for progress calculation
     const allRatings = await db.ratings.toArray();
     const ratingsByAssessment = new Map<string, number>();
     for (const rating of allRatings) {
       if (rating.level !== null) {
-        const count = ratingsByAssessment.get(rating.capabilityAssessmentId) || 0;
+        const count =
+          ratingsByAssessment.get(rating.capabilityAssessmentId) || 0;
         ratingsByAssessment.set(rating.capabilityAssessmentId, count + 1);
       }
     }
-    
+
     // Build a map of capability code -> score data
     // For each capability, we want the finalized assessment (if exists)
     // or the in-progress one (for status display)
     const capabilityScores = new Map<string, CapabilityScoreData>();
-    
+
     // Group by capability code
     const byCapability = new Map<string, CapabilityAssessment[]>();
     for (const assessment of assessments) {
@@ -44,17 +45,18 @@ export function useScores() {
       existing.push(assessment);
       byCapability.set(assessment.capabilityCode, existing);
     }
-    
+
     // For each capability, determine the score data
     for (const [capabilityCode, capAssessments] of byCapability) {
       // Prefer finalized, then in-progress
-      const finalized = capAssessments.find(a => a.status === 'finalized');
-      const inProgress = capAssessments.find(a => a.status === 'in_progress');
-      
+      const finalized = capAssessments.find((a) => a.status === "finalized");
+      const inProgress = capAssessments.find((a) => a.status === "in_progress");
+
       // Get total questions for this capability
       const capability = getCapabilityByCode(capabilityCode);
-      const totalQuestions = capability?.bcm.maturity_model.capability_questions.length || 1;
-      
+      const totalQuestions =
+        capability?.bcm.maturity_model.capability_questions.length || 1;
+
       if (finalized) {
         const answeredCount = ratingsByAssessment.get(finalized.id) || 0;
         capabilityScores.set(capabilityCode, {
@@ -63,7 +65,7 @@ export function useScores() {
           assessmentId: finalized.id,
           assessmentDate: finalized.finalizedAt || finalized.updatedAt,
           tags: finalized.tags,
-          status: 'finalized',
+          status: "finalized",
           questionProgress: Math.round((answeredCount / totalQuestions) * 100),
         });
       } else if (inProgress) {
@@ -74,19 +76,21 @@ export function useScores() {
           assessmentId: inProgress.id,
           assessmentDate: inProgress.updatedAt,
           tags: inProgress.tags,
-          status: 'in_progress',
+          status: "in_progress",
           questionProgress: Math.round((answeredCount / totalQuestions) * 100),
         });
       }
     }
-    
+
     return { capabilityScores };
   }, []);
 
   /**
    * Get score data for a specific capability
    */
-  const getCapabilityScoreData = (capabilityCode: string): CapabilityScoreData | undefined => {
+  const getCapabilityScoreData = (
+    capabilityCode: string,
+  ): CapabilityScoreData | undefined => {
     return scoreData?.capabilityScores.get(capabilityCode);
   };
 
@@ -102,7 +106,7 @@ export function useScores() {
    */
   const getBusinessAreaScore = (capabilityCodes: string[]): number | null => {
     if (!scoreData) return null;
-    
+
     const scores: number[] = [];
     for (const code of capabilityCodes) {
       const data = scoreData.capabilityScores.get(code);
@@ -110,9 +114,9 @@ export function useScores() {
         scores.push(data.score);
       }
     }
-    
+
     if (scores.length === 0) return null;
-    
+
     const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
     return Math.round(avg * 10) / 10;
   };
@@ -121,16 +125,20 @@ export function useScores() {
    * Get status for a capability
    */
   const getCapabilityStatus = (
-    capabilityCode: string
-  ): 'not_assessed' | 'in_progress' | 'finalized' => {
-    return scoreData?.capabilityScores.get(capabilityCode)?.status ?? 'not_assessed';
+    capabilityCode: string,
+  ): "not_assessed" | "in_progress" | "finalized" => {
+    return (
+      scoreData?.capabilityScores.get(capabilityCode)?.status ?? "not_assessed"
+    );
   };
 
   /**
    * Get question progress for a capability (0-100)
    */
   const getCapabilityProgress = (capabilityCode: string): number => {
-    return scoreData?.capabilityScores.get(capabilityCode)?.questionProgress ?? 0;
+    return (
+      scoreData?.capabilityScores.get(capabilityCode)?.questionProgress ?? 0
+    );
   };
 
   /**
@@ -139,7 +147,7 @@ export function useScores() {
   const getCapabilityTags = (capabilityCode: string): string[] => {
     const data = scoreData?.capabilityScores.get(capabilityCode);
     // Only return tags from finalized assessments
-    if (data?.status === 'finalized') {
+    if (data?.status === "finalized") {
       return data.tags;
     }
     return [];
@@ -150,16 +158,16 @@ export function useScores() {
    */
   const getAllTagsInUse = (): string[] => {
     if (!scoreData) return [];
-    
+
     const tagSet = new Set<string>();
     for (const data of scoreData.capabilityScores.values()) {
-      if (data.status === 'finalized') {
+      if (data.status === "finalized") {
         for (const tag of data.tags) {
           tagSet.add(tag);
         }
       }
     }
-    
+
     return Array.from(tagSet).sort();
   };
 
@@ -168,33 +176,44 @@ export function useScores() {
    */
   const getCapabilitiesByTag = (tag: string): string[] => {
     if (!scoreData) return [];
-    
+
     const capabilities: string[] = [];
     for (const [code, data] of scoreData.capabilityScores) {
-      if (data.status === 'finalized' && data.tags.includes(tag)) {
+      if (data.status === "finalized" && data.tags.includes(tag)) {
         capabilities.push(code);
       }
     }
-    
+
     return capabilities;
   };
 
   /**
    * Get assessment counts by status
    */
-  const getStatusCounts = (): { total: number; finalized: number; inProgress: number; notAssessed: number } => {
+  const getStatusCounts = (): {
+    total: number;
+    finalized: number;
+    inProgress: number;
+    notAssessed: number;
+  } => {
     const totalCapabilities = getCapabilities().length;
-    
-    if (!scoreData) return { total: totalCapabilities, finalized: 0, inProgress: 0, notAssessed: totalCapabilities };
-    
+
+    if (!scoreData)
+      return {
+        total: totalCapabilities,
+        finalized: 0,
+        inProgress: 0,
+        notAssessed: totalCapabilities,
+      };
+
     let finalized = 0;
     let inProgress = 0;
-    
+
     for (const data of scoreData.capabilityScores.values()) {
-      if (data.status === 'finalized') finalized++;
-      else if (data.status === 'in_progress') inProgress++;
+      if (data.status === "finalized") finalized++;
+      else if (data.status === "in_progress") inProgress++;
     }
-    
+
     const notAssessed = totalCapabilities - finalized - inProgress;
     return { total: totalCapabilities, finalized, inProgress, notAssessed };
   };
@@ -204,16 +223,16 @@ export function useScores() {
    */
   const getOverallScore = (): number | null => {
     if (!scoreData) return null;
-    
+
     const scores: number[] = [];
     for (const data of scoreData.capabilityScores.values()) {
-      if (data.status === 'finalized' && data.score !== null) {
+      if (data.status === "finalized" && data.score !== null) {
         scores.push(data.score);
       }
     }
-    
+
     if (scores.length === 0) return null;
-    
+
     const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
     return Math.round(avg * 10) / 10;
   };

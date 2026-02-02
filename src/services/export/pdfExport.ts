@@ -4,17 +4,17 @@
  * Generates comprehensive professional PDF reports using jsPDF.
  */
 
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
-import type { ExportData, ExportOptions } from './types';
-import { getCapabilityByCode } from '../blueprint';
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import type { ExportData, ExportOptions } from "./types";
+import { getCapabilityByCode } from "../blueprint";
 import {
   PAGE,
   MARGIN,
   CONTENT_WIDTH,
   COLORS,
   getMaturityLevelName,
-} from './pdfStyles';
+} from "./pdfStyles";
 
 const PAGE_WIDTH = PAGE.WIDTH;
 const PAGE_HEIGHT = PAGE.HEIGHT;
@@ -28,9 +28,12 @@ type JsPDFWithAutoTable = jsPDF & { lastAutoTable: { finalY: number } };
 /**
  * Generates a comprehensive PDF report from export data
  */
-export async function generatePdfReport(data: ExportData, options: ExportOptions): Promise<Blob> {
+export async function generatePdfReport(
+  data: ExportData,
+  options: ExportOptions,
+): Promise<Blob> {
   const doc = new jsPDF() as JsPDFWithAutoTable;
-  const stateName = options.stateName ?? 'State';
+  const stateName = options.stateName ?? "State";
 
   // Generate cover page
   generateCoverPage(doc, data, stateName);
@@ -40,7 +43,9 @@ export async function generatePdfReport(data: ExportData, options: ExportOptions
   generateExecutiveSummary(doc, data);
 
   // Generate business area details
-  const finalizedAssessments = data.data.assessments.filter(a => a.status === 'finalized');
+  const finalizedAssessments = data.data.assessments.filter(
+    (a) => a.status === "finalized",
+  );
 
   // Group assessments by business area
   const assessmentsByArea = new Map<string, typeof finalizedAssessments>();
@@ -62,39 +67,45 @@ export async function generatePdfReport(data: ExportData, options: ExportOptions
   // Add page numbers and footer
   addPageNumbersAndFooter(doc, stateName);
 
-  return doc.output('blob');
+  return doc.output("blob");
 }
 
 /**
  * Generates the cover page
  */
-function generateCoverPage(doc: JsPDFWithAutoTable, data: ExportData, stateName: string): void {
+function generateCoverPage(
+  doc: JsPDFWithAutoTable,
+  data: ExportData,
+  stateName: string,
+): void {
   const centerX = PAGE_WIDTH / 2;
 
   // Header bar
   doc.setFillColor(...COLORS.primary);
-  doc.rect(0, 0, PAGE_WIDTH, 60, 'F');
+  doc.rect(0, 0, PAGE_WIDTH, 60, "F");
 
   // Title
   doc.setTextColor(...COLORS.white);
   doc.setFontSize(32);
-  doc.setFont('helvetica', 'bold');
-  doc.text('MITA 3.0', centerX, 28, { align: 'center' });
+  doc.setFont("helvetica", "bold");
+  doc.text("MITA 3.0", centerX, 28, { align: "center" });
   doc.setFontSize(14);
-  doc.setFont('helvetica', 'normal');
-  doc.text('Maturity Assessment Report', centerX, 42, { align: 'center' });
+  doc.setFont("helvetica", "normal");
+  doc.text("Maturity Assessment Report", centerX, 42, { align: "center" });
 
   // State name
   doc.setTextColor(...COLORS.secondary);
   doc.setFontSize(28);
-  doc.setFont('helvetica', 'bold');
-  doc.text(stateName, centerX, 90, { align: 'center' });
+  doc.setFont("helvetica", "bold");
+  doc.text(stateName, centerX, 90, { align: "center" });
 
   // Subtitle
   doc.setFontSize(12);
-  doc.setFont('helvetica', 'normal');
+  doc.setFont("helvetica", "normal");
   doc.setTextColor(...COLORS.darkGray);
-  doc.text('State Medicaid Agency Self-Assessment', centerX, 100, { align: 'center' });
+  doc.text("State Medicaid Agency Self-Assessment", centerX, 100, {
+    align: "center",
+  });
 
   // Divider line
   doc.setDrawColor(...COLORS.mediumGray);
@@ -102,9 +113,11 @@ function generateCoverPage(doc: JsPDFWithAutoTable, data: ExportData, stateName:
   doc.line(centerX - 50, 110, centerX + 50, 110);
 
   // Overall score section
-  const finalizedAssessments = data.data.assessments.filter(a => a.status === 'finalized');
+  const finalizedAssessments = data.data.assessments.filter(
+    (a) => a.status === "finalized",
+  );
   const scores = finalizedAssessments
-    .map(a => a.score)
+    .map((a) => a.score)
     .filter((s): s is number => s !== undefined);
 
   const yScoreSection = 130;
@@ -115,28 +128,36 @@ function generateCoverPage(doc: JsPDFWithAutoTable, data: ExportData, stateName:
 
     // Score circle
     doc.setFillColor(...COLORS.primary);
-    doc.circle(centerX, yScoreSection + 20, 25, 'F');
+    doc.circle(centerX, yScoreSection + 20, 25, "F");
 
     doc.setTextColor(...COLORS.white);
     doc.setFontSize(28);
-    doc.setFont('helvetica', 'bold');
-    doc.text(overallScore.toFixed(1), centerX, yScoreSection + 25, { align: 'center' });
+    doc.setFont("helvetica", "bold");
+    doc.text(overallScore.toFixed(1), centerX, yScoreSection + 25, {
+      align: "center",
+    });
 
     // Label below score
     doc.setTextColor(...COLORS.secondary);
     doc.setFontSize(11);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Overall Maturity Score', centerX, yScoreSection + 55, { align: 'center' });
+    doc.setFont("helvetica", "bold");
+    doc.text("Overall Maturity Score", centerX, yScoreSection + 55, {
+      align: "center",
+    });
 
     doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
+    doc.setFont("helvetica", "normal");
     doc.setTextColor(...COLORS.darkGray);
-    doc.text(`Maturity Level: ${maturityLevel}`, centerX, yScoreSection + 63, { align: 'center' });
+    doc.text(`Maturity Level: ${maturityLevel}`, centerX, yScoreSection + 63, {
+      align: "center",
+    });
   } else {
     doc.setTextColor(...COLORS.darkGray);
     doc.setFontSize(12);
-    doc.setFont('helvetica', 'italic');
-    doc.text('No finalized assessments', centerX, yScoreSection + 25, { align: 'center' });
+    doc.setFont("helvetica", "italic");
+    doc.text("No finalized assessments", centerX, yScoreSection + 25, {
+      align: "center",
+    });
   }
 
   // Stats cards row
@@ -150,17 +171,19 @@ function generateCoverPage(doc: JsPDFWithAutoTable, data: ExportData, stateName:
   const statsData = [
     {
       value: finalizedAssessments.length.toString(),
-      label: 'Finalized',
+      label: "Finalized",
       color: COLORS.accent,
     },
     {
-      value: data.data.assessments.filter(a => a.status === 'in_progress').length.toString(),
-      label: 'In Progress',
+      value: data.data.assessments
+        .filter((a) => a.status === "in_progress")
+        .length.toString(),
+      label: "In Progress",
       color: COLORS.primary,
     },
     {
       value: data.metadata.totalAttachments.toString(),
-      label: 'Attachments',
+      label: "Attachments",
       color: COLORS.darkGray,
     },
   ];
@@ -169,62 +192,83 @@ function generateCoverPage(doc: JsPDFWithAutoTable, data: ExportData, stateName:
     const cardX = startX + index * (cardWidth + cardSpacing);
 
     doc.setFillColor(...COLORS.lightGray);
-    doc.roundedRect(cardX, yStats, cardWidth, cardHeight, 3, 3, 'F');
+    doc.roundedRect(cardX, yStats, cardWidth, cardHeight, 3, 3, "F");
 
     doc.setTextColor(...stat.color);
     doc.setFontSize(20);
-    doc.setFont('helvetica', 'bold');
-    doc.text(stat.value, cardX + cardWidth / 2, yStats + 15, { align: 'center' });
+    doc.setFont("helvetica", "bold");
+    doc.text(stat.value, cardX + cardWidth / 2, yStats + 15, {
+      align: "center",
+    });
 
     doc.setTextColor(...COLORS.darkGray);
     doc.setFontSize(8);
-    doc.setFont('helvetica', 'normal');
-    doc.text(stat.label, cardX + cardWidth / 2, yStats + 26, { align: 'center' });
+    doc.setFont("helvetica", "normal");
+    doc.text(stat.label, cardX + cardWidth / 2, yStats + 26, {
+      align: "center",
+    });
   });
 
   // Export date at bottom
-  const exportDate = new Date(data.exportDate).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+  const exportDate = new Date(data.exportDate).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 
   doc.setDrawColor(...COLORS.mediumGray);
-  doc.line(MARGIN_LEFT, PAGE_HEIGHT - 35, PAGE_WIDTH - MARGIN_RIGHT, PAGE_HEIGHT - 35);
+  doc.line(
+    MARGIN_LEFT,
+    PAGE_HEIGHT - 35,
+    PAGE_WIDTH - MARGIN_RIGHT,
+    PAGE_HEIGHT - 35,
+  );
 
   doc.setFontSize(9);
   doc.setTextColor(...COLORS.darkGray);
-  doc.text(`Report Generated: ${exportDate}`, centerX, PAGE_HEIGHT - 25, { align: 'center' });
+  doc.text(`Report Generated: ${exportDate}`, centerX, PAGE_HEIGHT - 25, {
+    align: "center",
+  });
 
   doc.setFontSize(8);
-  doc.text('MITA 3.0 State Self-Assessment Tool', centerX, PAGE_HEIGHT - 18, { align: 'center' });
+  doc.text("MITA 3.0 State Self-Assessment Tool", centerX, PAGE_HEIGHT - 18, {
+    align: "center",
+  });
 }
 
 /**
  * Generates the executive summary section
  */
-function generateExecutiveSummary(doc: JsPDFWithAutoTable, data: ExportData): number {
+function generateExecutiveSummary(
+  doc: JsPDFWithAutoTable,
+  data: ExportData,
+): number {
   let yPos = MARGIN_TOP;
 
-  yPos = addSectionHeader(doc, 'Executive Summary', yPos);
+  yPos = addSectionHeader(doc, "Executive Summary", yPos);
 
   doc.setFontSize(10);
-  doc.setFont('helvetica', 'normal');
+  doc.setFont("helvetica", "normal");
   doc.setTextColor(...COLORS.secondary);
 
   const introText =
-    'This report presents the results of the MITA 3.0 maturity self-assessment. ' +
-    'Each capability has been evaluated using the Business Capability Model (BCM) ' +
-    'with maturity levels ranging from 1 (Initial) to 5 (Optimized).';
+    "This report presents the results of the MITA 3.0 maturity self-assessment. " +
+    "Each capability has been evaluated using the Business Capability Model (BCM) " +
+    "with maturity levels ranging from 1 (Initial) to 5 (Optimized).";
 
   const splitIntro = doc.splitTextToSize(introText, CONTENT_WIDTH);
   doc.text(splitIntro, MARGIN_LEFT, yPos);
   yPos += splitIntro.length * 5 + 10;
 
   // Business area scores table
-  const finalizedAssessments = data.data.assessments.filter(a => a.status === 'finalized');
+  const finalizedAssessments = data.data.assessments.filter(
+    (a) => a.status === "finalized",
+  );
 
-  const areaScores = new Map<string, { scores: number[]; capabilities: string[] }>();
+  const areaScores = new Map<
+    string,
+    { scores: number[]; capabilities: string[] }
+  >();
   for (const assessment of finalizedAssessments) {
     if (assessment.score !== undefined) {
       const existing = areaScores.get(assessment.businessArea);
@@ -242,31 +286,34 @@ function generateExecutiveSummary(doc: JsPDFWithAutoTable, data: ExportData): nu
 
   if (areaScores.size > 0) {
     doc.setFontSize(12);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Business Area Maturity Scores', MARGIN_LEFT, yPos);
+    doc.setFont("helvetica", "bold");
+    doc.text("Business Area Maturity Scores", MARGIN_LEFT, yPos);
     yPos += 8;
 
-    const areaTableData = Array.from(areaScores.entries()).map(([area, areaData]) => {
-      const avg = areaData.scores.reduce((a, b) => a + b, 0) / areaData.scores.length;
-      return [
-        area,
-        avg.toFixed(1),
-        areaData.scores.length.toString(),
-        getMaturityLevelName(avg),
-      ];
-    });
+    const areaTableData = Array.from(areaScores.entries()).map(
+      ([area, areaData]) => {
+        const avg =
+          areaData.scores.reduce((a, b) => a + b, 0) / areaData.scores.length;
+        return [
+          area,
+          avg.toFixed(1),
+          areaData.scores.length.toString(),
+          getMaturityLevelName(avg),
+        ];
+      },
+    );
 
     autoTable(doc, {
       startY: yPos,
-      head: [['Business Area', 'Score', 'Capabilities', 'Maturity Level']],
+      head: [["Business Area", "Score", "Capabilities", "Maturity Level"]],
       body: areaTableData,
-      theme: 'striped',
+      theme: "striped",
       headStyles: { fillColor: COLORS.primary, fontSize: 10 },
       styles: { fontSize: 9, cellPadding: 3 },
       columnStyles: {
         0: { cellWidth: 70 },
-        1: { cellWidth: 20, halign: 'center' },
-        2: { cellWidth: 25, halign: 'center' },
+        1: { cellWidth: 20, halign: "center" },
+        2: { cellWidth: 25, halign: "center" },
         3: { cellWidth: 45 },
       },
       margin: { left: MARGIN_LEFT, right: MARGIN_RIGHT },
@@ -284,32 +331,38 @@ function generateExecutiveSummary(doc: JsPDFWithAutoTable, data: ExportData): nu
 function generateBusinessAreaSection(
   doc: JsPDFWithAutoTable,
   businessArea: string,
-  assessments: ExportData['data']['assessments'],
-  data: ExportData
+  assessments: ExportData["data"]["assessments"],
+  data: ExportData,
 ): number {
   let yPos = MARGIN_TOP;
 
   yPos = addSectionHeader(doc, businessArea, yPos);
 
   // Business area score summary
-  const scores = assessments.map(a => a.score).filter((s): s is number => s !== undefined);
+  const scores = assessments
+    .map((a) => a.score)
+    .filter((s): s is number => s !== undefined);
 
   if (scores.length > 0) {
     const avgScore = scores.reduce((a, b) => a + b, 0) / scores.length;
     doc.setFillColor(...COLORS.lightGray);
-    doc.roundedRect(MARGIN_LEFT, yPos, CONTENT_WIDTH, 20, 3, 3, 'F');
+    doc.roundedRect(MARGIN_LEFT, yPos, CONTENT_WIDTH, 20, 3, 3, "F");
 
     doc.setFontSize(11);
-    doc.setFont('helvetica', 'bold');
+    doc.setFont("helvetica", "bold");
     doc.setTextColor(...COLORS.primary);
-    doc.text(`Business Area Average: ${avgScore.toFixed(1)} / 5.0`, MARGIN_LEFT + 5, yPos + 8);
+    doc.text(
+      `Business Area Average: ${avgScore.toFixed(1)} / 5.0`,
+      MARGIN_LEFT + 5,
+      yPos + 8,
+    );
 
-    doc.setFont('helvetica', 'normal');
+    doc.setFont("helvetica", "normal");
     doc.setTextColor(...COLORS.darkGray);
     doc.text(
-      `${assessments.length} capability${assessments.length > 1 ? ' assessments' : ' assessment'}`,
+      `${assessments.length} capability${assessments.length > 1 ? " assessments" : " assessment"}`,
       MARGIN_LEFT + 5,
-      yPos + 15
+      yPos + 15,
     );
 
     yPos += 28;
@@ -329,9 +382,9 @@ function generateBusinessAreaSection(
  */
 function generateCapabilitySection(
   doc: JsPDFWithAutoTable,
-  assessment: ExportData['data']['assessments'][0],
+  assessment: ExportData["data"]["assessments"][0],
   data: ExportData,
-  startY: number
+  startY: number,
 ): number {
   let yPos = startY;
 
@@ -339,10 +392,10 @@ function generateCapabilitySection(
 
   // Capability header
   doc.setFillColor(...COLORS.primary);
-  doc.rect(MARGIN_LEFT, yPos, CONTENT_WIDTH, 8, 'F');
+  doc.rect(MARGIN_LEFT, yPos, CONTENT_WIDTH, 8, "F");
 
   doc.setFontSize(11);
-  doc.setFont('helvetica', 'bold');
+  doc.setFont("helvetica", "bold");
   doc.setTextColor(...COLORS.white);
   doc.text(assessment.processName, MARGIN_LEFT + 3, yPos + 5.5);
 
@@ -350,10 +403,12 @@ function generateCapabilitySection(
   if (assessment.score !== undefined) {
     const scoreText = assessment.score.toFixed(1);
     doc.setFillColor(...COLORS.accent);
-    doc.roundedRect(PAGE_WIDTH - MARGIN_RIGHT - 20, yPos + 1, 17, 6, 2, 2, 'F');
+    doc.roundedRect(PAGE_WIDTH - MARGIN_RIGHT - 20, yPos + 1, 17, 6, 2, 2, "F");
     doc.setFontSize(9);
     doc.setTextColor(...COLORS.white);
-    doc.text(scoreText, PAGE_WIDTH - MARGIN_RIGHT - 11.5, yPos + 5, { align: 'center' });
+    doc.text(scoreText, PAGE_WIDTH - MARGIN_RIGHT - 11.5, yPos + 5, {
+      align: "center",
+    });
   }
 
   yPos += 12;
@@ -361,16 +416,21 @@ function generateCapabilitySection(
   // Capability description from BPT
   if (capability) {
     doc.setFontSize(9);
-    doc.setFont('helvetica', 'normal');
+    doc.setFont("helvetica", "normal");
     doc.setTextColor(...COLORS.secondary);
     const desc = capability.bpt.process_details.description.substring(0, 300);
-    const descLines = doc.splitTextToSize(desc + (desc.length >= 300 ? '...' : ''), CONTENT_WIDTH);
+    const descLines = doc.splitTextToSize(
+      desc + (desc.length >= 300 ? "..." : ""),
+      CONTENT_WIDTH,
+    );
     doc.text(descLines, MARGIN_LEFT, yPos);
     yPos += descLines.length * 4 + 8;
   }
 
   // Get ratings for this assessment
-  const ratings = data.data.ratings.filter(r => r.capabilityAssessmentId === assessment.id);
+  const ratings = data.data.ratings.filter(
+    (r) => r.capabilityAssessmentId === assessment.id,
+  );
 
   // Get attachments for this assessment, grouped by rating
   const attachmentsByRating = new Map<string, typeof data.data.attachments>();
@@ -393,36 +453,56 @@ function generateCapabilitySection(
       if (!question) continue;
 
       const levelKey = `level_${rating.level}` as keyof typeof question.levels;
-      const levelDesc = question.levels[levelKey] || '';
+      const levelDesc = question.levels[levelKey] || "";
       const ratingAttachments = attachmentsByRating.get(rating.id) ?? [];
       const hasNotes = rating.notes && rating.notes.trim();
       const hasAttachments = ratingAttachments.length > 0;
 
       // Calculate space needed for this question block
-      const estimatedHeight = 30 + (hasNotes ? 15 : 0) + (hasAttachments ? 10 + ratingAttachments.length * 4 : 0);
+      const estimatedHeight =
+        30 +
+        (hasNotes ? 15 : 0) +
+        (hasAttachments ? 10 + ratingAttachments.length * 4 : 0);
       yPos = checkPageBreak(doc, yPos, estimatedHeight);
 
       // Question header bar
       doc.setFillColor(...COLORS.lightGray);
-      doc.rect(MARGIN_LEFT, yPos, CONTENT_WIDTH, 6, 'F');
-      
+      doc.rect(MARGIN_LEFT, yPos, CONTENT_WIDTH, 6, "F");
+
       doc.setFontSize(8);
-      doc.setFont('helvetica', 'bold');
+      doc.setFont("helvetica", "bold");
       doc.setTextColor(...COLORS.secondary);
-      doc.text(`Q${rating.questionIndex + 1}: ${question.category}`, MARGIN_LEFT + 2, yPos + 4);
-      
+      doc.text(
+        `Q${rating.questionIndex + 1}: ${question.category}`,
+        MARGIN_LEFT + 2,
+        yPos + 4,
+      );
+
       // Level badge
       doc.setFillColor(...COLORS.primary);
-      doc.roundedRect(PAGE_WIDTH - MARGIN_RIGHT - 18, yPos + 0.5, 15, 5, 1.5, 1.5, 'F');
+      doc.roundedRect(
+        PAGE_WIDTH - MARGIN_RIGHT - 18,
+        yPos + 0.5,
+        15,
+        5,
+        1.5,
+        1.5,
+        "F",
+      );
       doc.setFontSize(7);
       doc.setTextColor(...COLORS.white);
-      doc.text(`Level ${rating.level}`, PAGE_WIDTH - MARGIN_RIGHT - 10.5, yPos + 4, { align: 'center' });
-      
+      doc.text(
+        `Level ${rating.level}`,
+        PAGE_WIDTH - MARGIN_RIGHT - 10.5,
+        yPos + 4,
+        { align: "center" },
+      );
+
       yPos += 9;
 
       // Level description
       doc.setFontSize(8);
-      doc.setFont('helvetica', 'normal');
+      doc.setFont("helvetica", "normal");
       doc.setTextColor(...COLORS.darkGray);
       const descLines = doc.splitTextToSize(levelDesc, CONTENT_WIDTH - 4);
       doc.text(descLines, MARGIN_LEFT + 2, yPos);
@@ -433,14 +513,22 @@ function generateCapabilitySection(
         doc.setFillColor(255, 251, 235); // Light yellow background
         const noteLines = doc.splitTextToSize(rating.notes, CONTENT_WIDTH - 10);
         const noteBoxHeight = noteLines.length * 3.5 + 4;
-        doc.roundedRect(MARGIN_LEFT + 2, yPos, CONTENT_WIDTH - 4, noteBoxHeight, 1, 1, 'F');
-        
+        doc.roundedRect(
+          MARGIN_LEFT + 2,
+          yPos,
+          CONTENT_WIDTH - 4,
+          noteBoxHeight,
+          1,
+          1,
+          "F",
+        );
+
         doc.setFontSize(7);
-        doc.setFont('helvetica', 'bold');
+        doc.setFont("helvetica", "bold");
         doc.setTextColor(...COLORS.secondary);
-        doc.text('Notes:', MARGIN_LEFT + 4, yPos + 3);
-        
-        doc.setFont('helvetica', 'normal');
+        doc.text("Notes:", MARGIN_LEFT + 4, yPos + 3);
+
+        doc.setFont("helvetica", "normal");
         doc.setTextColor(...COLORS.darkGray);
         doc.text(noteLines, MARGIN_LEFT + 4, yPos + 6.5);
         yPos += noteBoxHeight + 2;
@@ -449,16 +537,16 @@ function generateCapabilitySection(
       // Attachments (if any)
       if (hasAttachments) {
         doc.setFontSize(7);
-        doc.setFont('helvetica', 'bold');
+        doc.setFont("helvetica", "bold");
         doc.setTextColor(...COLORS.secondary);
-        doc.text('Attachments:', MARGIN_LEFT + 2, yPos + 2);
+        doc.text("Attachments:", MARGIN_LEFT + 2, yPos + 2);
         yPos += 4;
-        
-        doc.setFont('helvetica', 'normal');
+
+        doc.setFont("helvetica", "normal");
         doc.setFontSize(7);
         doc.setTextColor(...COLORS.darkGray);
         for (const attachment of ratingAttachments) {
-          const attachText = attachment.description 
+          const attachText = attachment.description
             ? `• ${attachment.fileName} - ${attachment.description}`
             : `• ${attachment.fileName}`;
           doc.text(attachText, MARGIN_LEFT + 4, yPos + 2);
@@ -478,12 +566,16 @@ function generateCapabilitySection(
 /**
  * Adds a section header with styling
  */
-function addSectionHeader(doc: JsPDFWithAutoTable, title: string, yPos: number): number {
+function addSectionHeader(
+  doc: JsPDFWithAutoTable,
+  title: string,
+  yPos: number,
+): number {
   doc.setFillColor(...COLORS.primary);
-  doc.rect(MARGIN_LEFT, yPos, 4, 10, 'F');
+  doc.rect(MARGIN_LEFT, yPos, 4, 10, "F");
 
   doc.setFontSize(16);
-  doc.setFont('helvetica', 'bold');
+  doc.setFont("helvetica", "bold");
   doc.setTextColor(...COLORS.secondary);
   doc.text(title, MARGIN_LEFT + 8, yPos + 7);
 
@@ -493,7 +585,11 @@ function addSectionHeader(doc: JsPDFWithAutoTable, title: string, yPos: number):
 /**
  * Checks if we need a page break
  */
-function checkPageBreak(doc: JsPDFWithAutoTable, yPos: number, requiredSpace: number): number {
+function checkPageBreak(
+  doc: JsPDFWithAutoTable,
+  yPos: number,
+  requiredSpace: number,
+): number {
   if (yPos + requiredSpace > PAGE_HEIGHT - MARGIN_BOTTOM) {
     doc.addPage();
     return MARGIN_TOP;
@@ -504,7 +600,10 @@ function checkPageBreak(doc: JsPDFWithAutoTable, yPos: number, requiredSpace: nu
 /**
  * Adds page numbers and footer to all pages
  */
-function addPageNumbersAndFooter(doc: JsPDFWithAutoTable, stateName: string): void {
+function addPageNumbersAndFooter(
+  doc: JsPDFWithAutoTable,
+  stateName: string,
+): void {
   const pageCount = doc.getNumberOfPages();
 
   for (let i = 1; i <= pageCount; i++) {
@@ -513,15 +612,29 @@ function addPageNumbersAndFooter(doc: JsPDFWithAutoTable, stateName: string): vo
     if (i === 1) continue;
 
     doc.setDrawColor(...COLORS.mediumGray);
-    doc.line(MARGIN_LEFT, PAGE_HEIGHT - 18, PAGE_WIDTH - MARGIN_RIGHT, PAGE_HEIGHT - 18);
+    doc.line(
+      MARGIN_LEFT,
+      PAGE_HEIGHT - 18,
+      PAGE_WIDTH - MARGIN_RIGHT,
+      PAGE_HEIGHT - 18,
+    );
 
     doc.setFontSize(9);
     doc.setTextColor(...COLORS.darkGray);
-    doc.text(`Page ${i - 1} of ${pageCount - 1}`, PAGE_WIDTH / 2, PAGE_HEIGHT - 12, {
-      align: 'center',
-    });
+    doc.text(
+      `Page ${i - 1} of ${pageCount - 1}`,
+      PAGE_WIDTH / 2,
+      PAGE_HEIGHT - 12,
+      {
+        align: "center",
+      },
+    );
 
     doc.setFontSize(8);
-    doc.text(`${stateName} - MITA 3.0 Maturity Assessment`, MARGIN_LEFT, PAGE_HEIGHT - 12);
+    doc.text(
+      `${stateName} - MITA 3.0 Maturity Assessment`,
+      MARGIN_LEFT,
+      PAGE_HEIGHT - 12,
+    );
   }
 }

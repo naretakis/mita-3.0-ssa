@@ -3,33 +3,33 @@
 // ============================================
 
 // Assessment status (simplified from v1.0 - no 'draft' state)
-export type AssessmentStatus = 'in_progress' | 'finalized';
+export type AssessmentStatus = "in_progress" | "finalized";
 
 // Main assessment record - one per capability assessment
 export interface CapabilityAssessment {
   id: string;
-  capabilityCode: string;        // "CM_Establish_Case"
-  businessArea: string;          // "Care Management"
-  processName: string;           // "Establish Case"
+  capabilityCode: string; // "CM_Establish_Case"
+  businessArea: string; // "Care Management"
+  processName: string; // "Establish Case"
   status: AssessmentStatus;
-  tags: string[];                // ["#provider-module", "#deloitte"]
-  blueprintVersion: string;      // "3.0"
+  tags: string[]; // ["#provider-module", "#deloitte"]
+  blueprintVersion: string; // "3.0"
   createdAt: Date;
   updatedAt: Date;
   finalizedAt?: Date;
-  score?: number;                // Calculated average (1-5) when finalized
+  score?: number; // Calculated average (1-5) when finalized
 }
 
 // Rating for a single question within an assessment
 export interface Rating {
   id: string;
   capabilityAssessmentId: string; // FK to CapabilityAssessment
-  questionIndex: number;          // 0-based index into capability_questions
+  questionIndex: number; // 0-based index into capability_questions
   level: 1 | 2 | 3 | 4 | 5 | null;
   previousLevel?: 1 | 2 | 3 | 4 | 5; // Suggested level from previous assessment (carry-forward hint)
   notes: string;
-  carriedForward: boolean;        // True if copied from previous assessment
-  attachmentIds: string[];        // Array of attachment IDs linked to this rating
+  carriedForward: boolean; // True if copied from previous assessment
+  attachmentIds: string[]; // Array of attachment IDs linked to this rating
   updatedAt: Date;
 }
 
@@ -37,7 +37,7 @@ export interface Rating {
 export interface Attachment {
   id: string;
   capabilityAssessmentId: string; // FK to CapabilityAssessment
-  ratingId: string;               // FK to Rating
+  ratingId: string; // FK to Rating
   fileName: string;
   fileType: string;
   fileSize: number;
@@ -49,11 +49,11 @@ export interface Attachment {
 // Historical snapshot of a finalized assessment
 export interface AssessmentHistory {
   id: string;
-  capabilityCode: string;         // "CM_Establish_Case"
-  snapshotDate: Date;             // When this version was finalized
-  tags: string[];                 // Tags at time of snapshot
-  score: number;                  // Maturity score (1-5)
-  ratings: HistoricalRating[];    // Full ratings snapshot
+  capabilityCode: string; // "CM_Establish_Case"
+  snapshotDate: Date; // When this version was finalized
+  tags: string[]; // Tags at time of snapshot
+  score: number; // Maturity score (1-5)
+  ratings: HistoricalRating[]; // Full ratings snapshot
   blueprintVersion: string;
 }
 
@@ -61,14 +61,14 @@ export interface HistoricalRating {
   questionIndex: number;
   level: 1 | 2 | 3 | 4 | 5;
   notes: string;
-  attachmentIds: string[];        // Preserve attachment references in history
+  attachmentIds: string[]; // Preserve attachment references in history
 }
 
 // Tag record for autocomplete
 export interface Tag {
   id: string;
-  name: string;                   // "#provider-module" (stored with #)
-  usageCount: number;             // For sorting autocomplete suggestions
+  name: string; // "#provider-module" (stored with #)
+  usageCount: number; // For sorting autocomplete suggestions
   lastUsed: Date;
 }
 
@@ -76,7 +76,7 @@ export interface Tag {
 // Legacy v1.0 Types (for migration reference)
 // ============================================
 
-export type LegacyAssessmentStatus = 'draft' | 'in_progress' | 'finalized';
+export type LegacyAssessmentStatus = "draft" | "in_progress" | "finalized";
 
 export interface LegacyAssessment {
   id: string;
@@ -126,7 +126,7 @@ export interface CapabilityQuestion {
 }
 
 export interface BCM {
-  document_type: 'BCM';
+  document_type: "BCM";
   version: string;
   version_date: string;
   business_area: string;
@@ -154,7 +154,7 @@ export interface TriggerEvents {
 }
 
 export interface BPT {
-  document_type: 'BPT';
+  document_type: "BPT";
   version: string;
   version_date: string;
   business_area: string;

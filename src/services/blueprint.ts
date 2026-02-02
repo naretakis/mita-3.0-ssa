@@ -1,15 +1,21 @@
-import type { BCM, BPT, Capability, BusinessArea } from '../types';
+import type { BCM, BPT, Capability, BusinessArea } from "../types";
 
 // Import all BCM files using Vite's glob import
-const bcmModules = import.meta.glob<BCM>('../data/bcm/**/*.json', { eager: true, import: 'default' });
+const bcmModules = import.meta.glob<BCM>("../data/bcm/**/*.json", {
+  eager: true,
+  import: "default",
+});
 
-// Import all BPT files using Vite's glob import  
-const bptModules = import.meta.glob<BPT>('../data/bpt/**/*.json', { eager: true, import: 'default' });
+// Import all BPT files using Vite's glob import
+const bptModules = import.meta.glob<BPT>("../data/bpt/**/*.json", {
+  eager: true,
+  import: "default",
+});
 
 // Extract capability code from filename (e.g., "CM_Establish_Case" from "CM_Establish_Case_BCM_v3.0.json")
 function extractCapabilityCode(filename: string): string {
   const match = filename.match(/([A-Z]{2}_[^_]+(?:_[^_]+)*?)_(?:BCM|BPT)_v/);
-  return match ? match[1] : '';
+  return match ? match[1] : "";
 }
 
 // Build the capabilities map
@@ -75,15 +81,15 @@ function buildBusinessAreas(): BusinessArea[] {
 
   // Map business area names to codes
   const areaCodes: Record<string, string> = {
-    'Business Relationship Management': 'BR',
-    'Care Management': 'CM',
-    'Contractor Management': 'CO',
-    'Eligibility and Enrollment Management': 'EE',
-    'Financial Management': 'FM',
-    'Operations Management': 'OM',
-    'Performance Management': 'PE',
-    'Plan Management': 'PL',
-    'Provider Management': 'PM',
+    "Business Relationship Management": "BR",
+    "Care Management": "CM",
+    "Contractor Management": "CO",
+    "Eligibility and Enrollment Management": "EE",
+    "Financial Management": "FM",
+    "Operations Management": "OM",
+    "Performance Management": "PE",
+    "Plan Management": "PL",
+    "Provider Management": "PM",
   };
 
   const businessAreas: BusinessArea[] = [];
@@ -118,12 +124,12 @@ export function getBusinessAreas(): BusinessArea[] {
 }
 
 export function getCapabilityByCode(code: string): Capability | undefined {
-  return getCapabilities().find(c => c.code === code);
+  return getCapabilities().find((c) => c.code === code);
 }
 
 export function getBlueprintVersion(): string {
   const capabilities = getCapabilities();
-  return capabilities.length > 0 ? capabilities[0].bcm.version : '3.0';
+  return capabilities.length > 0 ? capabilities[0].bcm.version : "3.0";
 }
 
 export function getTotalQuestionCount(capabilityCodes: string[]): number {

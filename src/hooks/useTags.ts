@@ -1,7 +1,7 @@
-import { useLiveQuery } from 'dexie-react-hooks';
-import { v4 as uuidv4 } from 'uuid';
-import { db } from '../services/db';
-import type { Tag } from '../types';
+import { useLiveQuery } from "dexie-react-hooks";
+import { v4 as uuidv4 } from "uuid";
+import { db } from "../services/db";
+import type { Tag } from "../types";
 
 /**
  * Hook for managing tags
@@ -9,8 +9,8 @@ import type { Tag } from '../types';
 export function useTags() {
   // Get all tags sorted by usage count (most used first)
   const tags = useLiveQuery(
-    () => db.tags.orderBy('usageCount').reverse().toArray(),
-    []
+    () => db.tags.orderBy("usageCount").reverse().toArray(),
+    [],
   );
 
   /**
@@ -19,12 +19,12 @@ export function useTags() {
    */
   const getSuggestions = (prefix?: string): Tag[] => {
     if (!tags) return [];
-    
+
     if (!prefix) return tags;
-    
-    const normalizedPrefix = prefix.toLowerCase().replace(/^#/, '');
-    return tags.filter(t => 
-      t.name.toLowerCase().replace(/^#/, '').startsWith(normalizedPrefix)
+
+    const normalizedPrefix = prefix.toLowerCase().replace(/^#/, "");
+    return tags.filter((t) =>
+      t.name.toLowerCase().replace(/^#/, "").startsWith(normalizedPrefix),
     );
   };
 
@@ -33,9 +33,9 @@ export function useTags() {
    */
   const ensureTag = async (name: string): Promise<void> => {
     // Normalize tag name (ensure it starts with #)
-    const normalizedName = name.startsWith('#') ? name : `#${name}`;
-    
-    const existing = await db.tags.where('name').equals(normalizedName).first();
+    const normalizedName = name.startsWith("#") ? name : `#${name}`;
+
+    const existing = await db.tags.where("name").equals(normalizedName).first();
     const now = new Date();
 
     if (existing) {
@@ -58,16 +58,16 @@ export function useTags() {
    */
   const getTagsInUse = async (): Promise<string[]> => {
     const assessments = await db.capabilityAssessments
-      .filter(a => a.status === 'finalized')
+      .filter((a) => a.status === "finalized")
       .toArray();
-    
+
     const tagSet = new Set<string>();
     for (const assessment of assessments) {
       for (const tag of assessment.tags) {
         tagSet.add(tag);
       }
     }
-    
+
     return Array.from(tagSet).sort();
   };
 
@@ -83,14 +83,14 @@ export function useTags() {
    */
   const normalizeTag = (name: string): string => {
     const trimmed = name.trim().toLowerCase();
-    return trimmed.startsWith('#') ? trimmed : `#${trimmed}`;
+    return trimmed.startsWith("#") ? trimmed : `#${trimmed}`;
   };
 
   /**
    * Validate a tag name
    */
   const isValidTag = (name: string): boolean => {
-    const normalized = name.replace(/^#/, '').trim();
+    const normalized = name.replace(/^#/, "").trim();
     // Must be at least 1 character, alphanumeric with hyphens/underscores
     return /^[a-zA-Z0-9][a-zA-Z0-9-_]*$/.test(normalized);
   };

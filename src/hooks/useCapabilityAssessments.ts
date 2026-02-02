@@ -1,8 +1,11 @@
-import { useLiveQuery } from 'dexie-react-hooks';
-import { v4 as uuidv4 } from 'uuid';
-import { db } from '../services/db';
-import { getBlueprintVersion, getCapabilityByCode } from '../services/blueprint';
-import type { CapabilityAssessment, Rating, AssessmentHistory } from '../types';
+import { useLiveQuery } from "dexie-react-hooks";
+import { v4 as uuidv4 } from "uuid";
+import { db } from "../services/db";
+import {
+  getBlueprintVersion,
+  getCapabilityByCode,
+} from "../services/blueprint";
+import type { CapabilityAssessment, Rating, AssessmentHistory } from "../types";
 
 /**
  * Hook for managing capability assessments (v2.0 model)
@@ -11,8 +14,8 @@ import type { CapabilityAssessment, Rating, AssessmentHistory } from '../types';
 export function useCapabilityAssessments() {
   // Get all capability assessments
   const assessments = useLiveQuery(
-    () => db.capabilityAssessments.orderBy('updatedAt').reverse().toArray(),
-    []
+    () => db.capabilityAssessments.orderBy("updatedAt").reverse().toArray(),
+    [],
   );
 
   /**
@@ -20,7 +23,7 @@ export function useCapabilityAssessments() {
    */
   const startAssessment = async (
     capabilityCode: string,
-    initialTags: string[] = []
+    initialTags: string[] = [],
   ): Promise<string> => {
     const capability = getCapabilityByCode(capabilityCode);
     if (!capability) {
@@ -36,7 +39,7 @@ export function useCapabilityAssessments() {
       capabilityCode,
       businessArea: capability.businessArea,
       processName: capability.processName,
-      status: 'in_progress',
+      status: "in_progress",
       tags: initialTags,
       blueprintVersion: getBlueprintVersion(),
       createdAt: now,
@@ -64,7 +67,7 @@ export function useCapabilityAssessments() {
       throw new Error(`Assessment not found: ${assessmentId}`);
     }
 
-    if (assessment.status !== 'finalized') {
+    if (assessment.status !== "finalized") {
       // Already in progress, nothing to do
       return;
     }
@@ -72,7 +75,7 @@ export function useCapabilityAssessments() {
     // Snapshot current finalized state to history before editing
     if (assessment.score !== undefined) {
       const currentRatings = await db.ratings
-        .where('capabilityAssessmentId')
+        .where("capabilityAssessmentId")
         .equals(assessmentId)
         .toArray();
 
@@ -83,8 +86,8 @@ export function useCapabilityAssessments() {
         tags: assessment.tags,
         score: assessment.score,
         ratings: currentRatings
-          .filter(r => r.level !== null)
-          .map(r => ({
+          .filter((r) => r.level !== null)
+          .map((r) => ({
             questionIndex: r.questionIndex,
             level: r.level as 1 | 2 | 3 | 4 | 5,
             notes: r.notes,
@@ -111,7 +114,7 @@ export function useCapabilityAssessments() {
     }
 
     await db.capabilityAssessments.update(assessmentId, {
-      status: 'in_progress',
+      status: "in_progress",
       updatedAt: new Date(),
     });
   };
@@ -122,7 +125,7 @@ export function useCapabilityAssessments() {
    */
   const finalizeAssessment = async (assessmentId: string): Promise<void> => {
     const assessment = await db.capabilityAssessments.get(assessmentId);
-    
+
     if (!assessment) {
       throw new Error(`Assessment not found: ${assessmentId}`);
     }
@@ -131,39 +134,42 @@ export function useCapabilityAssessments() {
 
     // Get ratings for this assessment
     const ratings = await db.ratings
-      .where('capabilityAssessmentId')
+      .where("capabilityAssessmentId")
       .equals(assessmentId)
       .toArray();
 
     // Calculate score
-    const answeredRatings = ratings.filter(r => r.level !== null);
-    const score = answeredRatings.length > 0
-      ? answeredRatings.reduce((sum, r) => sum + (r.level || 0), 0) / answeredRatings.length
-      : undefined;
+    const answeredRatings = ratings.filter((r) => r.level !== null);
+    const score =
+      answeredRatings.length > 0
+        ? answeredRatings.reduce((sum, r) => sum + (r.level || 0), 0) /
+          answeredRatings.length
+        : undefined;
 
     // Check for existing finalized assessment (different from current)
     const existingFinalized = await db.capabilityAssessments
-      .where('capabilityCode')
+      .where("capabilityCode")
       .equals(assessment.capabilityCode)
-      .filter(a => a.status === 'finalized' && a.id !== assessmentId)
+      .filter((a) => a.status === "finalized" && a.id !== assessmentId)
       .first();
 
     // Snapshot existing finalized to history before replacing
     if (existingFinalized && existingFinalized.score !== undefined) {
       const existingRatings = await db.ratings
-        .where('capabilityAssessmentId')
+        .where("capabilityAssessmentId")
         .equals(existingFinalized.id)
         .toArray();
 
       const historyEntry: AssessmentHistory = {
         id: uuidv4(),
         capabilityCode: existingFinalized.capabilityCode,
-        snapshotDate: existingFinalized.finalizedAt || existingFinalized.updatedAt,
+        snapshotDate:
+          existingFinalized.finalizedAt || existingFinalized.updatedAt,
         tags: existingFinalized.tags,
         score: existingFinalized.score,
         ratings: existingRatings
-          .filter(r => r.level !== null)
-          .map(r => ({
+          .filter((r) => r.level !== null)
+          .map((r) => ({
             questionIndex: r.questionIndex,
             level: r.level as 1 | 2 | 3 | 4 | 5,
             notes: r.notes,
@@ -175,19 +181,25 @@ export function useCapabilityAssessments() {
       await db.assessmentHistory.add(historyEntry);
 
       // Delete the old finalized assessment and its ratings and attachments
-      await db.attachments.where('capabilityAssessmentId').equals(existingFinalized.id).delete();
-      await db.ratings.where('capabilityAssessmentId').equals(existingFinalized.id).delete();
+      await db.attachments
+        .where("capabilityAssessmentId")
+        .equals(existingFinalized.id)
+        .delete();
+      await db.ratings
+        .where("capabilityAssessmentId")
+        .equals(existingFinalized.id)
+        .delete();
       await db.capabilityAssessments.delete(existingFinalized.id);
     }
 
     // Update current assessment to finalized
     const updateData = {
-      status: 'finalized' as const,
+      status: "finalized" as const,
       finalizedAt: now,
       updatedAt: now,
       score: score ? Math.round(score * 10) / 10 : undefined,
     };
-    
+
     await db.capabilityAssessments.update(assessmentId, updateData);
 
     // Update tag usage
@@ -199,7 +211,10 @@ export function useCapabilityAssessments() {
   /**
    * Update tags on an assessment
    */
-  const updateTags = async (assessmentId: string, tags: string[]): Promise<void> => {
+  const updateTags = async (
+    assessmentId: string,
+    tags: string[],
+  ): Promise<void> => {
     await db.capabilityAssessments.update(assessmentId, {
       tags,
       updatedAt: new Date(),
@@ -215,11 +230,21 @@ export function useCapabilityAssessments() {
    * Delete an assessment and its ratings and attachments
    */
   const deleteAssessment = async (assessmentId: string): Promise<void> => {
-    await db.transaction('rw', [db.capabilityAssessments, db.ratings, db.attachments], async () => {
-      await db.attachments.where('capabilityAssessmentId').equals(assessmentId).delete();
-      await db.ratings.where('capabilityAssessmentId').equals(assessmentId).delete();
-      await db.capabilityAssessments.delete(assessmentId);
-    });
+    await db.transaction(
+      "rw",
+      [db.capabilityAssessments, db.ratings, db.attachments],
+      async () => {
+        await db.attachments
+          .where("capabilityAssessmentId")
+          .equals(assessmentId)
+          .delete();
+        await db.ratings
+          .where("capabilityAssessmentId")
+          .equals(assessmentId)
+          .delete();
+        await db.capabilityAssessments.delete(assessmentId);
+      },
+    );
   };
 
   /**
@@ -227,11 +252,21 @@ export function useCapabilityAssessments() {
    * Deletes the assessment and all its ratings and attachments
    */
   const discardAssessment = async (assessmentId: string): Promise<void> => {
-    await db.transaction('rw', [db.capabilityAssessments, db.ratings, db.attachments], async () => {
-      await db.attachments.where('capabilityAssessmentId').equals(assessmentId).delete();
-      await db.ratings.where('capabilityAssessmentId').equals(assessmentId).delete();
-      await db.capabilityAssessments.delete(assessmentId);
-    });
+    await db.transaction(
+      "rw",
+      [db.capabilityAssessments, db.ratings, db.attachments],
+      async () => {
+        await db.attachments
+          .where("capabilityAssessmentId")
+          .equals(assessmentId)
+          .delete();
+        await db.ratings
+          .where("capabilityAssessmentId")
+          .equals(assessmentId)
+          .delete();
+        await db.capabilityAssessments.delete(assessmentId);
+      },
+    );
   };
 
   /**
@@ -246,77 +281,84 @@ export function useCapabilityAssessments() {
 
     // Get the most recent history entry for this capability (the one we just created when editing)
     const latestHistory = await db.assessmentHistory
-      .where('capabilityCode')
+      .where("capabilityCode")
       .equals(assessment.capabilityCode)
       .reverse()
-      .sortBy('snapshotDate')
-      .then(entries => entries[0]);
+      .sortBy("snapshotDate")
+      .then((entries) => entries[0]);
 
     if (!latestHistory) {
       // No history to restore from - this shouldn't happen if we're reverting an edit
       // but handle gracefully by just setting status back to finalized
       await db.capabilityAssessments.update(assessmentId, {
-        status: 'finalized',
+        status: "finalized",
         updatedAt: new Date(),
       });
       return;
     }
 
-    await db.transaction('rw', [db.capabilityAssessments, db.ratings, db.assessmentHistory], async () => {
-      // Delete current ratings
-      await db.ratings.where('capabilityAssessmentId').equals(assessmentId).delete();
+    await db.transaction(
+      "rw",
+      [db.capabilityAssessments, db.ratings, db.assessmentHistory],
+      async () => {
+        // Delete current ratings
+        await db.ratings
+          .where("capabilityAssessmentId")
+          .equals(assessmentId)
+          .delete();
 
-      // Restore ratings from history
-      const now = new Date();
-      const restoredRatings: Rating[] = latestHistory.ratings.map(r => ({
-        id: uuidv4(),
-        capabilityAssessmentId: assessmentId,
-        questionIndex: r.questionIndex,
-        level: r.level,
-        notes: r.notes,
-        carriedForward: false,
-        attachmentIds: r.attachmentIds || [],
-        updatedAt: now,
-      }));
+        // Restore ratings from history
+        const now = new Date();
+        const restoredRatings: Rating[] = latestHistory.ratings.map((r) => ({
+          id: uuidv4(),
+          capabilityAssessmentId: assessmentId,
+          questionIndex: r.questionIndex,
+          level: r.level,
+          notes: r.notes,
+          carriedForward: false,
+          attachmentIds: r.attachmentIds || [],
+          updatedAt: now,
+        }));
 
-      if (restoredRatings.length > 0) {
-        await db.ratings.bulkAdd(restoredRatings);
-      }
+        if (restoredRatings.length > 0) {
+          await db.ratings.bulkAdd(restoredRatings);
+        }
 
-      // Restore assessment to finalized state
-      await db.capabilityAssessments.update(assessmentId, {
-        status: 'finalized',
-        tags: latestHistory.tags,
-        score: latestHistory.score,
-        finalizedAt: latestHistory.snapshotDate,
-        updatedAt: now,
-      });
+        // Restore assessment to finalized state
+        await db.capabilityAssessments.update(assessmentId, {
+          status: "finalized",
+          tags: latestHistory.tags,
+          score: latestHistory.score,
+          finalizedAt: latestHistory.snapshotDate,
+          updatedAt: now,
+        });
 
-      // Remove the history entry we just restored from (since we're reverting, not keeping it)
-      await db.assessmentHistory.delete(latestHistory.id);
-    });
+        // Remove the history entry we just restored from (since we're reverting, not keeping it)
+        await db.assessmentHistory.delete(latestHistory.id);
+      },
+    );
   };
 
   /**
    * Get the current assessment for a capability (finalized or in-progress)
    */
   const getAssessmentForCapability = async (
-    capabilityCode: string
+    capabilityCode: string,
   ): Promise<CapabilityAssessment | undefined> => {
     // First check for in-progress
     const inProgress = await db.capabilityAssessments
-      .where('capabilityCode')
+      .where("capabilityCode")
       .equals(capabilityCode)
-      .filter(a => a.status === 'in_progress')
+      .filter((a) => a.status === "in_progress")
       .first();
 
     if (inProgress) return inProgress;
 
     // Then check for finalized
     return db.capabilityAssessments
-      .where('capabilityCode')
+      .where("capabilityCode")
       .equals(capabilityCode)
-      .filter(a => a.status === 'finalized')
+      .filter((a) => a.status === "finalized")
       .first();
   };
 
@@ -324,38 +366,42 @@ export function useCapabilityAssessments() {
    * Get assessment status for a capability
    */
   const getCapabilityStatus = (
-    capabilityCode: string
-  ): 'not_assessed' | 'in_progress' | 'finalized' => {
-    if (!assessments) return 'not_assessed';
+    capabilityCode: string,
+  ): "not_assessed" | "in_progress" | "finalized" => {
+    if (!assessments) return "not_assessed";
 
     const inProgress = assessments.find(
-      a => a.capabilityCode === capabilityCode && a.status === 'in_progress'
+      (a) => a.capabilityCode === capabilityCode && a.status === "in_progress",
     );
-    if (inProgress) return 'in_progress';
+    if (inProgress) return "in_progress";
 
     const finalized = assessments.find(
-      a => a.capabilityCode === capabilityCode && a.status === 'finalized'
+      (a) => a.capabilityCode === capabilityCode && a.status === "finalized",
     );
-    if (finalized) return 'finalized';
+    if (finalized) return "finalized";
 
-    return 'not_assessed';
+    return "not_assessed";
   };
 
   /**
    * Get the latest finalized assessment for a capability
    */
-  const getLatestFinalized = (capabilityCode: string): CapabilityAssessment | undefined => {
+  const getLatestFinalized = (
+    capabilityCode: string,
+  ): CapabilityAssessment | undefined => {
     return assessments?.find(
-      a => a.capabilityCode === capabilityCode && a.status === 'finalized'
+      (a) => a.capabilityCode === capabilityCode && a.status === "finalized",
     );
   };
 
   /**
    * Get in-progress assessment for a capability
    */
-  const getInProgress = (capabilityCode: string): CapabilityAssessment | undefined => {
+  const getInProgress = (
+    capabilityCode: string,
+  ): CapabilityAssessment | undefined => {
     return assessments?.find(
-      a => a.capabilityCode === capabilityCode && a.status === 'in_progress'
+      (a) => a.capabilityCode === capabilityCode && a.status === "in_progress",
     );
   };
 
@@ -380,8 +426,9 @@ export function useCapabilityAssessments() {
  */
 export function useCapabilityAssessment(assessmentId: string | undefined) {
   const assessment = useLiveQuery(
-    () => assessmentId ? db.capabilityAssessments.get(assessmentId) : undefined,
-    [assessmentId]
+    () =>
+      assessmentId ? db.capabilityAssessments.get(assessmentId) : undefined,
+    [assessmentId],
   );
 
   return { assessment };
@@ -391,7 +438,7 @@ export function useCapabilityAssessment(assessmentId: string | undefined) {
  * Helper to update tag usage count
  */
 async function updateTagUsage(tagName: string): Promise<void> {
-  const existing = await db.tags.where('name').equals(tagName).first();
+  const existing = await db.tags.where("name").equals(tagName).first();
   const now = new Date();
 
   if (existing) {

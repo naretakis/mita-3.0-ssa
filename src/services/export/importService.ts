@@ -7,33 +7,38 @@
  * - Older imports are added to history, existing stays current
  */
 
-import JSZip from 'jszip';
-import { v4 as uuidv4 } from 'uuid';
+import JSZip from "jszip";
+import { v4 as uuidv4 } from "uuid";
 
-import { db } from '../db';
-import { extractAttachmentIdFromFileName } from './exportService';
-import type { ExportData, ImportResult, ImportItemResult, ImportProgressCallback } from './types';
+import { db } from "../db";
+import { extractAttachmentIdFromFileName } from "./exportService";
+import type {
+  ExportData,
+  ImportResult,
+  ImportItemResult,
+  ImportProgressCallback,
+} from "./types";
 import type {
   CapabilityAssessment,
   Rating,
   AssessmentHistory,
   HistoricalRating,
   Attachment,
-} from '../../types';
+} from "../../types";
 
-const SUPPORTED_VERSIONS = ['1.0'];
+const SUPPORTED_VERSIONS = ["1.0"];
 
 /**
  * Validates export data structure
  */
 function validateExportData(data: unknown): data is ExportData {
-  if (!data || typeof data !== 'object') return false;
+  if (!data || typeof data !== "object") return false;
 
   const d = data as Record<string, unknown>;
 
-  if (typeof d.exportVersion !== 'string') return false;
-  if (typeof d.exportDate !== 'string') return false;
-  if (!d.data || typeof d.data !== 'object') return false;
+  if (typeof d.exportVersion !== "string") return false;
+  if (typeof d.exportDate !== "string") return false;
+  if (!d.data || typeof d.data !== "object") return false;
 
   const dataObj = d.data as Record<string, unknown>;
   if (!Array.isArray(dataObj.assessments)) return false;
@@ -48,11 +53,11 @@ function validateExportData(data: unknown): data is ExportData {
 function createHistorySnapshot(
   assessment: CapabilityAssessment,
   ratings: Rating[],
-  score: number
+  score: number,
 ): AssessmentHistory {
   const historicalRatings: HistoricalRating[] = ratings
-    .filter(r => r.level !== null)
-    .map(r => ({
+    .filter((r) => r.level !== null)
+    .map((r) => ({
       questionIndex: r.questionIndex,
       level: r.level as 1 | 2 | 3 | 4 | 5,
       notes: r.notes,
@@ -75,9 +80,9 @@ function createHistorySnapshot(
  */
 export async function importFromJson(
   jsonString: string,
-  onProgress?: ImportProgressCallback
+  onProgress?: ImportProgressCallback,
 ): Promise<ImportResult> {
-  onProgress?.(10, 'Parsing JSON...');
+  onProgress?.(10, "Parsing JSON...");
 
   let data: unknown;
   try {
@@ -89,7 +94,7 @@ export async function importFromJson(
       importedAsHistory: 0,
       skipped: 0,
       attachmentsRestored: 0,
-      errors: ['Invalid JSON format'],
+      errors: ["Invalid JSON format"],
       details: [],
     };
   }
@@ -101,7 +106,7 @@ export async function importFromJson(
       importedAsHistory: 0,
       skipped: 0,
       attachmentsRestored: 0,
-      errors: ['Invalid export data structure'],
+      errors: ["Invalid export data structure"],
       details: [],
     };
   }
@@ -118,7 +123,7 @@ export async function importFromJson(
     };
   }
 
-  onProgress?.(30, 'Processing assessments...');
+  onProgress?.(30, "Processing assessments...");
 
   return await processImport(data, onProgress);
 }
@@ -128,9 +133,9 @@ export async function importFromJson(
  */
 export async function importFromZip(
   zipBlob: Blob,
-  onProgress?: ImportProgressCallback
+  onProgress?: ImportProgressCallback,
 ): Promise<ImportResult> {
-  onProgress?.(10, 'Reading ZIP file...');
+  onProgress?.(10, "Reading ZIP file...");
 
   let zip: JSZip;
   try {
@@ -142,12 +147,12 @@ export async function importFromZip(
       importedAsHistory: 0,
       skipped: 0,
       attachmentsRestored: 0,
-      errors: ['Invalid ZIP file'],
+      errors: ["Invalid ZIP file"],
       details: [],
     };
   }
 
-  const dataFile = zip.file('data.json');
+  const dataFile = zip.file("data.json");
   if (!dataFile) {
     return {
       success: false,
@@ -155,14 +160,14 @@ export async function importFromZip(
       importedAsHistory: 0,
       skipped: 0,
       attachmentsRestored: 0,
-      errors: ['ZIP file missing data.json'],
+      errors: ["ZIP file missing data.json"],
       details: [],
     };
   }
 
-  onProgress?.(20, 'Parsing data...');
+  onProgress?.(20, "Parsing data...");
 
-  const jsonString = await dataFile.async('string');
+  const jsonString = await dataFile.async("string");
   let data: unknown;
   try {
     data = JSON.parse(jsonString);
@@ -173,7 +178,7 @@ export async function importFromZip(
       importedAsHistory: 0,
       skipped: 0,
       attachmentsRestored: 0,
-      errors: ['Invalid JSON in data.json'],
+      errors: ["Invalid JSON in data.json"],
       details: [],
     };
   }
@@ -185,22 +190,22 @@ export async function importFromZip(
       importedAsHistory: 0,
       skipped: 0,
       attachmentsRestored: 0,
-      errors: ['Invalid export data structure'],
+      errors: ["Invalid export data structure"],
       details: [],
     };
   }
 
-  onProgress?.(40, 'Processing assessments...');
+  onProgress?.(40, "Processing assessments...");
 
   const result = await processImport(data, (p, m) => {
     onProgress?.(40 + p * 0.3, m);
   });
 
   // Import attachments
-  onProgress?.(70, 'Importing attachments...');
+  onProgress?.(70, "Importing attachments...");
 
   let attachmentsRestored = 0;
-  const attachmentsFolder = zip.folder('attachments');
+  const attachmentsFolder = zip.folder("attachments");
   if (attachmentsFolder) {
     const attachmentFiles: { path: string; file: JSZip.JSZipObject }[] = [];
 
@@ -212,42 +217,44 @@ export async function importFromZip(
 
     for (const { path, file } of attachmentFiles) {
       try {
-        const fileName = path.split('/').pop() ?? '';
+        const fileName = path.split("/").pop() ?? "";
         const attachmentId = extractAttachmentIdFromFileName(fileName);
 
         let attachmentMeta = attachmentId
-          ? data.data.attachments.find(a => a.id === attachmentId)
+          ? data.data.attachments.find((a) => a.id === attachmentId)
           : null;
 
         if (!attachmentMeta) {
-          attachmentMeta = data.data.attachments.find(a => a.fileName === fileName);
+          attachmentMeta = data.data.attachments.find(
+            (a) => a.fileName === fileName,
+          );
         }
 
         if (attachmentMeta) {
           const existing = await db.attachments.get(attachmentMeta.id);
           if (!existing) {
-            const blob = await file.async('blob');
+            const blob = await file.async("blob");
 
             // Find the assessment
             const importedAssessment = data.data.assessments.find(
-              a => a.id === attachmentMeta.capabilityAssessmentId
+              (a) => a.id === attachmentMeta.capabilityAssessmentId,
             );
 
             if (importedAssessment) {
               const assessment = await db.capabilityAssessments
-                .where('capabilityCode')
+                .where("capabilityCode")
                 .equals(importedAssessment.capabilityCode)
                 .first();
 
               if (assessment) {
                 // Find the rating
                 const importedRating = data.data.ratings.find(
-                  r => r.id === attachmentMeta.ratingId
+                  (r) => r.id === attachmentMeta.ratingId,
                 );
 
                 if (importedRating) {
                   const rating = await db.ratings
-                    .where('[capabilityAssessmentId+questionIndex]')
+                    .where("[capabilityAssessmentId+questionIndex]")
                     .equals([assessment.id, importedRating.questionIndex])
                     .first();
 
@@ -267,7 +274,10 @@ export async function importFromZip(
                     await db.attachments.add(attachment);
 
                     await db.ratings.update(rating.id, {
-                      attachmentIds: [...(rating.attachmentIds || []), attachment.id],
+                      attachmentIds: [
+                        ...(rating.attachmentIds || []),
+                        attachment.id,
+                      ],
                     });
 
                     attachmentsRestored++;
@@ -278,14 +288,14 @@ export async function importFromZip(
           }
         }
       } catch (error) {
-        console.error('Failed to import attachment:', path, error);
+        console.error("Failed to import attachment:", path, error);
       }
     }
   }
 
   result.attachmentsRestored = attachmentsRestored;
 
-  onProgress?.(100, 'Complete');
+  onProgress?.(100, "Complete");
 
   return result;
 }
@@ -295,7 +305,7 @@ export async function importFromZip(
  */
 async function processImport(
   data: ExportData,
-  onProgress?: ImportProgressCallback
+  onProgress?: ImportProgressCallback,
 ): Promise<ImportResult> {
   const result: ImportResult = {
     success: true,
@@ -317,29 +327,34 @@ async function processImport(
     onProgress?.(progress, `Processing ${importedAssessment.processName}...`);
 
     try {
-      const itemResult = await processAssessmentImport(importedAssessment, data);
+      const itemResult = await processAssessmentImport(
+        importedAssessment,
+        data,
+      );
       result.details.push(itemResult);
 
       switch (itemResult.action) {
-        case 'imported_current':
+        case "imported_current":
           result.importedAsCurrent++;
           break;
-        case 'imported_history':
+        case "imported_history":
           result.importedAsHistory++;
           break;
-        case 'skipped':
+        case "skipped":
           result.skipped++;
           break;
-        case 'error':
-          result.errors.push(itemResult.reason ?? 'Unknown error');
+        case "error":
+          result.errors.push(itemResult.reason ?? "Unknown error");
           break;
       }
     } catch (error) {
-      result.errors.push(`Failed to import ${importedAssessment.processName}: ${error}`);
+      result.errors.push(
+        `Failed to import ${importedAssessment.processName}: ${error}`,
+      );
       result.details.push({
         capabilityCode: importedAssessment.capabilityCode,
         capabilityName: importedAssessment.processName,
-        action: 'error',
+        action: "error",
         reason: String(error),
       });
     }
@@ -347,7 +362,7 @@ async function processImport(
 
   // Import tags
   for (const tag of data.data.tags) {
-    const existing = await db.tags.where('name').equals(tag.name).first();
+    const existing = await db.tags.where("name").equals(tag.name).first();
     if (!existing) {
       await db.tags.add({
         ...tag,
@@ -375,17 +390,17 @@ async function processImport(
  * Processes a single assessment import with merge logic
  */
 async function processAssessmentImport(
-  importedAssessment: ExportData['data']['assessments'][0],
-  data: ExportData
+  importedAssessment: ExportData["data"]["assessments"][0],
+  data: ExportData,
 ): Promise<ImportItemResult> {
   const capabilityCode = importedAssessment.capabilityCode;
 
   const importedRatings = data.data.ratings.filter(
-    r => r.capabilityAssessmentId === importedAssessment.id
+    (r) => r.capabilityAssessmentId === importedAssessment.id,
   );
 
   const existingAssessment = await db.capabilityAssessments
-    .where('capabilityCode')
+    .where("capabilityCode")
     .equals(capabilityCode)
     .first();
 
@@ -428,7 +443,7 @@ async function processAssessmentImport(
     return {
       capabilityCode,
       capabilityName: importedAssessment.processName,
-      action: 'imported_current',
+      action: "imported_current",
     };
   }
 
@@ -446,8 +461,8 @@ async function processAssessmentImport(
     return {
       capabilityCode,
       capabilityName: importedAssessment.processName,
-      action: 'skipped',
-      reason: 'Identical to current assessment',
+      action: "skipped",
+      reason: "Identical to current assessment",
     };
   }
 
@@ -455,21 +470,24 @@ async function processAssessmentImport(
     // Imported is newer - move existing to history, import as current
 
     const existingRatings = await db.ratings
-      .where('capabilityAssessmentId')
+      .where("capabilityAssessmentId")
       .equals(existingAssessment.id)
       .toArray();
 
-    if (existingAssessment.status === 'finalized' && existingAssessment.score) {
+    if (existingAssessment.status === "finalized" && existingAssessment.score) {
       const historySnapshot = createHistorySnapshot(
         existingAssessment,
         existingRatings,
-        existingAssessment.score
+        existingAssessment.score,
       );
       await db.assessmentHistory.add(historySnapshot);
     }
 
     // Delete existing ratings
-    await db.ratings.where('capabilityAssessmentId').equals(existingAssessment.id).delete();
+    await db.ratings
+      .where("capabilityAssessmentId")
+      .equals(existingAssessment.id)
+      .delete();
 
     // Update existing assessment with imported data
     await db.capabilityAssessments.update(existingAssessment.id, {
@@ -500,36 +518,36 @@ async function processAssessmentImport(
     return {
       capabilityCode,
       capabilityName: importedAssessment.processName,
-      action: 'imported_current',
-      reason: 'Replaced older local assessment (moved to history)',
+      action: "imported_current",
+      reason: "Replaced older local assessment (moved to history)",
     };
   } else {
     // Imported is older - add to history only
 
-    if (importedAssessment.status === 'finalized' && importedAssessment.score) {
+    if (importedAssessment.status === "finalized" && importedAssessment.score) {
       const existingHistory = await db.assessmentHistory
-        .where('capabilityCode')
+        .where("capabilityCode")
         .equals(capabilityCode)
         .toArray();
 
       const alreadyExists = existingHistory.some(
-        h =>
+        (h) =>
           Math.abs(h.snapshotDate.getTime() - importedDate.getTime()) < 1000 &&
-          Math.abs(h.score - importedAssessment.score!) < 0.01
+          Math.abs(h.score - importedAssessment.score!) < 0.01,
       );
 
       if (alreadyExists) {
         return {
           capabilityCode,
           capabilityName: importedAssessment.processName,
-          action: 'skipped',
-          reason: 'Historical entry already exists',
+          action: "skipped",
+          reason: "Historical entry already exists",
         };
       }
 
       const historicalRatings: HistoricalRating[] = importedRatings
-        .filter(r => r.level !== null)
-        .map(r => ({
+        .filter((r) => r.level !== null)
+        .map((r) => ({
           questionIndex: r.questionIndex,
           level: r.level as 1 | 2 | 3 | 4 | 5,
           notes: r.notes,
@@ -549,16 +567,16 @@ async function processAssessmentImport(
       return {
         capabilityCode,
         capabilityName: importedAssessment.processName,
-        action: 'imported_history',
-        reason: 'Added as historical entry (local is newer)',
+        action: "imported_history",
+        reason: "Added as historical entry (local is newer)",
       };
     }
 
     return {
       capabilityCode,
       capabilityName: importedAssessment.processName,
-      action: 'skipped',
-      reason: 'Local assessment is newer and imported is not finalized',
+      action: "skipped",
+      reason: "Local assessment is newer and imported is not finalized",
     };
   }
 }

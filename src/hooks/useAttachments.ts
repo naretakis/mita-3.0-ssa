@@ -4,10 +4,11 @@
  * Provides CRUD operations for attachments stored in IndexedDB.
  */
 
-import { useLiveQuery } from 'dexie-react-hooks';
-import { v4 as uuidv4 } from 'uuid';
-import { db } from '../services/db';
-import type { Attachment } from '../types';
+import { useLiveQuery } from "dexie-react-hooks";
+import { v4 as uuidv4 } from "uuid";
+import { db } from "../services/db";
+import { downloadBlob } from "../utils/downloadHelpers";
+import type { Attachment } from "../types";
 
 /**
  * Return type for useAttachments hook
@@ -15,7 +16,11 @@ import type { Attachment } from '../types';
 export interface UseAttachmentsReturn {
   attachments: Attachment[];
   attachmentsByRating: Map<string, Attachment[]>;
-  uploadAttachment: (ratingId: string, file: File, description?: string) => Promise<string>;
+  uploadAttachment: (
+    ratingId: string,
+    file: File,
+    description?: string,
+  ) => Promise<string>;
   deleteAttachment: (attachmentId: string) => Promise<void>;
   downloadAttachment: (attachment: Attachment) => void;
   getAttachmentsForRating: (ratingId: string) => Attachment[];
@@ -25,14 +30,19 @@ export interface UseAttachmentsReturn {
 /**
  * Hook for managing attachments within an assessment
  */
-export function useAttachments(capabilityAssessmentId: string | undefined): UseAttachmentsReturn {
+export function useAttachments(
+  capabilityAssessmentId: string | undefined,
+): UseAttachmentsReturn {
   // Get all attachments for this assessment
   const attachments = useLiveQuery(
     () =>
       capabilityAssessmentId
-        ? db.attachments.where('capabilityAssessmentId').equals(capabilityAssessmentId).toArray()
+        ? db.attachments
+            .where("capabilityAssessmentId")
+            .equals(capabilityAssessmentId)
+            .toArray()
         : [],
-    [capabilityAssessmentId]
+    [capabilityAssessmentId],
   );
 
   // Group attachments by rating ID
@@ -49,10 +59,10 @@ export function useAttachments(capabilityAssessmentId: string | undefined): UseA
   const uploadAttachment = async (
     ratingId: string,
     file: File,
-    description?: string
+    description?: string,
   ): Promise<string> => {
     if (!capabilityAssessmentId) {
-      throw new Error('No assessment ID provided');
+      throw new Error("No assessment ID provided");
     }
 
     const attachmentId = uuidv4();
@@ -103,7 +113,9 @@ export function useAttachments(capabilityAssessmentId: string | undefined): UseA
     const rating = await db.ratings.get(attachment.ratingId);
     if (rating) {
       await db.ratings.update(attachment.ratingId, {
-        attachmentIds: (rating.attachmentIds || []).filter((id) => id !== attachmentId),
+        attachmentIds: (rating.attachmentIds || []).filter(
+          (id) => id !== attachmentId,
+        ),
         updatedAt: new Date(),
       });
     }
@@ -123,14 +135,7 @@ export function useAttachments(capabilityAssessmentId: string | undefined): UseA
    * Download an attachment (trigger browser download)
    */
   const downloadAttachment = (attachment: Attachment): void => {
-    const url = URL.createObjectURL(attachment.blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = attachment.fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    downloadBlob(attachment.blob, attachment.fileName);
   };
 
   /**

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { useState } from "react";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -15,21 +15,25 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import ImportExportIcon from '@mui/icons-material/ImportExport';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import ImportExportIcon from "@mui/icons-material/ImportExport";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const navItems = [
-  { label: 'Dashboard', path: '/dashboard', icon: <DashboardIcon /> },
-  { label: 'Import/Export', path: '/import-export', icon: <ImportExportIcon /> },
-  { label: 'Guide', path: '/guide', icon: <InfoOutlinedIcon /> },
+  { label: "Dashboard", path: "/dashboard", icon: <DashboardIcon /> },
+  {
+    label: "Import/Export",
+    path: "/import-export",
+    icon: <ImportExportIcon />,
+  },
+  { label: "Guide", path: "/guide", icon: <InfoOutlinedIcon /> },
 ];
 
 export default function Layout() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -49,7 +53,12 @@ export default function Layout() {
   const mobileDrawer = (
     <Box sx={{ width: 240 }}>
       <Toolbar>
-        <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 600 }}>
+        <Typography
+          variant="h6"
+          noWrap
+          component="div"
+          sx={{ fontWeight: 600 }}
+        >
           MITA 3.0 SS-A
         </Typography>
       </Toolbar>
@@ -70,7 +79,7 @@ export default function Layout() {
   );
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <AppBar position="fixed">
         <Toolbar>
           {/* Mobile menu button */}
@@ -91,19 +100,19 @@ export default function Layout() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ 
+            sx={{
               fontWeight: 600,
-              cursor: 'pointer',
+              cursor: "pointer",
               mr: 4,
             }}
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
           >
-             MITA 3.0 SS-A
+            MITA 3.0 SS-A
           </Typography>
 
           {/* Desktop navigation - right aligned */}
           {!isMobile && (
-            <Box sx={{ display: 'flex', gap: 1, ml: 'auto' }}>
+            <Box sx={{ display: "flex", gap: 1, ml: "auto" }}>
               {navItems.map((item) => (
                 <Button
                   key={item.path}
@@ -111,11 +120,12 @@ export default function Layout() {
                   startIcon={item.icon}
                   onClick={() => handleNavClick(item.path)}
                   sx={{
-                    backgroundColor: location.pathname === item.path 
-                      ? 'rgba(255,255,255,0.15)' 
-                      : 'transparent',
-                    '&:hover': {
-                      backgroundColor: 'rgba(255,255,255,0.25)',
+                    backgroundColor:
+                      location.pathname === item.path
+                        ? "rgba(255,255,255,0.15)"
+                        : "transparent",
+                    "&:hover": {
+                      backgroundColor: "rgba(255,255,255,0.25)",
                     },
                   }}
                 >
@@ -134,8 +144,8 @@ export default function Layout() {
         onClose={handleDrawerToggle}
         ModalProps={{ keepMounted: true }}
         sx={{
-          display: { xs: 'block', md: 'none' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
+          display: { xs: "block", md: "none" },
+          "& .MuiDrawer-paper": { boxSizing: "border-box", width: 240 },
         }}
       >
         {mobileDrawer}
@@ -146,9 +156,9 @@ export default function Layout() {
         component="main"
         sx={{
           flexGrow: 1,
-          mt: '64px',
-          backgroundColor: 'background.default',
-          minHeight: 'calc(100vh - 64px)',
+          mt: "64px",
+          backgroundColor: "background.default",
+          minHeight: "calc(100vh - 64px)",
         }}
       >
         <Outlet />

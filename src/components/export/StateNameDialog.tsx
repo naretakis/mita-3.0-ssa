@@ -4,7 +4,7 @@
  * Prompts user for state name before export operations.
  */
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -13,7 +13,7 @@ import {
   TextField,
   Button,
   Typography,
-} from '@mui/material';
+} from "@mui/material";
 
 interface StateNameDialogProps {
   open: boolean;
@@ -28,15 +28,15 @@ export function StateNameDialog({
   onConfirm,
   exportType,
 }: StateNameDialogProps) {
-  const [stateName, setStateName] = useState('');
+  const [stateName, setStateName] = useState("");
 
   const handleConfirm = () => {
-    onConfirm(stateName || 'State');
-    setStateName('');
+    onConfirm(stateName || "State");
+    setStateName("");
   };
 
   const handleClose = () => {
-    setStateName('');
+    setStateName("");
     onClose();
   };
 
@@ -45,8 +45,8 @@ export function StateNameDialog({
       <DialogTitle>Enter State Name</DialogTitle>
       <DialogContent>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-          Enter your state name to include in the {exportType}. This helps identify the source
-          of the assessment data.
+          Enter your state name to include in the {exportType}. This helps
+          identify the source of the assessment data.
         </Typography>
         <TextField
           autoFocus
@@ -56,7 +56,7 @@ export function StateNameDialog({
           value={stateName}
           onChange={(e) => setStateName(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
+            if (e.key === "Enter") {
               handleConfirm();
             }
           }}

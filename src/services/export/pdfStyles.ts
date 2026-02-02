@@ -54,9 +54,9 @@ export const COLORS = {
  * @returns Human-readable maturity level name
  */
 export function getMaturityLevelName(score: number): string {
-  if (score >= 4.5) return 'Optimized';
-  if (score >= 3.5) return 'Managed';
-  if (score >= 2.5) return 'Defined';
-  if (score >= 1.5) return 'Developing';
-  return 'Initial';
+  if (score >= 4.5) return "Optimized";
+  if (score >= 3.5) return "Managed";
+  if (score >= 2.5) return "Defined";
+  if (score >= 1.5) return "Developing";
+  return "Initial";
 }

@@ -1,11 +1,11 @@
 /**
  * BptSidebar - Business Process Template Sidebar Component
- * 
+ *
  * Renders all BPT data fields in a structured, readable format.
  * Handles complex text parsing including bullets, notes, sub-lists, and alternate paths.
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 import {
   Box,
   Chip,
@@ -14,17 +14,17 @@ import {
   IconButton,
   Paper,
   Typography,
-} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import type { BPT } from '../../types';
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import type { BPT } from "../../types";
 
 // ============================================
 // Constants
@@ -39,7 +39,15 @@ const SIDEBAR_MAX_WIDTH = 800;
 // ============================================
 
 interface ParsedLine {
-  type: 'paragraph' | 'note' | 'bullet' | 'dash' | 'check' | 'numbered' | 'lettered' | 'roman';
+  type:
+    | "paragraph"
+    | "note"
+    | "bullet"
+    | "dash"
+    | "check"
+    | "numbered"
+    | "lettered"
+    | "roman";
   content: string;
   indent: number;
 }
@@ -56,47 +64,51 @@ function parseLine(line: string): ParsedLine | null {
   const indent = Math.floor(leadingSpaces / 2);
 
   // NOTE: callout
-  if (trimmed.startsWith('NOTE:')) {
-    return { type: 'note', content: trimmed.replace(/^NOTE:\s*/, ''), indent: 0 };
+  if (trimmed.startsWith("NOTE:")) {
+    return {
+      type: "note",
+      content: trimmed.replace(/^NOTE:\s*/, ""),
+      indent: 0,
+    };
   }
 
   // Checkmark item (✓)
   const checkMatch = trimmed.match(/^[✓]\s*(.+)$/);
   if (checkMatch) {
-    return { type: 'check', content: checkMatch[1], indent: indent + 2 };
+    return { type: "check", content: checkMatch[1], indent: indent + 2 };
   }
 
   // Bullet item (•)
   const bulletMatch = trimmed.match(/^[•]\s*(.+)$/);
   if (bulletMatch) {
-    return { type: 'bullet', content: bulletMatch[1], indent };
+    return { type: "bullet", content: bulletMatch[1], indent };
   }
 
   // Dash item (- or –)
   const dashMatch = trimmed.match(/^[-–]\s*(.+)$/);
   if (dashMatch) {
-    return { type: 'dash', content: dashMatch[1], indent: indent + 1 };
+    return { type: "dash", content: dashMatch[1], indent: indent + 1 };
   }
 
   // Roman numeral (i., ii., iii., iv., etc.)
   const romanMatch = trimmed.match(/^(i{1,3}|iv|vi{0,3}|ix|x)\.\s*(.+)$/i);
   if (romanMatch) {
-    return { type: 'roman', content: romanMatch[2], indent: indent + 2 };
+    return { type: "roman", content: romanMatch[2], indent: indent + 2 };
   }
 
   // Lettered item (a., b., c., etc.)
   const letterMatch = trimmed.match(/^([a-z])\.\s*(.+)$/i);
   if (letterMatch) {
-    return { type: 'lettered', content: letterMatch[2], indent: indent + 1 };
+    return { type: "lettered", content: letterMatch[2], indent: indent + 1 };
   }
 
   // Numbered item (1., 2., etc.)
   const numberMatch = trimmed.match(/^(\d+)\.\s*(.+)$/);
   if (numberMatch) {
-    return { type: 'numbered', content: numberMatch[2], indent };
+    return { type: "numbered", content: numberMatch[2], indent };
   }
 
-  return { type: 'paragraph', content: trimmed, indent };
+  return { type: "paragraph", content: trimmed, indent };
 }
 
 // ============================================
@@ -106,12 +118,12 @@ function parseLine(line: string): ParsedLine | null {
 /**
  * Collapsible section wrapper with card-style content container
  */
-function Section({ 
-  title, 
-  children, 
+function Section({
+  title,
+  children,
   defaultExpanded = true,
-}: { 
-  title: string; 
+}: {
+  title: string;
   children: React.ReactNode;
   defaultExpanded?: boolean;
 }) {
@@ -122,35 +134,39 @@ function Section({
       <Box
         onClick={() => setExpanded(!expanded)}
         sx={{
-          display: 'flex',
-          alignItems: 'center',
+          display: "flex",
+          alignItems: "center",
           gap: 1,
-          cursor: 'pointer',
+          cursor: "pointer",
           py: 0.5,
-          '&:hover': { opacity: 0.8 },
+          "&:hover": { opacity: 0.8 },
         }}
       >
-        <Typography 
-          variant="subtitle2" 
-          sx={{ 
-            color: 'primary.main',
+        <Typography
+          variant="subtitle2"
+          sx={{
+            color: "primary.main",
             fontWeight: 600,
             flex: 1,
           }}
         >
           {title}
         </Typography>
-        {expanded ? <ExpandLessIcon fontSize="small" /> : <ExpandMoreIcon fontSize="small" />}
+        {expanded ? (
+          <ExpandLessIcon fontSize="small" />
+        ) : (
+          <ExpandMoreIcon fontSize="small" />
+        )}
       </Box>
       <Collapse in={expanded}>
-        <Box 
-          sx={{ 
+        <Box
+          sx={{
             mt: 1,
             p: 1.5,
             border: 1,
-            borderColor: 'divider',
+            borderColor: "divider",
             borderRadius: 1,
-            backgroundColor: 'background.paper',
+            backgroundColor: "background.paper",
           }}
         >
           {children}
@@ -170,13 +186,15 @@ function NoteCallout({ content }: { content: string }) {
       sx={{
         p: 1.5,
         my: 1.5,
-        backgroundColor: 'info.50',
+        backgroundColor: "info.50",
         borderLeft: 3,
-        borderColor: 'info.main',
+        borderColor: "info.main",
       }}
     >
-      <Box sx={{ display: 'flex', gap: 1, alignItems: 'flex-start' }}>
-        <InfoOutlinedIcon sx={{ fontSize: 18, color: 'info.main', mt: 0.25, flexShrink: 0 }} />
+      <Box sx={{ display: "flex", gap: 1, alignItems: "flex-start" }}>
+        <InfoOutlinedIcon
+          sx={{ fontSize: 18, color: "info.main", mt: 0.25, flexShrink: 0 }}
+        />
         <Typography variant="body2" sx={{ lineHeight: 1.6 }}>
           {content}
         </Typography>
@@ -189,7 +207,7 @@ function NoteCallout({ content }: { content: string }) {
  * Render formatted text with support for bullets, notes, and nested lists
  */
 function FormattedText({ text }: { text: string }) {
-  const lines = text.split('\n');
+  const lines = text.split("\n");
   const elements: React.ReactNode[] = [];
 
   for (let i = 0; i < lines.length; i++) {
@@ -199,44 +217,76 @@ function FormattedText({ text }: { text: string }) {
     const key = `line-${i}`;
 
     switch (parsed.type) {
-      case 'note':
+      case "note":
         elements.push(<NoteCallout key={key} content={parsed.content} />);
         break;
 
-      case 'check':
+      case "check":
         elements.push(
-          <Box key={key} sx={{ display: 'flex', gap: 1, pl: parsed.indent * 1.5, mb: 0.5 }}>
-            <Typography component="span" sx={{ color: 'success.main', fontWeight: 600, flexShrink: 0 }}>
+          <Box
+            key={key}
+            sx={{ display: "flex", gap: 1, pl: parsed.indent * 1.5, mb: 0.5 }}
+          >
+            <Typography
+              component="span"
+              sx={{ color: "success.main", fontWeight: 600, flexShrink: 0 }}
+            >
               ✓
             </Typography>
-            <Typography variant="body2" sx={{ lineHeight: 1.5 }}>{parsed.content}</Typography>
-          </Box>
+            <Typography variant="body2" sx={{ lineHeight: 1.5 }}>
+              {parsed.content}
+            </Typography>
+          </Box>,
         );
         break;
 
-      case 'bullet':
+      case "bullet":
         elements.push(
-          <Box key={key} sx={{ display: 'flex', gap: 1, pl: parsed.indent * 1.5, mb: 0.5 }}>
-            <Typography component="span" sx={{ color: 'text.secondary', flexShrink: 0 }}>•</Typography>
-            <Typography variant="body2" sx={{ lineHeight: 1.5 }}>{parsed.content}</Typography>
-          </Box>
+          <Box
+            key={key}
+            sx={{ display: "flex", gap: 1, pl: parsed.indent * 1.5, mb: 0.5 }}
+          >
+            <Typography
+              component="span"
+              sx={{ color: "text.secondary", flexShrink: 0 }}
+            >
+              •
+            </Typography>
+            <Typography variant="body2" sx={{ lineHeight: 1.5 }}>
+              {parsed.content}
+            </Typography>
+          </Box>,
         );
         break;
 
-      case 'dash':
+      case "dash":
         elements.push(
-          <Box key={key} sx={{ display: 'flex', gap: 1, pl: parsed.indent * 1.5, mb: 0.5 }}>
-            <Typography component="span" sx={{ color: 'text.secondary', flexShrink: 0 }}>–</Typography>
-            <Typography variant="body2" sx={{ lineHeight: 1.5 }}>{parsed.content}</Typography>
-          </Box>
+          <Box
+            key={key}
+            sx={{ display: "flex", gap: 1, pl: parsed.indent * 1.5, mb: 0.5 }}
+          >
+            <Typography
+              component="span"
+              sx={{ color: "text.secondary", flexShrink: 0 }}
+            >
+              –
+            </Typography>
+            <Typography variant="body2" sx={{ lineHeight: 1.5 }}>
+              {parsed.content}
+            </Typography>
+          </Box>,
         );
         break;
 
       default:
         elements.push(
-          <Typography key={key} variant="body2" sx={{ lineHeight: 1.6, mb: 1, pl: parsed.indent * 1.5 }}>
+          <Typography
+            key={key}
+            variant="body2"
+            sx={{ lineHeight: 1.6, mb: 1, pl: parsed.indent * 1.5 }}
+          >
             {parsed.content}
-          </Typography>
+          </Typography>,
         );
     }
   }
@@ -250,7 +300,10 @@ function FormattedText({ text }: { text: string }) {
 function ProcessSteps({ steps }: { steps: string[] }) {
   // Group steps by sections (main flow + alternate paths)
   const sections: { title: string | null; steps: string[] }[] = [];
-  let currentSection: { title: string | null; steps: string[] } = { title: null, steps: [] };
+  let currentSection: { title: string | null; steps: string[] } = {
+    title: null,
+    steps: [],
+  };
 
   for (const step of steps) {
     // Check for alternate path header: --- Alternate Path: ... ---
@@ -280,12 +333,15 @@ function ProcessSteps({ steps }: { steps: string[] }) {
                 mb: 1,
                 py: 0.75,
                 px: 1.5,
-                backgroundColor: 'warning.50',
+                backgroundColor: "warning.50",
                 borderLeft: 3,
-                borderColor: 'warning.main',
+                borderColor: "warning.main",
               }}
             >
-              <Typography variant="subtitle2" sx={{ fontWeight: 600, color: 'warning.dark' }}>
+              <Typography
+                variant="subtitle2"
+                sx={{ fontWeight: 600, color: "warning.dark" }}
+              >
                 {section.title}
               </Typography>
             </Paper>
@@ -298,19 +354,21 @@ function ProcessSteps({ steps }: { steps: string[] }) {
 
             return (
               <Box key={i} sx={{ mb: 1.5 }}>
-                <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'flex-start' }}>
+                <Box
+                  sx={{ display: "flex", gap: 1.5, alignItems: "flex-start" }}
+                >
                   {stepNum && (
                     <Box
                       sx={{
                         minWidth: 24,
                         height: 24,
-                        borderRadius: '50%',
-                        backgroundColor: 'primary.main',
-                        color: 'white',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '0.75rem',
+                        borderRadius: "50%",
+                        backgroundColor: "primary.main",
+                        color: "white",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "0.75rem",
                         fontWeight: 600,
                         flexShrink: 0,
                       }}
@@ -353,21 +411,24 @@ function SimpleList({ items }: { items: string[] }) {
 /**
  * Render process links (predecessor/successor) as chips
  */
-function ProcessLinks({ 
-  processes, 
-  direction 
-}: { 
-  processes: string[]; 
-  direction: 'predecessor' | 'successor';
+function ProcessLinks({
+  processes,
+  direction,
+}: {
+  processes: string[];
+  direction: "predecessor" | "successor";
 }) {
   if (processes.length === 0) return null;
 
-  const icon = direction === 'predecessor' 
-    ? <ArrowBackIcon sx={{ fontSize: 14 }} /> 
-    : <ArrowForwardIcon sx={{ fontSize: 14 }} />;
+  const icon =
+    direction === "predecessor" ? (
+      <ArrowBackIcon sx={{ fontSize: 14 }} />
+    ) : (
+      <ArrowForwardIcon sx={{ fontSize: 14 }} />
+    );
 
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75 }}>
+    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.75 }}>
       {processes.map((process, i) => (
         <Chip
           key={i}
@@ -375,10 +436,10 @@ function ProcessLinks({
           size="small"
           icon={icon}
           variant="outlined"
-          sx={{ 
-            height: 'auto',
-            '& .MuiChip-label': { 
-              whiteSpace: 'normal',
+          sx={{
+            height: "auto",
+            "& .MuiChip-label": {
+              whiteSpace: "normal",
               py: 0.5,
             },
           }}
@@ -391,7 +452,11 @@ function ProcessLinks({
 /**
  * Render trigger events grouped by type
  */
-function TriggerEvents({ events }: { events: BPT['process_details']['trigger_events'] }) {
+function TriggerEvents({
+  events,
+}: {
+  events: BPT["process_details"]["trigger_events"];
+}) {
   const hasEnvironment = events.environment_based.length > 0;
   const hasInteraction = events.interaction_based.length > 0;
 
@@ -401,7 +466,15 @@ function TriggerEvents({ events }: { events: BPT['process_details']['trigger_eve
     <Box>
       {hasEnvironment && (
         <Box sx={{ mb: 1.5 }}>
-          <Typography variant="caption" sx={{ fontWeight: 600, color: 'text.secondary', display: 'block', mb: 0.5 }}>
+          <Typography
+            variant="caption"
+            sx={{
+              fontWeight: 600,
+              color: "text.secondary",
+              display: "block",
+              mb: 0.5,
+            }}
+          >
             Environment-Based
           </Typography>
           <SimpleList items={events.environment_based} />
@@ -409,7 +482,15 @@ function TriggerEvents({ events }: { events: BPT['process_details']['trigger_eve
       )}
       {hasInteraction && (
         <Box>
-          <Typography variant="caption" sx={{ fontWeight: 600, color: 'text.secondary', display: 'block', mb: 0.5 }}>
+          <Typography
+            variant="caption"
+            sx={{
+              fontWeight: 600,
+              color: "text.secondary",
+              display: "block",
+              mb: 0.5,
+            }}
+          >
             Interaction-Based
           </Typography>
           <SimpleList items={events.interaction_based} />
@@ -422,32 +503,44 @@ function TriggerEvents({ events }: { events: BPT['process_details']['trigger_eve
 /**
  * Render diagrams section
  */
-function DiagramsSection({ 
-  diagrams, 
-}: { 
-  diagrams: BPT['process_details']['diagrams'];
+function DiagramsSection({
+  diagrams,
+}: {
+  diagrams: BPT["process_details"]["diagrams"];
 }) {
   if (!diagrams || diagrams.length === 0) return null;
 
   return (
     <Box>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-        {diagrams.length} diagram{diagrams.length !== 1 ? 's' : ''} available
+        {diagrams.length} diagram{diagrams.length !== 1 ? "s" : ""} available
       </Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
         {diagrams.map((diagram, i) => {
           // Handle both string and object formats
-          const isObject = typeof diagram === 'object' && diagram !== null;
-          const filename = isObject ? (diagram as { filename: string }).filename : diagram;
-          const description = isObject ? (diagram as { description?: string }).description : undefined;
+          const isObject = typeof diagram === "object" && diagram !== null;
+          const filename = isObject
+            ? (diagram as { filename: string }).filename
+            : diagram;
+          const description = isObject
+            ? (diagram as { description?: string }).description
+            : undefined;
 
           return (
-            <Paper key={i} elevation={0} sx={{ p: 1, backgroundColor: 'grey.50' }}>
+            <Paper
+              key={i}
+              elevation={0}
+              sx={{ p: 1, backgroundColor: "grey.50" }}
+            >
               <Typography variant="caption" sx={{ fontWeight: 500 }}>
                 {filename}
               </Typography>
               {description && (
-                <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  sx={{ display: "block" }}
+                >
                   {description}
                 </Typography>
               )}
@@ -470,13 +563,15 @@ function ConstraintsSection({ constraints }: { constraints: string }) {
       elevation={0}
       sx={{
         p: 1.5,
-        backgroundColor: 'warning.50',
+        backgroundColor: "warning.50",
         borderLeft: 3,
-        borderColor: 'warning.main',
+        borderColor: "warning.main",
       }}
     >
-      <Box sx={{ display: 'flex', gap: 1, alignItems: 'flex-start' }}>
-        <WarningAmberIcon sx={{ fontSize: 18, color: 'warning.main', mt: 0.25, flexShrink: 0 }} />
+      <Box sx={{ display: "flex", gap: 1, alignItems: "flex-start" }}>
+        <WarningAmberIcon
+          sx={{ fontSize: 18, color: "warning.main", mt: 0.25, flexShrink: 0 }}
+        />
         <Typography variant="body2" sx={{ lineHeight: 1.6 }}>
           {constraints}
         </Typography>
@@ -521,7 +616,10 @@ export function BptSidebar({
     if (!isResizing) return;
 
     const handleMouseMove = (e: MouseEvent) => {
-      const newWidth = Math.min(SIDEBAR_MAX_WIDTH, Math.max(SIDEBAR_MIN_WIDTH, e.clientX));
+      const newWidth = Math.min(
+        SIDEBAR_MAX_WIDTH,
+        Math.max(SIDEBAR_MIN_WIDTH, e.clientX),
+      );
       onWidthChange(newWidth);
     };
 
@@ -529,12 +627,12 @@ export function BptSidebar({
       setIsResizing(false);
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
     };
   }, [isResizing, onWidthChange]);
 
@@ -551,11 +649,18 @@ export function BptSidebar({
   const diagramCount = process_details.diagrams?.length || 0;
 
   const content = (
-    <Box sx={{ p: 2, height: '100%', overflow: 'auto' }}>
+    <Box sx={{ p: 2, height: "100%", overflow: "auto" }}>
       {/* Header */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 2,
+        }}
+      >
         <Box>
-          <Typography variant="h6" sx={{ fontSize: '1rem', fontWeight: 600 }}>
+          <Typography variant="h6" sx={{ fontSize: "1rem", fontWeight: 600 }}>
             Business Process Template
           </Typography>
           <Typography variant="caption" color="text.secondary">
@@ -567,7 +672,11 @@ export function BptSidebar({
             <CloseIcon />
           </IconButton>
         ) : (
-          <IconButton onClick={() => onCollapsedChange(true)} size="small" title="Collapse sidebar">
+          <IconButton
+            onClick={() => onCollapsedChange(true)}
+            size="small"
+            title="Collapse sidebar"
+          >
             <ChevronLeftIcon />
           </IconButton>
         )}
@@ -581,12 +690,15 @@ export function BptSidebar({
       {/* Predecessor Processes */}
       {predecessorCount > 0 && (
         <Section title="Predecessor Processes" defaultExpanded={true}>
-          <ProcessLinks processes={process_details.predecessor_processes} direction="predecessor" />
+          <ProcessLinks
+            processes={process_details.predecessor_processes}
+            direction="predecessor"
+          />
         </Section>
       )}
 
       {/* Trigger Events */}
-      {(process_details.trigger_events.environment_based.length > 0 || 
+      {(process_details.trigger_events.environment_based.length > 0 ||
         process_details.trigger_events.interaction_based.length > 0) && (
         <Section title="Trigger Events" defaultExpanded={true}>
           <TriggerEvents events={process_details.trigger_events} />
@@ -610,7 +722,10 @@ export function BptSidebar({
       {/* Successor Processes */}
       {successorCount > 0 && (
         <Section title="Successor Processes" defaultExpanded={true}>
-          <ProcessLinks processes={process_details.successor_processes} direction="successor" />
+          <ProcessLinks
+            processes={process_details.successor_processes}
+            direction="successor"
+          />
         </Section>
       )}
 
@@ -645,19 +760,21 @@ export function BptSidebar({
       {/* Diagrams */}
       {diagramCount > 0 && (
         <Section title="Diagrams" defaultExpanded={false}>
-          <DiagramsSection 
-            diagrams={process_details.diagrams} 
-          />
+          <DiagramsSection diagrams={process_details.diagrams} />
         </Section>
       )}
 
       {/* Metadata footer */}
-      <Box sx={{ mt: 4, pt: 2, borderTop: 1, borderColor: 'divider' }}>
+      <Box sx={{ mt: 4, pt: 2, borderTop: 1, borderColor: "divider" }}>
         <Typography variant="caption" color="text.secondary">
           Source: {bpt.metadata.source_file}
         </Typography>
         {bpt.metadata.source_page_range && (
-          <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
+          <Typography
+            variant="caption"
+            color="text.secondary"
+            sx={{ display: "block" }}
+          >
             Pages: {bpt.metadata.source_page_range}
           </Typography>
         )}
@@ -672,7 +789,7 @@ export function BptSidebar({
         anchor="left"
         open={open}
         onClose={onClose}
-        sx={{ '& .MuiDrawer-paper': { width: SIDEBAR_WIDTH_MOBILE } }}
+        sx={{ "& .MuiDrawer-paper": { width: SIDEBAR_WIDTH_MOBILE } }}
       >
         {content}
       </Drawer>
@@ -687,12 +804,12 @@ export function BptSidebar({
           width: 40,
           flexShrink: 0,
           borderRight: 1,
-          borderColor: 'divider',
-          backgroundColor: 'grey.50',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          borderColor: "divider",
+          backgroundColor: "grey.50",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
           pt: 1,
         }}
       >
@@ -706,10 +823,10 @@ export function BptSidebar({
         <Typography
           variant="caption"
           sx={{
-            writingMode: 'vertical-rl',
-            textOrientation: 'mixed',
+            writingMode: "vertical-rl",
+            textOrientation: "mixed",
             mt: 2,
-            color: 'text.secondary',
+            color: "text.secondary",
           }}
         >
           Process Details
@@ -725,12 +842,12 @@ export function BptSidebar({
         width: width,
         flexShrink: 0,
         borderRight: 1,
-        borderColor: 'divider',
-        backgroundColor: 'grey.50',
-        height: '100%',
-        overflow: 'hidden',
-        position: 'relative',
-        userSelect: isResizing ? 'none' : 'auto',
+        borderColor: "divider",
+        backgroundColor: "grey.50",
+        height: "100%",
+        overflow: "hidden",
+        position: "relative",
+        userSelect: isResizing ? "none" : "auto",
       }}
     >
       {content}
@@ -738,16 +855,16 @@ export function BptSidebar({
       <Box
         onMouseDown={handleMouseDown}
         sx={{
-          position: 'absolute',
+          position: "absolute",
           top: 0,
           right: 0,
           width: 6,
-          height: '100%',
-          cursor: 'col-resize',
-          backgroundColor: isResizing ? 'primary.main' : 'transparent',
-          transition: 'background-color 0.15s',
-          '&:hover': {
-            backgroundColor: 'primary.light',
+          height: "100%",
+          cursor: "col-resize",
+          backgroundColor: isResizing ? "primary.main" : "transparent",
+          transition: "background-color 0.15s",
+          "&:hover": {
+            backgroundColor: "primary.light",
           },
         }}
       />

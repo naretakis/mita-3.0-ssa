@@ -4,7 +4,7 @@
  * Handles file selection and import process for ZIP and JSON files.
  */
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -21,16 +21,20 @@ import {
   ListItemIcon,
   ListItemText,
   Chip,
-} from '@mui/material';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import FolderZipIcon from '@mui/icons-material/FolderZip';
-import DataObjectIcon from '@mui/icons-material/DataObject';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import ErrorIcon from '@mui/icons-material/Error';
-import HistoryIcon from '@mui/icons-material/History';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
-import { importFromJson, importFromZip, readFileAsText } from '../../services/export';
-import type { ImportResult } from '../../services/export';
+} from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import FolderZipIcon from "@mui/icons-material/FolderZip";
+import DataObjectIcon from "@mui/icons-material/DataObject";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import ErrorIcon from "@mui/icons-material/Error";
+import HistoryIcon from "@mui/icons-material/History";
+import SkipNextIcon from "@mui/icons-material/SkipNext";
+import {
+  importFromJson,
+  importFromZip,
+  readFileAsText,
+} from "../../services/export";
+import type { ImportResult } from "../../services/export";
 
 interface ImportDialogProps {
   open: boolean;
@@ -38,42 +42,50 @@ interface ImportDialogProps {
   onImportComplete: () => void;
 }
 
-export function ImportDialog({ open, onClose, onImportComplete }: ImportDialogProps) {
+export function ImportDialog({
+  open,
+  onClose,
+  onImportComplete,
+}: ImportDialogProps) {
   const [file, setFile] = useState<File | null>(null);
   const [importing, setImporting] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [progressMessage, setProgressMessage] = useState('');
+  const [progressMessage, setProgressMessage] = useState("");
   const [result, setResult] = useState<ImportResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const handleFileSelect = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (selectedFile) {
-      const isValid =
-        selectedFile.name.endsWith('.zip') || selectedFile.name.endsWith('.json');
-      if (isValid) {
-        setFile(selectedFile);
-        setError(null);
-        setResult(null);
-      } else {
-        setError('Please select a .zip or .json file');
+  const handleFileSelect = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const selectedFile = event.target.files?.[0];
+      if (selectedFile) {
+        const isValid =
+          selectedFile.name.endsWith(".zip") ||
+          selectedFile.name.endsWith(".json");
+        if (isValid) {
+          setFile(selectedFile);
+          setError(null);
+          setResult(null);
+        } else {
+          setError("Please select a .zip or .json file");
+        }
       }
-    }
-    event.target.value = '';
-  }, []);
+      event.target.value = "";
+    },
+    [],
+  );
 
   const handleDrop = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const droppedFile = event.dataTransfer.files[0];
     if (droppedFile) {
       const isValid =
-        droppedFile.name.endsWith('.zip') || droppedFile.name.endsWith('.json');
+        droppedFile.name.endsWith(".zip") || droppedFile.name.endsWith(".json");
       if (isValid) {
         setFile(droppedFile);
         setError(null);
         setResult(null);
       } else {
-        setError('Please select a .zip or .json file');
+        setError("Please select a .zip or .json file");
       }
     }
   }, []);
@@ -97,7 +109,7 @@ export function ImportDialog({ open, onClose, onImportComplete }: ImportDialogPr
         setProgressMessage(message);
       };
 
-      if (file.name.endsWith('.zip')) {
+      if (file.name.endsWith(".zip")) {
         importResult = await importFromZip(file, onProgress);
       } else {
         const jsonString = await readFileAsText(file);
@@ -110,11 +122,11 @@ export function ImportDialog({ open, onClose, onImportComplete }: ImportDialogPr
         onImportComplete();
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Import failed');
+      setError(err instanceof Error ? err.message : "Import failed");
     } finally {
       setImporting(false);
       setProgress(0);
-      setProgressMessage('');
+      setProgressMessage("");
     }
   };
 
@@ -129,10 +141,10 @@ export function ImportDialog({ open, onClose, onImportComplete }: ImportDialogPr
 
   const getFileIcon = () => {
     if (!file) return null;
-    if (file.name.endsWith('.zip')) {
-      return <FolderZipIcon sx={{ fontSize: 48, color: 'primary.main' }} />;
+    if (file.name.endsWith(".zip")) {
+      return <FolderZipIcon sx={{ fontSize: 48, color: "primary.main" }} />;
     }
-    return <DataObjectIcon sx={{ fontSize: 48, color: 'info.main' }} />;
+    return <DataObjectIcon sx={{ fontSize: 48, color: "info.main" }} />;
   };
 
   return (
@@ -142,8 +154,8 @@ export function ImportDialog({ open, onClose, onImportComplete }: ImportDialogPr
         {!result ? (
           <>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              Select a backup file to import. Supports ZIP (complete backup with attachments)
-              and JSON (data only) files.
+              Select a backup file to import. Supports ZIP (complete backup with
+              attachments) and JSON (data only) files.
             </Typography>
 
             {/* Drop zone */}
@@ -153,11 +165,11 @@ export function ImportDialog({ open, onClose, onImportComplete }: ImportDialogPr
               onDragOver={handleDragOver}
               sx={{
                 p: 3,
-                textAlign: 'center',
-                bgcolor: file ? 'primary.50' : 'grey.50',
-                borderStyle: 'dashed',
-                borderColor: file ? 'primary.main' : 'grey.300',
-                cursor: importing ? 'not-allowed' : 'pointer',
+                textAlign: "center",
+                bgcolor: file ? "primary.50" : "grey.50",
+                borderStyle: "dashed",
+                borderColor: file ? "primary.main" : "grey.300",
+                cursor: importing ? "not-allowed" : "pointer",
               }}
             >
               <input
@@ -166,14 +178,14 @@ export function ImportDialog({ open, onClose, onImportComplete }: ImportDialogPr
                 accept=".zip,.json"
                 onChange={handleFileSelect}
                 disabled={importing}
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
               />
               <label htmlFor="import-file-input">
                 <Box
                   sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
                     gap: 1,
                   }}
                 >
@@ -189,7 +201,9 @@ export function ImportDialog({ open, onClose, onImportComplete }: ImportDialogPr
                     </>
                   ) : (
                     <>
-                      <CloudUploadIcon sx={{ fontSize: 48, color: 'action.active' }} />
+                      <CloudUploadIcon
+                        sx={{ fontSize: 48, color: "action.active" }}
+                      />
                       <Typography variant="body1">
                         Drop file here or click to select
                       </Typography>
@@ -205,8 +219,12 @@ export function ImportDialog({ open, onClose, onImportComplete }: ImportDialogPr
             {importing && (
               <Box sx={{ mt: 2 }}>
                 <LinearProgress variant="determinate" value={progress} />
-                <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5 }}>
-                  {progressMessage || 'Processing...'}
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  sx={{ mt: 0.5 }}
+                >
+                  {progressMessage || "Processing..."}
                 </Typography>
               </Box>
             )}
@@ -220,13 +238,16 @@ export function ImportDialog({ open, onClose, onImportComplete }: ImportDialogPr
         ) : (
           <>
             {/* Import Results */}
-            <Alert severity={result.success ? 'success' : 'warning'} sx={{ mb: 2 }}>
+            <Alert
+              severity={result.success ? "success" : "warning"}
+              sx={{ mb: 2 }}
+            >
               {result.success
-                ? 'Import completed successfully!'
+                ? "Import completed successfully!"
                 : `Import completed with ${result.errors.length} error(s)`}
             </Alert>
 
-            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+            <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
               <Chip
                 icon={<CheckCircleIcon />}
                 label={`${result.importedAsCurrent} imported as current`}
@@ -253,29 +274,29 @@ export function ImportDialog({ open, onClose, onImportComplete }: ImportDialogPr
             )}
 
             {result.details.length > 0 && (
-              <Box sx={{ maxHeight: 200, overflow: 'auto' }}>
+              <Box sx={{ maxHeight: 200, overflow: "auto" }}>
                 <List dense>
                   {result.details.slice(0, 10).map((item, index) => (
                     <ListItem key={index} disableGutters>
                       <ListItemIcon sx={{ minWidth: 32 }}>
-                        {item.action === 'imported_current' && (
+                        {item.action === "imported_current" && (
                           <CheckCircleIcon fontSize="small" color="success" />
                         )}
-                        {item.action === 'imported_history' && (
+                        {item.action === "imported_history" && (
                           <HistoryIcon fontSize="small" color="info" />
                         )}
-                        {item.action === 'skipped' && (
+                        {item.action === "skipped" && (
                           <SkipNextIcon fontSize="small" color="action" />
                         )}
-                        {item.action === 'error' && (
+                        {item.action === "error" && (
                           <ErrorIcon fontSize="small" color="error" />
                         )}
                       </ListItemIcon>
                       <ListItemText
                         primary={item.capabilityName}
                         secondary={item.reason}
-                        primaryTypographyProps={{ variant: 'body2' }}
-                        secondaryTypographyProps={{ variant: 'caption' }}
+                        primaryTypographyProps={{ variant: "body2" }}
+                        secondaryTypographyProps={{ variant: "caption" }}
                       />
                     </ListItem>
                   ))}
@@ -284,8 +305,8 @@ export function ImportDialog({ open, onClose, onImportComplete }: ImportDialogPr
                       <ListItemText
                         primary={`... and ${result.details.length - 10} more`}
                         primaryTypographyProps={{
-                          variant: 'body2',
-                          color: 'text.secondary',
+                          variant: "body2",
+                          color: "text.secondary",
                         }}
                       />
                     </ListItem>
@@ -307,7 +328,7 @@ export function ImportDialog({ open, onClose, onImportComplete }: ImportDialogPr
               variant="contained"
               disabled={!file || importing}
             >
-              {importing ? 'Importing...' : 'Import'}
+              {importing ? "Importing..." : "Import"}
             </Button>
           </>
         ) : (

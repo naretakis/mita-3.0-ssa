@@ -4,17 +4,17 @@
  * Type definitions for the export and import system.
  */
 
-import type { AssessmentHistory, Tag } from '../../types';
+import type { AssessmentHistory, Tag } from "../../types";
 
 /**
  * Export scope options
  */
-export type ExportScope = 'full' | 'business_area' | 'capability';
+export type ExportScope = "full" | "business_area" | "capability";
 
 /**
  * Export format options
  */
-export type ExportFormat = 'json' | 'zip' | 'pdf';
+export type ExportFormat = "json" | "zip" | "pdf";
 
 /**
  * Export options
@@ -66,7 +66,7 @@ export interface AssessmentExport {
   capabilityCode: string;
   businessArea: string;
   processName: string;
-  status: 'in_progress' | 'finalized';
+  status: "in_progress" | "finalized";
   tags: string[];
   blueprintVersion: string;
   createdAt: string;
@@ -125,16 +125,22 @@ export interface ImportResult {
 export interface ImportItemResult {
   capabilityCode: string;
   capabilityName: string;
-  action: 'imported_current' | 'imported_history' | 'skipped' | 'error';
+  action: "imported_current" | "imported_history" | "skipped" | "error";
   reason?: string;
 }
 
 /**
  * Export progress callback
  */
-export type ExportProgressCallback = (progress: number, message: string) => void;
+export type ExportProgressCallback = (
+  progress: number,
+  message: string,
+) => void;
 
 /**
  * Import progress callback
  */
-export type ImportProgressCallback = (progress: number, message: string) => void;
+export type ImportProgressCallback = (
+  progress: number,
+  message: string,
+) => void;

@@ -5,8 +5,8 @@
  * Files are stored locally in IndexedDB.
  */
 
-import React, { useCallback, useState } from 'react';
-import type { JSX } from 'react';
+import React, { useCallback, useState } from "react";
+import type { JSX } from "react";
 import {
   Box,
   Button,
@@ -25,14 +25,14 @@ import {
   DialogContent,
   DialogActions,
   TextField,
-} from '@mui/material';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import ImageIcon from '@mui/icons-material/Image';
-import DeleteIcon from '@mui/icons-material/Delete';
-import DownloadIcon from '@mui/icons-material/Download';
-import type { Attachment } from '../../types';
+} from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import ImageIcon from "@mui/icons-material/Image";
+import DeleteIcon from "@mui/icons-material/Delete";
+import DownloadIcon from "@mui/icons-material/Download";
+import type { Attachment } from "../../types";
 
 interface AttachmentUploadProps {
   attachments: Attachment[];
@@ -46,15 +46,15 @@ interface AttachmentUploadProps {
 }
 
 const ALLOWED_TYPES = [
-  'application/pdf',
-  'application/msword',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-  'application/vnd.ms-excel',
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-  'image/png',
-  'image/jpeg',
-  'image/gif',
-  'text/plain',
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "application/vnd.ms-excel",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  "image/png",
+  "image/jpeg",
+  "image/gif",
+  "text/plain",
 ];
 
 const DEFAULT_MAX_SIZE = 10 * 1024 * 1024; // 10MB
@@ -63,10 +63,10 @@ const DEFAULT_MAX_SIZE = 10 * 1024 * 1024; // 10MB
  * Get icon for file type
  */
 function getFileIcon(fileType: string): JSX.Element {
-  if (fileType === 'application/pdf') {
+  if (fileType === "application/pdf") {
     return <PictureAsPdfIcon color="error" />;
   }
-  if (fileType.startsWith('image/')) {
+  if (fileType.startsWith("image/")) {
     return <ImageIcon color="primary" />;
   }
   return <InsertDriveFileIcon color="action" />;
@@ -99,12 +99,14 @@ export function AttachmentUpload({
     open: boolean;
     file: File | null;
   }>({ open: false, file: null });
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState("");
 
   // Generate a unique ID for the file input to avoid conflicts when multiple
   // AttachmentUpload components are rendered on the same page
   const generatedId = React.useId();
-  const inputId = uploadId ? `attachment-upload-${uploadId}` : `attachment-upload-${generatedId}`;
+  const inputId = uploadId
+    ? `attachment-upload-${uploadId}`
+    : `attachment-upload-${generatedId}`;
 
   const handleFileSelect = useCallback(
     async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,13 +115,17 @@ export function AttachmentUpload({
 
       // Validate file type
       if (!ALLOWED_TYPES.includes(file.type)) {
-        setError('File type not supported. Please upload PDF, Word, Excel, images, or text files.');
+        setError(
+          "File type not supported. Please upload PDF, Word, Excel, images, or text files.",
+        );
         return;
       }
 
       // Validate file size
       if (file.size > maxFileSize) {
-        setError(`File too large. Maximum size is ${formatFileSize(maxFileSize)}.`);
+        setError(
+          `File too large. Maximum size is ${formatFileSize(maxFileSize)}.`,
+        );
         return;
       }
 
@@ -127,9 +133,9 @@ export function AttachmentUpload({
       setDescriptionDialog({ open: true, file });
 
       // Reset input
-      event.target.value = '';
+      event.target.value = "";
     },
-    [maxFileSize]
+    [maxFileSize],
   );
 
   const handleUploadConfirm = async (): Promise<void> => {
@@ -139,9 +145,9 @@ export function AttachmentUpload({
     try {
       await onUpload(descriptionDialog.file, description || undefined);
       setDescriptionDialog({ open: false, file: null });
-      setDescription('');
+      setDescription("");
     } catch {
-      setError('Failed to upload file. Please try again.');
+      setError("Failed to upload file. Please try again.");
     } finally {
       setUploading(false);
     }
@@ -154,19 +160,21 @@ export function AttachmentUpload({
       if (!file) return;
 
       if (!ALLOWED_TYPES.includes(file.type)) {
-        setError('File type not supported.');
+        setError("File type not supported.");
         return;
       }
 
       if (file.size > maxFileSize) {
-        setError(`File too large. Maximum size is ${formatFileSize(maxFileSize)}.`);
+        setError(
+          `File too large. Maximum size is ${formatFileSize(maxFileSize)}.`,
+        );
         return;
       }
 
       setError(null);
       setDescriptionDialog({ open: true, file });
     },
-    [maxFileSize]
+    [maxFileSize],
   );
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>): void => {
@@ -188,40 +196,54 @@ export function AttachmentUpload({
         aria-label="File upload area"
         sx={{
           p: 2,
-          textAlign: 'center',
-          bgcolor: 'grey.50',
-          borderStyle: 'dashed',
-          cursor: disabled ? 'not-allowed' : 'pointer',
+          textAlign: "center",
+          bgcolor: "grey.50",
+          borderStyle: "dashed",
+          cursor: disabled ? "not-allowed" : "pointer",
           opacity: disabled ? 0.6 : 1,
-          '&:hover': disabled
+          "&:hover": disabled
             ? {}
             : {
-                bgcolor: 'grey.100',
-                borderColor: 'primary.main',
+                bgcolor: "grey.100",
+                borderColor: "primary.main",
               },
         }}
       >
         <input
           type="file"
           id={inputId}
-          accept={ALLOWED_TYPES.join(',')}
+          accept={ALLOWED_TYPES.join(",")}
           onChange={handleFileSelect}
           disabled={disabled || uploading}
-          style={{ display: 'none' }}
+          style={{ display: "none" }}
           aria-label="Upload file"
         />
         <label htmlFor={inputId}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
             {uploading ? (
               <CircularProgress size={24} aria-label="Uploading file" />
             ) : (
-              <CloudUploadIcon color="action" fontSize="large" aria-hidden="true" />
+              <CloudUploadIcon
+                color="action"
+                fontSize="large"
+                aria-hidden="true"
+              />
             )}
             <Typography variant="body2" color="text.secondary">
-              {uploading ? 'Uploading...' : 'Drop files here or click to upload'}
+              {uploading
+                ? "Uploading..."
+                : "Drop files here or click to upload"}
             </Typography>
             <Typography variant="caption" color="text.secondary">
-              PDF, Word, Excel, images, or text (max {formatFileSize(maxFileSize)})
+              PDF, Word, Excel, images, or text (max{" "}
+              {formatFileSize(maxFileSize)})
             </Typography>
           </Box>
         </label>
@@ -241,11 +263,11 @@ export function AttachmentUpload({
             <ListItem
               key={attachment.id}
               sx={{
-                bgcolor: 'background.paper',
+                bgcolor: "background.paper",
                 borderRadius: 1,
                 mb: 0.5,
-                border: '1px solid',
-                borderColor: 'divider',
+                border: "1px solid",
+                borderColor: "divider",
               }}
             >
               <ListItemIcon sx={{ minWidth: 40 }} aria-hidden="true">
@@ -259,8 +281,8 @@ export function AttachmentUpload({
                     {attachment.description && ` • ${attachment.description}`}
                   </>
                 }
-                primaryTypographyProps={{ variant: 'body2', noWrap: true }}
-                secondaryTypographyProps={{ variant: 'caption' }}
+                primaryTypographyProps={{ variant: "body2", noWrap: true }}
+                secondaryTypographyProps={{ variant: "caption" }}
               />
               <ListItemSecondaryAction>
                 <Tooltip title="Download">
@@ -316,9 +338,17 @@ export function AttachmentUpload({
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setDescriptionDialog({ open: false, file: null })}>Cancel</Button>
-          <Button onClick={handleUploadConfirm} variant="contained" disabled={uploading}>
-            {uploading ? 'Uploading...' : 'Upload'}
+          <Button
+            onClick={() => setDescriptionDialog({ open: false, file: null })}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleUploadConfirm}
+            variant="contained"
+            disabled={uploading}
+          >
+            {uploading ? "Uploading..." : "Upload"}
           </Button>
         </DialogActions>
       </Dialog>

@@ -5,10 +5,10 @@
  * Supports JSON, ZIP (with attachments), and PDF exports.
  */
 
-import JSZip from 'jszip';
+import JSZip from "jszip";
 
-import { db } from '../db';
-import { getCapabilityByCode } from '../blueprint';
+import { db } from "../db";
+import { getCapabilityByCode } from "../blueprint";
 import type {
   ExportOptions,
   ExportData,
@@ -16,23 +16,26 @@ import type {
   RatingExport,
   AssessmentExport,
   ExportProgressCallback,
-} from './types';
-import { generatePdfReport } from './pdfExport';
+} from "./types";
+import { generatePdfReport } from "./pdfExport";
 
 /** Current export format version */
-const EXPORT_VERSION = '1.0';
+const EXPORT_VERSION = "1.0";
 
 /** App version */
-const APP_VERSION = '3.0';
+const APP_VERSION = "3.0";
 
 /** Blueprint version */
-const BLUEPRINT_VERSION = '3.0';
+const BLUEPRINT_VERSION = "3.0";
 
 /**
  * Generates a unique filename for an attachment in the ZIP export.
  */
-function generateUniqueExportFileName(attachmentId: string, originalFileName: string): string {
-  const lastDotIndex = originalFileName.lastIndexOf('.');
+function generateUniqueExportFileName(
+  attachmentId: string,
+  originalFileName: string,
+): string {
+  const lastDotIndex = originalFileName.lastIndexOf(".");
   if (lastDotIndex === -1) {
     return `${originalFileName}_${attachmentId}`;
   }
@@ -44,11 +47,15 @@ function generateUniqueExportFileName(attachmentId: string, originalFileName: st
 /**
  * Extracts the attachment ID from a unique export filename.
  */
-export function extractAttachmentIdFromFileName(uniqueFileName: string): string | null {
-  const lastDotIndex = uniqueFileName.lastIndexOf('.');
+export function extractAttachmentIdFromFileName(
+  uniqueFileName: string,
+): string | null {
+  const lastDotIndex = uniqueFileName.lastIndexOf(".");
   const nameWithoutExt =
-    lastDotIndex === -1 ? uniqueFileName : uniqueFileName.substring(0, lastDotIndex);
-  const lastUnderscoreIndex = nameWithoutExt.lastIndexOf('_');
+    lastDotIndex === -1
+      ? uniqueFileName
+      : uniqueFileName.substring(0, lastDotIndex);
+  const lastUnderscoreIndex = nameWithoutExt.lastIndexOf("_");
 
   if (lastUnderscoreIndex === -1) {
     return null;
@@ -64,43 +71,57 @@ async function collectExportData(options: ExportOptions): Promise<ExportData> {
   const { scope, businessArea, capabilityCode } = options;
 
   let assessments = await db.capabilityAssessments.toArray();
-  let scopeDetails: ExportData['scopeDetails'];
+  let scopeDetails: ExportData["scopeDetails"];
 
   // Filter by scope
-  if (scope === 'capability' && capabilityCode) {
-    assessments = assessments.filter(a => a.capabilityCode === capabilityCode);
+  if (scope === "capability" && capabilityCode) {
+    assessments = assessments.filter(
+      (a) => a.capabilityCode === capabilityCode,
+    );
     const capability = getCapabilityByCode(capabilityCode);
     scopeDetails = {
       capabilityCode,
       capabilityName: capability?.processName,
       businessArea: capability?.businessArea,
     };
-  } else if (scope === 'business_area' && businessArea) {
-    assessments = assessments.filter(a => a.businessArea === businessArea);
+  } else if (scope === "business_area" && businessArea) {
+    assessments = assessments.filter((a) => a.businessArea === businessArea);
     scopeDetails = { businessArea };
   }
 
   // Get ratings for these assessments
-  const assessmentIds = assessments.map(a => a.id);
-  const ratings = assessmentIds.length > 0
-    ? await db.ratings.where('capabilityAssessmentId').anyOf(assessmentIds).toArray()
-    : [];
+  const assessmentIds = assessments.map((a) => a.id);
+  const ratings =
+    assessmentIds.length > 0
+      ? await db.ratings
+          .where("capabilityAssessmentId")
+          .anyOf(assessmentIds)
+          .toArray()
+      : [];
 
   // Get history
-  const capabilityCodes = assessments.map(a => a.capabilityCode);
-  const history = capabilityCodes.length > 0
-    ? await db.assessmentHistory.where('capabilityCode').anyOf(capabilityCodes).toArray()
-    : [];
+  const capabilityCodes = assessments.map((a) => a.capabilityCode);
+  const history =
+    capabilityCodes.length > 0
+      ? await db.assessmentHistory
+          .where("capabilityCode")
+          .anyOf(capabilityCodes)
+          .toArray()
+      : [];
 
   // Get all tags
   const tags = await db.tags.toArray();
 
   // Get attachment metadata
-  const attachmentsRaw = assessmentIds.length > 0
-    ? await db.attachments.where('capabilityAssessmentId').anyOf(assessmentIds).toArray()
-    : [];
+  const attachmentsRaw =
+    assessmentIds.length > 0
+      ? await db.attachments
+          .where("capabilityAssessmentId")
+          .anyOf(assessmentIds)
+          .toArray()
+      : [];
 
-  const attachments: AttachmentMetadata[] = attachmentsRaw.map(a => ({
+  const attachments: AttachmentMetadata[] = attachmentsRaw.map((a) => ({
     id: a.id,
     capabilityAssessmentId: a.capabilityAssessmentId,
     ratingId: a.ratingId,
@@ -112,7 +133,7 @@ async function collectExportData(options: ExportOptions): Promise<ExportData> {
   }));
 
   // Convert assessments to export format
-  const assessmentsExport: AssessmentExport[] = assessments.map(a => ({
+  const assessmentsExport: AssessmentExport[] = assessments.map((a) => ({
     id: a.id,
     capabilityCode: a.capabilityCode,
     businessArea: a.businessArea,
@@ -127,7 +148,7 @@ async function collectExportData(options: ExportOptions): Promise<ExportData> {
   }));
 
   // Convert ratings to export format
-  const ratingsExport: RatingExport[] = ratings.map(r => ({
+  const ratingsExport: RatingExport[] = ratings.map((r) => ({
     id: r.id,
     capabilityAssessmentId: r.capabilityAssessmentId,
     questionIndex: r.questionIndex,
@@ -140,7 +161,7 @@ async function collectExportData(options: ExportOptions): Promise<ExportData> {
   }));
 
   // Get unique business areas
-  const businessAreas = [...new Set(assessments.map(a => a.businessArea))];
+  const businessAreas = [...new Set(assessments.map((a) => a.businessArea))];
 
   return {
     exportVersion: EXPORT_VERSION,
@@ -162,7 +183,7 @@ async function collectExportData(options: ExportOptions): Promise<ExportData> {
       totalHistory: history.length,
       totalAttachments: attachments.length,
       businessAreas,
-      capabilities: assessments.map(a => a.capabilityCode),
+      capabilities: assessments.map((a) => a.capabilityCode),
     },
   };
 }
@@ -180,45 +201,52 @@ export async function exportAsJson(options: ExportOptions): Promise<string> {
  */
 export async function exportAsZip(
   options: ExportOptions,
-  onProgress?: ExportProgressCallback
+  onProgress?: ExportProgressCallback,
 ): Promise<Blob> {
   const zip = new JSZip();
 
-  onProgress?.(10, 'Collecting assessment data...');
+  onProgress?.(10, "Collecting assessment data...");
 
   const exportData = await collectExportData(options);
 
-  onProgress?.(30, 'Adding JSON data...');
+  onProgress?.(30, "Adding JSON data...");
 
   // Add JSON data file
-  zip.file('data.json', JSON.stringify(exportData, null, 2));
+  zip.file("data.json", JSON.stringify(exportData, null, 2));
 
-  onProgress?.(50, 'Adding attachments...');
+  onProgress?.(50, "Adding attachments...");
 
   // Add attachments if requested
   if (options.includeAttachments !== false) {
-    const attachmentsFolder = zip.folder('attachments');
+    const attachmentsFolder = zip.folder("attachments");
     if (attachmentsFolder) {
-      const assessmentIds = exportData.data.assessments.map(a => a.id);
-      const attachments = assessmentIds.length > 0
-        ? await db.attachments.where('capabilityAssessmentId').anyOf(assessmentIds).toArray()
-        : [];
+      const assessmentIds = exportData.data.assessments.map((a) => a.id);
+      const attachments =
+        assessmentIds.length > 0
+          ? await db.attachments
+              .where("capabilityAssessmentId")
+              .anyOf(assessmentIds)
+              .toArray()
+          : [];
 
       for (const attachment of attachments) {
         const assessment = exportData.data.assessments.find(
-          a => a.id === attachment.capabilityAssessmentId
+          (a) => a.id === attachment.capabilityAssessmentId,
         );
         if (assessment) {
           const folderPath = assessment.capabilityCode;
           const folder = attachmentsFolder.folder(folderPath);
-          const uniqueFileName = generateUniqueExportFileName(attachment.id, attachment.fileName);
+          const uniqueFileName = generateUniqueExportFileName(
+            attachment.id,
+            attachment.fileName,
+          );
           folder?.file(uniqueFileName, attachment.blob);
         }
       }
     }
   }
 
-  onProgress?.(80, 'Creating manifest...');
+  onProgress?.(80, "Creating manifest...");
 
   // Add manifest
   const manifest = {
@@ -233,13 +261,16 @@ export async function exportAsZip(
     },
     stats: exportData.metadata,
   };
-  zip.file('manifest.json', JSON.stringify(manifest, null, 2));
+  zip.file("manifest.json", JSON.stringify(manifest, null, 2));
 
-  onProgress?.(90, 'Compressing...');
+  onProgress?.(90, "Compressing...");
 
-  const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE' });
+  const blob = await zip.generateAsync({
+    type: "blob",
+    compression: "DEFLATE",
+  });
 
-  onProgress?.(100, 'Complete');
+  onProgress?.(100, "Complete");
 
   return blob;
 }
@@ -249,45 +280,30 @@ export async function exportAsZip(
  */
 export async function exportAsPdf(
   options: ExportOptions,
-  onProgress?: ExportProgressCallback
+  onProgress?: ExportProgressCallback,
 ): Promise<Blob> {
-  onProgress?.(10, 'Collecting data...');
+  onProgress?.(10, "Collecting data...");
   const exportData = await collectExportData(options);
 
-  onProgress?.(50, 'Generating PDF...');
+  onProgress?.(50, "Generating PDF...");
   const blob = await generatePdfReport(exportData, options);
 
-  onProgress?.(100, 'Complete');
+  onProgress?.(100, "Complete");
   return blob;
 }
 
-/**
- * Downloads a blob as a file
- */
-export function downloadBlob(blob: Blob, filename: string): void {
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = filename;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
-}
-
-/**
- * Downloads text as a file
- */
-export function downloadText(text: string, filename: string, mimeType: string): void {
-  const blob = new Blob([text], { type: mimeType });
-  downloadBlob(blob, filename);
-}
+// Re-export download helpers from utils for backwards compatibility
+export { downloadBlob, downloadText } from "../../utils/downloadHelpers";
 
 /**
  * Generates a filename with timestamp
  */
-export function generateFilename(prefix: string, extension: string, scope?: string): string {
-  const date = new Date().toISOString().split('T')[0];
-  const scopePart = scope ? `-${scope}` : '';
+export function generateFilename(
+  prefix: string,
+  extension: string,
+  scope?: string,
+): string {
+  const date = new Date().toISOString().split("T")[0];
+  const scopePart = scope ? `-${scope}` : "";
   return `mita-3.0-${prefix}${scopePart}-${date}.${extension}`;
 }
