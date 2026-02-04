@@ -11,6 +11,7 @@ import {
   Chip,
   Collapse,
   Paper,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -20,6 +21,7 @@ import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import type { BPT } from "../../types";
+import { getCapabilityByProcessName } from "../../services/blueprint";
 
 // ============================================
 // Text Parsing Utilities
@@ -397,13 +399,16 @@ export function SimpleList({ items }: { items: string[] }) {
 
 /**
  * Render process links (predecessor/successor) as chips
+ * Chips are clickable if the process exists and onProcessClick is provided
  */
 export function ProcessLinks({
   processes,
   direction,
+  onProcessClick,
 }: {
   processes: string[];
   direction: "predecessor" | "successor";
+  onProcessClick?: (capabilityCode: string) => void;
 }) {
   if (processes.length === 0) return null;
 
@@ -416,22 +421,62 @@ export function ProcessLinks({
 
   return (
     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.75 }}>
-      {processes.map((process, i) => (
-        <Chip
-          key={i}
-          label={process}
-          size="small"
-          icon={icon}
-          variant="outlined"
-          sx={{
-            height: "auto",
-            "& .MuiChip-label": {
-              whiteSpace: "normal",
-              py: 0.5,
-            },
-          }}
-        />
-      ))}
+      {processes.map((processName, i) => {
+        // Try to find the matching capability
+        const capability = getCapabilityByProcessName(processName);
+        const isClickable = capability && onProcessClick;
+        const isUndefined = !capability;
+
+        const chip = (
+          <Chip
+            key={i}
+            label={processName}
+            size="small"
+            icon={icon}
+            variant="outlined"
+            clickable={!!isClickable}
+            onClick={
+              isClickable
+                ? () => onProcessClick(capability.code)
+                : undefined
+            }
+            sx={{
+              height: "auto",
+              "& .MuiChip-label": {
+                whiteSpace: "normal",
+                py: 0.5,
+              },
+              ...(isClickable && {
+                cursor: "pointer",
+                "&:hover": {
+                  backgroundColor: "primary.light",
+                  borderColor: "primary.main",
+                },
+              }),
+              ...(isUndefined && {
+                opacity: 0.6,
+                fontStyle: "italic",
+              }),
+            }}
+          />
+        );
+
+        // Wrap undefined processes in a tooltip
+        if (isUndefined) {
+          return (
+            <Tooltip
+              key={i}
+              title="This process is referenced but not defined in the MITA 3.0 framework"
+              arrow
+              placement="top"
+            >
+              <span>{chip}</span>
+            </Tooltip>
+          );
+        }
+
+        return chip;
+      })}
     </Box>
   );
 }
@@ -577,12 +622,15 @@ export interface BptContentProps {
   showHeader?: boolean;
   /** Whether to show the metadata footer */
   showMetadata?: boolean;
+  /** Callback when a predecessor/successor process is clicked. Receives the capability code. */
+  onProcessClick?: (capabilityCode: string) => void;
 }
 
 export function BptContent({
   bpt,
   showHeader = true,
   showMetadata = true,
+  onProcessClick,
 }: BptContentProps) {
   const { process_details } = bpt;
 
@@ -621,6 +669,7 @@ export function BptContent({
           <ProcessLinks
             processes={process_details.predecessor_processes}
             direction="predecessor"
+            onProcessClick={onProcessClick}
           />
         </Section>
       )}
@@ -653,6 +702,7 @@ export function BptContent({
           <ProcessLinks
             processes={process_details.successor_processes}
             direction="successor"
+            onProcessClick={onProcessClick}
           />
         </Section>
       )}

@@ -82,6 +82,13 @@ export function BptSidebar({
     };
   }, [isResizing, onWidthChange]);
 
+  // Handler to open a process in the Processes page in a new tab
+  const handleProcessClick = useCallback((capabilityCode: string) => {
+    // Use Vite's BASE_URL to handle deployment path correctly
+    const basePath = import.meta.env.BASE_URL || "/";
+    window.open(`${basePath}processes/${capabilityCode}`, "_blank");
+  }, []);
+
   const content = (
     <Box sx={{ p: 2, height: "100%", overflow: "auto" }}>
       {/* Header */}
@@ -117,7 +124,12 @@ export function BptSidebar({
       </Box>
 
       {/* BPT Content - reuse shared component */}
-      <BptContent bpt={bpt} showHeader={false} showMetadata={true} />
+      <BptContent
+        bpt={bpt}
+        showHeader={false}
+        showMetadata={true}
+        onProcessClick={handleProcessClick}
+      />
     </Box>
   );
 

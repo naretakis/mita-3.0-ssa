@@ -302,7 +302,12 @@ export default function Processes() {
         <Box sx={{ flex: 1, overflow: "auto" }}>
           {selectedCapability ? (
             <Container maxWidth="md" sx={{ py: 3 }}>
-              <BptContent bpt={selectedCapability.bpt} showHeader={true} showMetadata={true} />
+              <BptContent
+                bpt={selectedCapability.bpt}
+                showHeader={true}
+                showMetadata={true}
+                onProcessClick={(code) => navigate(`/processes/${code}`)}
+              />
             </Container>
           ) : (
             emptyState

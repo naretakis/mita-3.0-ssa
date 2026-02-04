@@ -127,6 +127,14 @@ export function getCapabilityByCode(code: string): Capability | undefined {
   return getCapabilities().find((c) => c.code === code);
 }
 
+export function getCapabilityByProcessName(processName: string): Capability | undefined {
+  // Normalize the search: case-insensitive, trim whitespace
+  const normalized = processName.trim().toLowerCase();
+  return getCapabilities().find(
+    (c) => c.processName.toLowerCase() === normalized
+  );
+}
+
 export function getBlueprintVersion(): string {
   const capabilities = getCapabilities();
   return capabilities.length > 0 ? capabilities[0].bcm.version : "3.0";
