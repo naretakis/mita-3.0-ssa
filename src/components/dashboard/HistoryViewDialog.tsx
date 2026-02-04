@@ -26,11 +26,7 @@ interface HistoryViewDialogProps {
   onClose: () => void;
 }
 
-export function HistoryViewDialog({
-  entry,
-  open,
-  onClose,
-}: HistoryViewDialogProps) {
+export function HistoryViewDialog({ entry, open, onClose }: HistoryViewDialogProps) {
   if (!entry) return null;
 
   const capability = getCapabilityByCode(entry.capabilityCode);
@@ -43,9 +39,7 @@ export function HistoryViewDialog({
           <Typography variant="overline" color="text.secondary">
             Historical Assessment
           </Typography>
-          <Typography variant="h6">
-            {capability?.processName || entry.capabilityCode}
-          </Typography>
+          <Typography variant="h6">{capability?.processName || entry.capabilityCode}</Typography>
         </Box>
       </DialogTitle>
       <DialogContent dividers>
@@ -100,11 +94,7 @@ export function HistoryViewDialog({
             .map((rating) => {
               const question = questions[rating.questionIndex];
               return (
-                <Paper
-                  key={rating.questionIndex}
-                  variant="outlined"
-                  sx={{ p: 1.5 }}
-                >
+                <Paper key={rating.questionIndex} variant="outlined" sx={{ p: 1.5 }}>
                   <Box
                     sx={{
                       display: "flex",
@@ -130,11 +120,7 @@ export function HistoryViewDialog({
                       color="text.secondary"
                       sx={{ display: "block", mb: 0.5 }}
                     >
-                      {
-                        question.levels[
-                          `level_${rating.level}` as keyof typeof question.levels
-                        ]
-                      }
+                      {question.levels[`level_${rating.level}` as keyof typeof question.levels]}
                     </Typography>
                   )}
                   {rating.notes && (

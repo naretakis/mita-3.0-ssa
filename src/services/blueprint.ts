@@ -130,9 +130,7 @@ export function getCapabilityByCode(code: string): Capability | undefined {
 export function getCapabilityByProcessName(processName: string): Capability | undefined {
   // Normalize the search: case-insensitive, trim whitespace
   const normalized = processName.trim().toLowerCase();
-  return getCapabilities().find(
-    (c) => c.processName.toLowerCase() === normalized
-  );
+  return getCapabilities().find((c) => c.processName.toLowerCase() === normalized);
 }
 
 export function getBlueprintVersion(): string {

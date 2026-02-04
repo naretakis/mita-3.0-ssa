@@ -10,12 +10,9 @@ export function useRatings(capabilityAssessmentId: string | undefined) {
   const ratings = useLiveQuery(
     () =>
       capabilityAssessmentId
-        ? db.ratings
-            .where("capabilityAssessmentId")
-            .equals(capabilityAssessmentId)
-            .toArray()
+        ? db.ratings.where("capabilityAssessmentId").equals(capabilityAssessmentId).toArray()
         : [],
-    [capabilityAssessmentId],
+    [capabilityAssessmentId]
   );
 
   /**
@@ -25,7 +22,7 @@ export function useRatings(capabilityAssessmentId: string | undefined) {
   const saveRating = async (
     questionIndex: number,
     level: 1 | 2 | 3 | 4 | 5 | null,
-    notes: string = "",
+    notes: string = ""
   ): Promise<string | undefined> => {
     if (!capabilityAssessmentId) return undefined;
 
@@ -33,47 +30,43 @@ export function useRatings(capabilityAssessmentId: string | undefined) {
     let ratingId: string | undefined;
 
     // Use transaction to prevent race conditions creating duplicate ratings
-    await db.transaction(
-      "rw",
-      [db.ratings, db.capabilityAssessments],
-      async () => {
-        // Check if rating exists for this question using compound index
-        const existing = await db.ratings
-          .where("[capabilityAssessmentId+questionIndex]")
-          .equals([capabilityAssessmentId, questionIndex])
-          .first();
+    await db.transaction("rw", [db.ratings, db.capabilityAssessments], async () => {
+      // Check if rating exists for this question using compound index
+      const existing = await db.ratings
+        .where("[capabilityAssessmentId+questionIndex]")
+        .equals([capabilityAssessmentId, questionIndex])
+        .first();
 
-        if (existing) {
-          // Update existing rating
-          await db.ratings.update(existing.id, {
-            level,
-            notes,
-            carriedForward: false, // Clear carried forward flag on edit
-            updatedAt: now,
-          });
-          ratingId = existing.id;
-        } else {
-          // Create new rating
-          ratingId = uuidv4();
-          const rating: Rating = {
-            id: ratingId,
-            capabilityAssessmentId,
-            questionIndex,
-            level,
-            notes,
-            carriedForward: false,
-            attachmentIds: [], // Initialize empty attachments array
-            updatedAt: now,
-          };
-          await db.ratings.add(rating);
-        }
-
-        // Update assessment timestamp
-        await db.capabilityAssessments.update(capabilityAssessmentId, {
+      if (existing) {
+        // Update existing rating
+        await db.ratings.update(existing.id, {
+          level,
+          notes,
+          carriedForward: false, // Clear carried forward flag on edit
           updatedAt: now,
         });
-      },
-    );
+        ratingId = existing.id;
+      } else {
+        // Create new rating
+        ratingId = uuidv4();
+        const rating: Rating = {
+          id: ratingId,
+          capabilityAssessmentId,
+          questionIndex,
+          level,
+          notes,
+          carriedForward: false,
+          attachmentIds: [], // Initialize empty attachments array
+          updatedAt: now,
+        };
+        await db.ratings.add(rating);
+      }
+
+      // Update assessment timestamp
+      await db.capabilityAssessments.update(capabilityAssessmentId, {
+        updatedAt: now,
+      });
+    });
 
     return ratingId;
   };

@@ -49,12 +49,8 @@ export default function Assessment() {
   const { finalizeAssessment, updateTags, discardAssessment, revertEdit } =
     useCapabilityAssessments();
   const { getProgress, getAnsweredCount, getAverageScore } = useRatings(id);
-  const {
-    getAttachmentsForRating,
-    uploadAttachment,
-    deleteAttachment,
-    downloadAttachment,
-  } = useAttachments(id);
+  const { getAttachmentsForRating, uploadAttachment, deleteAttachment, downloadAttachment } =
+    useAttachments(id);
 
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
   const [sidebarWidth, setSidebarWidth] = useState(SIDEBAR_DEFAULT_WIDTH);
@@ -69,17 +65,11 @@ export default function Assessment() {
 
   // Track original status - captured on first render when assessment is available
   // Using a key pattern: store the assessment ID we captured status for
-  const [capturedAssessmentId, setCapturedAssessmentId] = useState<
-    string | null
-  >(null);
-  const [originalStatus, setOriginalStatus] = useState<
-    "in_progress" | "finalized" | null
-  >(null);
+  const [capturedAssessmentId, setCapturedAssessmentId] = useState<string | null>(null);
+  const [originalStatus, setOriginalStatus] = useState<"in_progress" | "finalized" | null>(null);
 
   // Track tags - captured on first render when assessment is available
-  const [capturedTagsForId, setCapturedTagsForId] = useState<string | null>(
-    null,
-  );
+  const [capturedTagsForId, setCapturedTagsForId] = useState<string | null>(null);
   const [localTags, setLocalTags] = useState<string[]>([]);
 
   // Get capability data
@@ -88,8 +78,7 @@ export default function Assessment() {
     return getCapabilityByCode(assessment.capabilityCode);
   }, [assessment]);
 
-  const totalQuestions =
-    capability?.bcm.maturity_model.capability_questions.length || 0;
+  const totalQuestions = capability?.bcm.maturity_model.capability_questions.length || 0;
   const progress = getProgress(totalQuestions);
   const answeredCount = getAnsweredCount();
 
@@ -258,9 +247,7 @@ export default function Assessment() {
               <Typography variant="h5" sx={{ flexShrink: 0 }}>
                 {capability.processName}
               </Typography>
-              {isViewMode && (
-                <Chip label="View Only" size="small" sx={{ flexShrink: 0 }} />
-              )}
+              {isViewMode && <Chip label="View Only" size="small" sx={{ flexShrink: 0 }} />}
               {/* Tags inline */}
               <Box sx={{ flex: 1, minWidth: 0 }}>
                 {isViewMode ? (
@@ -308,9 +295,7 @@ export default function Assessment() {
                     <Typography variant="caption" color="text.secondary">
                       Finalized
                     </Typography>
-                    <Typography variant="h6">
-                      {formatDate(assessment.finalizedAt)}
-                    </Typography>
+                    <Typography variant="h6">{formatDate(assessment.finalizedAt)}</Typography>
                   </Box>
                 )}
               </Box>
@@ -334,11 +319,7 @@ export default function Assessment() {
                     width: "100%",
                   }}
                 />
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  sx={{ mt: 0.5 }}
-                >
+                <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
                   {answeredCount}/{totalQuestions} ({progress}%)
                 </Typography>
               </Box>
@@ -352,24 +333,22 @@ export default function Assessment() {
             Maturity Assessment
           </Typography>
 
-          {capability.bcm.maturity_model.capability_questions.map(
-            (question, index) => (
-              <QuestionCard
-                key={index}
-                question={question}
-                questionIndex={index}
-                assessmentId={id!}
-                onDirty={markDirty}
-                readOnly={isViewMode}
-                attachmentHandlers={{
-                  getAttachmentsForRating,
-                  uploadAttachment,
-                  deleteAttachment,
-                  downloadAttachment,
-                }}
-              />
-            ),
-          )}
+          {capability.bcm.maturity_model.capability_questions.map((question, index) => (
+            <QuestionCard
+              key={index}
+              question={question}
+              questionIndex={index}
+              assessmentId={id!}
+              onDirty={markDirty}
+              readOnly={isViewMode}
+              attachmentHandlers={{
+                getAttachmentsForRating,
+                uploadAttachment,
+                deleteAttachment,
+                downloadAttachment,
+              }}
+            />
+          ))}
 
           {/* Action buttons */}
           {isViewMode ? (
@@ -412,9 +391,7 @@ export default function Assessment() {
                     variant="outlined"
                     color="error"
                     onClick={() =>
-                      showCancelWarning
-                        ? setCancelDialogOpen(true)
-                        : navigate("/dashboard")
+                      showCancelWarning ? setCancelDialogOpen(true) : navigate("/dashboard")
                     }
                   >
                     Cancel
@@ -444,8 +421,8 @@ export default function Assessment() {
                 color="text.secondary"
                 sx={{ display: "block", textAlign: "center", mt: 1 }}
               >
-                <strong>Close</strong> saves your progress.{" "}
-                <strong>Cancel</strong> discards changes.
+                <strong>Close</strong> saves your progress. <strong>Cancel</strong> discards
+                changes.
               </Typography>
             </>
           )}
@@ -453,10 +430,7 @@ export default function Assessment() {
       </Box>
 
       {/* Finalize Dialog */}
-      <Dialog
-        open={finalizeDialogOpen}
-        onClose={() => setFinalizeDialogOpen(false)}
-      >
+      <Dialog open={finalizeDialogOpen} onClose={() => setFinalizeDialogOpen(false)}>
         <DialogTitle>Finalize Assessment?</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -476,14 +450,9 @@ export default function Assessment() {
       </Dialog>
 
       {/* Cancel Confirmation Dialog */}
-      <Dialog
-        open={cancelDialogOpen}
-        onClose={() => setCancelDialogOpen(false)}
-      >
+      <Dialog open={cancelDialogOpen} onClose={() => setCancelDialogOpen(false)}>
         <DialogTitle>
-          {originalStatus === "finalized"
-            ? "Discard Changes?"
-            : "Discard Assessment?"}
+          {originalStatus === "finalized" ? "Discard Changes?" : "Discard Assessment?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>{getCancelDialogContent()}</DialogContentText>

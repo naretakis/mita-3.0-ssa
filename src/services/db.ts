@@ -1,11 +1,5 @@
 import Dexie, { type EntityTable } from "dexie";
-import type {
-  CapabilityAssessment,
-  Rating,
-  AssessmentHistory,
-  Tag,
-  Attachment,
-} from "../types";
+import type { CapabilityAssessment, Rating, AssessmentHistory, Tag, Attachment } from "../types";
 
 // ============================================
 // Database Definition - v2.0

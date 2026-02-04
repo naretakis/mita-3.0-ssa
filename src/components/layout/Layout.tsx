@@ -63,12 +63,7 @@ export default function Layout() {
   const mobileDrawer = (
     <Box sx={{ width: 240 }}>
       <Toolbar>
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          sx={{ fontWeight: 600 }}
-        >
+        <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 600 }}>
           MITA 3.0 SS-A
         </Typography>
       </Toolbar>

@@ -1,14 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import {
-  Alert,
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Container,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Alert, Box, Button, Card, CardContent, Container, Grid, Typography } from "@mui/material";
 import SecurityIcon from "@mui/icons-material/Security";
 import OfflineBoltIcon from "@mui/icons-material/OfflineBolt";
 import StorageIcon from "@mui/icons-material/Storage";
@@ -22,26 +13,22 @@ export default function Home() {
     {
       icon: <SecurityIcon sx={{ fontSize: 40, color: "primary.main" }} />,
       title: "Privacy First",
-      description:
-        "All your data stays in your browser. Nothing is transmitted to any server.",
+      description: "All your data stays in your browser. Nothing is transmitted to any server.",
     },
     {
       icon: <OfflineBoltIcon sx={{ fontSize: 40, color: "primary.main" }} />,
       title: "Works Offline",
-      description:
-        "After the first load, use the app anytime — even without internet.",
+      description: "After the first load, use the app anytime — even without internet.",
     },
     {
       icon: <StorageIcon sx={{ fontSize: 40, color: "primary.main" }} />,
       title: "Local Storage",
-      description:
-        "Your assessments are saved locally and persist across sessions.",
+      description: "Your assessments are saved locally and persist across sessions.",
     },
     {
       icon: <AssessmentIcon sx={{ fontSize: 40, color: "primary.main" }} />,
       title: "MITA 3.0 Framework",
-      description:
-        "Assess your maturity against the official CMS MITA 3.0 capabilities.",
+      description: "Assess your maturity against the official CMS MITA 3.0 capabilities.",
     },
   ];
 
@@ -59,10 +46,9 @@ export default function Home() {
           color="text.secondary"
           sx={{ maxWidth: 600, mx: "auto", mb: 4 }}
         >
-          This tool helps Medicaid agencies assess their current capabilities
-          and identify opportunities for improvement across business processes
-          defined in the Medicaid Information Technology Architecture (MITA)
-          framework.
+          This tool helps Medicaid agencies assess their current capabilities and identify
+          opportunities for improvement across business processes defined in the Medicaid
+          Information Technology Architecture (MITA) framework.
         </Typography>
 
         <Box
@@ -78,8 +64,7 @@ export default function Home() {
           }}
         >
           <Typography variant="body1" fontWeight={500}>
-            No accounts required. No data collection. Your assessments never
-            leave your device.
+            No accounts required. No data collection. Your assessments never leave your device.
           </Typography>
         </Box>
 
@@ -94,15 +79,10 @@ export default function Home() {
       </Box>
 
       {/* Data Privacy Warning */}
-      <Alert
-        severity="warning"
-        icon={<WarningIcon />}
-        sx={{ mb: 4, maxWidth: 700, mx: "auto" }}
-      >
+      <Alert severity="warning" icon={<WarningIcon />} sx={{ mb: 4, maxWidth: 700, mx: "auto" }}>
         <Typography variant="body2">
-          <strong>Important:</strong> Your data is stored locally in your
-          browser. Clearing browser data will delete your assessments. Use the
-          Import/Export page to create backups regularly.
+          <strong>Important:</strong> Your data is stored locally in your browser. Clearing browser
+          data will delete your assessments. Use the Import/Export page to create backups regularly.
         </Typography>
       </Alert>
 
@@ -191,8 +171,7 @@ export default function Home() {
           Based on CMS MITA Framework v3.0 (May 2014)
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          This is an independent tool and is not affiliated with or endorsed by
-          CMS.
+          This is an independent tool and is not affiliated with or endorsed by CMS.
         </Typography>
       </Box>
     </Container>

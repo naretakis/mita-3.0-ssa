@@ -6,12 +6,7 @@
  */
 
 import { useState, useEffect, useCallback } from "react";
-import {
-  Box,
-  Drawer,
-  IconButton,
-  Typography,
-} from "@mui/material";
+import { Box, Drawer, IconButton, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -62,10 +57,7 @@ export function BptSidebar({
     if (!isResizing) return;
 
     const handleMouseMove = (e: MouseEvent) => {
-      const newWidth = Math.min(
-        SIDEBAR_MAX_WIDTH,
-        Math.max(SIDEBAR_MIN_WIDTH, e.clientX),
-      );
+      const newWidth = Math.min(SIDEBAR_MAX_WIDTH, Math.max(SIDEBAR_MIN_WIDTH, e.clientX));
       onWidthChange(newWidth);
     };
 
@@ -113,11 +105,7 @@ export function BptSidebar({
             <CloseIcon />
           </IconButton>
         ) : (
-          <IconButton
-            onClick={() => onCollapsedChange(true)}
-            size="small"
-            title="Collapse sidebar"
-          >
+          <IconButton onClick={() => onCollapsedChange(true)} size="small" title="Collapse sidebar">
             <ChevronLeftIcon />
           </IconButton>
         )}
@@ -164,11 +152,7 @@ export function BptSidebar({
           pt: 1,
         }}
       >
-        <IconButton
-          onClick={() => onCollapsedChange(false)}
-          size="small"
-          title="Expand sidebar"
-        >
+        <IconButton onClick={() => onCollapsedChange(false)} size="small" title="Expand sidebar">
           <ChevronRightIcon />
         </IconButton>
         <Typography

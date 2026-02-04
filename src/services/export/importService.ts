@@ -12,12 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { db } from "../db";
 import { extractAttachmentIdFromFileName } from "./exportService";
-import type {
-  ExportData,
-  ImportResult,
-  ImportItemResult,
-  ImportProgressCallback,
-} from "./types";
+import type { ExportData, ImportResult, ImportItemResult, ImportProgressCallback } from "./types";
 import type {
   CapabilityAssessment,
   Rating,
@@ -53,7 +48,7 @@ function validateExportData(data: unknown): data is ExportData {
 function createHistorySnapshot(
   assessment: CapabilityAssessment,
   ratings: Rating[],
-  score: number,
+  score: number
 ): AssessmentHistory {
   const historicalRatings: HistoricalRating[] = ratings
     .filter((r) => r.level !== null)
@@ -80,7 +75,7 @@ function createHistorySnapshot(
  */
 export async function importFromJson(
   jsonString: string,
-  onProgress?: ImportProgressCallback,
+  onProgress?: ImportProgressCallback
 ): Promise<ImportResult> {
   onProgress?.(10, "Parsing JSON...");
 
@@ -133,7 +128,7 @@ export async function importFromJson(
  */
 export async function importFromZip(
   zipBlob: Blob,
-  onProgress?: ImportProgressCallback,
+  onProgress?: ImportProgressCallback
 ): Promise<ImportResult> {
   onProgress?.(10, "Reading ZIP file...");
 
@@ -225,9 +220,7 @@ export async function importFromZip(
           : null;
 
         if (!attachmentMeta) {
-          attachmentMeta = data.data.attachments.find(
-            (a) => a.fileName === fileName,
-          );
+          attachmentMeta = data.data.attachments.find((a) => a.fileName === fileName);
         }
 
         if (attachmentMeta) {
@@ -237,7 +230,7 @@ export async function importFromZip(
 
             // Find the assessment
             const importedAssessment = data.data.assessments.find(
-              (a) => a.id === attachmentMeta.capabilityAssessmentId,
+              (a) => a.id === attachmentMeta.capabilityAssessmentId
             );
 
             if (importedAssessment) {
@@ -249,7 +242,7 @@ export async function importFromZip(
               if (assessment) {
                 // Find the rating
                 const importedRating = data.data.ratings.find(
-                  (r) => r.id === attachmentMeta.ratingId,
+                  (r) => r.id === attachmentMeta.ratingId
                 );
 
                 if (importedRating) {
@@ -274,10 +267,7 @@ export async function importFromZip(
                     await db.attachments.add(attachment);
 
                     await db.ratings.update(rating.id, {
-                      attachmentIds: [
-                        ...(rating.attachmentIds || []),
-                        attachment.id,
-                      ],
+                      attachmentIds: [...(rating.attachmentIds || []), attachment.id],
                     });
 
                     attachmentsRestored++;
@@ -305,7 +295,7 @@ export async function importFromZip(
  */
 async function processImport(
   data: ExportData,
-  onProgress?: ImportProgressCallback,
+  onProgress?: ImportProgressCallback
 ): Promise<ImportResult> {
   const result: ImportResult = {
     success: true,
@@ -327,10 +317,7 @@ async function processImport(
     onProgress?.(progress, `Processing ${importedAssessment.processName}...`);
 
     try {
-      const itemResult = await processAssessmentImport(
-        importedAssessment,
-        data,
-      );
+      const itemResult = await processAssessmentImport(importedAssessment, data);
       result.details.push(itemResult);
 
       switch (itemResult.action) {
@@ -348,9 +335,7 @@ async function processImport(
           break;
       }
     } catch (error) {
-      result.errors.push(
-        `Failed to import ${importedAssessment.processName}: ${error}`,
-      );
+      result.errors.push(`Failed to import ${importedAssessment.processName}: ${error}`);
       result.details.push({
         capabilityCode: importedAssessment.capabilityCode,
         capabilityName: importedAssessment.processName,
@@ -391,12 +376,12 @@ async function processImport(
  */
 async function processAssessmentImport(
   importedAssessment: ExportData["data"]["assessments"][0],
-  data: ExportData,
+  data: ExportData
 ): Promise<ImportItemResult> {
   const capabilityCode = importedAssessment.capabilityCode;
 
   const importedRatings = data.data.ratings.filter(
-    (r) => r.capabilityAssessmentId === importedAssessment.id,
+    (r) => r.capabilityAssessmentId === importedAssessment.id
   );
 
   const existingAssessment = await db.capabilityAssessments
@@ -478,16 +463,13 @@ async function processAssessmentImport(
       const historySnapshot = createHistorySnapshot(
         existingAssessment,
         existingRatings,
-        existingAssessment.score,
+        existingAssessment.score
       );
       await db.assessmentHistory.add(historySnapshot);
     }
 
     // Delete existing ratings
-    await db.ratings
-      .where("capabilityAssessmentId")
-      .equals(existingAssessment.id)
-      .delete();
+    await db.ratings.where("capabilityAssessmentId").equals(existingAssessment.id).delete();
 
     // Update existing assessment with imported data
     await db.capabilityAssessments.update(existingAssessment.id, {
@@ -533,7 +515,7 @@ async function processAssessmentImport(
       const alreadyExists = existingHistory.some(
         (h) =>
           Math.abs(h.snapshotDate.getTime() - importedDate.getTime()) < 1000 &&
-          Math.abs(h.score - importedAssessment.score!) < 0.01,
+          Math.abs(h.score - importedAssessment.score!) < 0.01
       );
 
       if (alreadyExists) {

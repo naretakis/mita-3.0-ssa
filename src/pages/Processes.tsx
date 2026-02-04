@@ -6,7 +6,7 @@
  * Right panel: selected BPT content
  */
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   Box,
@@ -60,6 +60,11 @@ export default function Processes() {
   // Mobile drawer state
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
+  // Refs for scrolling selected item into view
+  const selectedItemRef = useRef<HTMLDivElement>(null);
+  const navScrollContainerRef = useRef<HTMLDivElement>(null);
+  const contentScrollContainerRef = useRef<HTMLDivElement>(null);
+
   // Get selected capability
   const selectedCapability = useMemo(() => {
     if (!code) return null;
@@ -71,6 +76,27 @@ export default function Processes() {
   if (selectedCapability && !expandedAreas.has(selectedCapability.businessArea)) {
     setExpandedAreas((prev) => new Set([...prev, selectedCapability.businessArea]));
   }
+
+  // Scroll selected item into view when selection changes
+  // Also scroll content to top
+  useEffect(() => {
+    // Scroll content to top
+    if (contentScrollContainerRef.current) {
+      contentScrollContainerRef.current.scrollTop = 0;
+    }
+
+    // Scroll sidebar to show selected item
+    if (selectedItemRef.current) {
+      // Small delay to ensure the collapse animation has completed
+      const timeoutId = setTimeout(() => {
+        selectedItemRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
+      }, 100);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [code]);
 
   const toggleArea = (areaName: string) => {
     setExpandedAreas((prev) => {
@@ -100,12 +126,13 @@ export default function Processes() {
           Business Processes
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {businessAreas.reduce((sum, area) => sum + area.capabilities.length, 0)} processes in {businessAreas.length} areas
+          {businessAreas.reduce((sum, area) => sum + area.capabilities.length, 0)} processes in{" "}
+          {businessAreas.length} areas
         </Typography>
       </Box>
 
       {/* Tree navigation */}
-      <Box sx={{ flex: 1, overflow: "auto" }}>
+      <Box ref={navScrollContainerRef} sx={{ flex: 1, overflow: "auto" }}>
         <List dense disablePadding>
           {businessAreas.map((area) => {
             const isExpanded = expandedAreas.has(area.name);
@@ -163,6 +190,7 @@ export default function Processes() {
                       return (
                         <ListItemButton
                           key={cap.code}
+                          ref={isSelected ? selectedItemRef : null}
                           onClick={() => handleSelectProcess(cap.code)}
                           selected={isSelected}
                           sx={{
@@ -219,15 +247,13 @@ export default function Processes() {
         textAlign: "center",
       }}
     >
-      <DescriptionOutlinedIcon
-        sx={{ fontSize: 64, color: "text.disabled", mb: 2 }}
-      />
+      <DescriptionOutlinedIcon sx={{ fontSize: 64, color: "text.disabled", mb: 2 }} />
       <Typography variant="h6" color="text.secondary" gutterBottom>
         Select a Process
       </Typography>
       <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 400 }}>
-        Choose a business process from the list on the left to view its details,
-        including description, process steps, trigger events, and more.
+        Choose a business process from the list on the left to view its details, including
+        description, process steps, trigger events, and more.
       </Typography>
     </Box>
   );
@@ -299,7 +325,7 @@ export default function Processes() {
         )}
 
         {/* Content */}
-        <Box sx={{ flex: 1, overflow: "auto" }}>
+        <Box ref={contentScrollContainerRef} sx={{ flex: 1, overflow: "auto" }}>
           {selectedCapability ? (
             <Container maxWidth="md" sx={{ py: 3 }}>
               <BptContent

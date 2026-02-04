@@ -1,10 +1,7 @@
 import { useLiveQuery } from "dexie-react-hooks";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "../services/db";
-import {
-  getBlueprintVersion,
-  getCapabilityByCode,
-} from "../services/blueprint";
+import { getBlueprintVersion, getCapabilityByCode } from "../services/blueprint";
 import type { CapabilityAssessment, Rating, AssessmentHistory } from "../types";
 
 /**
@@ -15,7 +12,7 @@ export function useCapabilityAssessments() {
   // Get all capability assessments
   const assessments = useLiveQuery(
     () => db.capabilityAssessments.orderBy("updatedAt").reverse().toArray(),
-    [],
+    []
   );
 
   /**
@@ -23,7 +20,7 @@ export function useCapabilityAssessments() {
    */
   const startAssessment = async (
     capabilityCode: string,
-    initialTags: string[] = [],
+    initialTags: string[] = []
   ): Promise<string> => {
     const capability = getCapabilityByCode(capabilityCode);
     if (!capability) {
@@ -133,17 +130,13 @@ export function useCapabilityAssessments() {
     const now = new Date();
 
     // Get ratings for this assessment
-    const ratings = await db.ratings
-      .where("capabilityAssessmentId")
-      .equals(assessmentId)
-      .toArray();
+    const ratings = await db.ratings.where("capabilityAssessmentId").equals(assessmentId).toArray();
 
     // Calculate score
     const answeredRatings = ratings.filter((r) => r.level !== null);
     const score =
       answeredRatings.length > 0
-        ? answeredRatings.reduce((sum, r) => sum + (r.level || 0), 0) /
-          answeredRatings.length
+        ? answeredRatings.reduce((sum, r) => sum + (r.level || 0), 0) / answeredRatings.length
         : undefined;
 
     // Check for existing finalized assessment (different from current)
@@ -163,8 +156,7 @@ export function useCapabilityAssessments() {
       const historyEntry: AssessmentHistory = {
         id: uuidv4(),
         capabilityCode: existingFinalized.capabilityCode,
-        snapshotDate:
-          existingFinalized.finalizedAt || existingFinalized.updatedAt,
+        snapshotDate: existingFinalized.finalizedAt || existingFinalized.updatedAt,
         tags: existingFinalized.tags,
         score: existingFinalized.score,
         ratings: existingRatings
@@ -181,14 +173,8 @@ export function useCapabilityAssessments() {
       await db.assessmentHistory.add(historyEntry);
 
       // Delete the old finalized assessment and its ratings and attachments
-      await db.attachments
-        .where("capabilityAssessmentId")
-        .equals(existingFinalized.id)
-        .delete();
-      await db.ratings
-        .where("capabilityAssessmentId")
-        .equals(existingFinalized.id)
-        .delete();
+      await db.attachments.where("capabilityAssessmentId").equals(existingFinalized.id).delete();
+      await db.ratings.where("capabilityAssessmentId").equals(existingFinalized.id).delete();
       await db.capabilityAssessments.delete(existingFinalized.id);
     }
 
@@ -211,10 +197,7 @@ export function useCapabilityAssessments() {
   /**
    * Update tags on an assessment
    */
-  const updateTags = async (
-    assessmentId: string,
-    tags: string[],
-  ): Promise<void> => {
+  const updateTags = async (assessmentId: string, tags: string[]): Promise<void> => {
     await db.capabilityAssessments.update(assessmentId, {
       tags,
       updatedAt: new Date(),
@@ -230,21 +213,11 @@ export function useCapabilityAssessments() {
    * Delete an assessment and its ratings and attachments
    */
   const deleteAssessment = async (assessmentId: string): Promise<void> => {
-    await db.transaction(
-      "rw",
-      [db.capabilityAssessments, db.ratings, db.attachments],
-      async () => {
-        await db.attachments
-          .where("capabilityAssessmentId")
-          .equals(assessmentId)
-          .delete();
-        await db.ratings
-          .where("capabilityAssessmentId")
-          .equals(assessmentId)
-          .delete();
-        await db.capabilityAssessments.delete(assessmentId);
-      },
-    );
+    await db.transaction("rw", [db.capabilityAssessments, db.ratings, db.attachments], async () => {
+      await db.attachments.where("capabilityAssessmentId").equals(assessmentId).delete();
+      await db.ratings.where("capabilityAssessmentId").equals(assessmentId).delete();
+      await db.capabilityAssessments.delete(assessmentId);
+    });
   };
 
   /**
@@ -252,21 +225,11 @@ export function useCapabilityAssessments() {
    * Deletes the assessment and all its ratings and attachments
    */
   const discardAssessment = async (assessmentId: string): Promise<void> => {
-    await db.transaction(
-      "rw",
-      [db.capabilityAssessments, db.ratings, db.attachments],
-      async () => {
-        await db.attachments
-          .where("capabilityAssessmentId")
-          .equals(assessmentId)
-          .delete();
-        await db.ratings
-          .where("capabilityAssessmentId")
-          .equals(assessmentId)
-          .delete();
-        await db.capabilityAssessments.delete(assessmentId);
-      },
-    );
+    await db.transaction("rw", [db.capabilityAssessments, db.ratings, db.attachments], async () => {
+      await db.attachments.where("capabilityAssessmentId").equals(assessmentId).delete();
+      await db.ratings.where("capabilityAssessmentId").equals(assessmentId).delete();
+      await db.capabilityAssessments.delete(assessmentId);
+    });
   };
 
   /**
@@ -302,10 +265,7 @@ export function useCapabilityAssessments() {
       [db.capabilityAssessments, db.ratings, db.assessmentHistory],
       async () => {
         // Delete current ratings
-        await db.ratings
-          .where("capabilityAssessmentId")
-          .equals(assessmentId)
-          .delete();
+        await db.ratings.where("capabilityAssessmentId").equals(assessmentId).delete();
 
         // Restore ratings from history
         const now = new Date();
@@ -335,7 +295,7 @@ export function useCapabilityAssessments() {
 
         // Remove the history entry we just restored from (since we're reverting, not keeping it)
         await db.assessmentHistory.delete(latestHistory.id);
-      },
+      }
     );
   };
 
@@ -343,7 +303,7 @@ export function useCapabilityAssessments() {
    * Get the current assessment for a capability (finalized or in-progress)
    */
   const getAssessmentForCapability = async (
-    capabilityCode: string,
+    capabilityCode: string
   ): Promise<CapabilityAssessment | undefined> => {
     // First check for in-progress
     const inProgress = await db.capabilityAssessments
@@ -366,17 +326,17 @@ export function useCapabilityAssessments() {
    * Get assessment status for a capability
    */
   const getCapabilityStatus = (
-    capabilityCode: string,
+    capabilityCode: string
   ): "not_assessed" | "in_progress" | "finalized" => {
     if (!assessments) return "not_assessed";
 
     const inProgress = assessments.find(
-      (a) => a.capabilityCode === capabilityCode && a.status === "in_progress",
+      (a) => a.capabilityCode === capabilityCode && a.status === "in_progress"
     );
     if (inProgress) return "in_progress";
 
     const finalized = assessments.find(
-      (a) => a.capabilityCode === capabilityCode && a.status === "finalized",
+      (a) => a.capabilityCode === capabilityCode && a.status === "finalized"
     );
     if (finalized) return "finalized";
 
@@ -386,22 +346,18 @@ export function useCapabilityAssessments() {
   /**
    * Get the latest finalized assessment for a capability
    */
-  const getLatestFinalized = (
-    capabilityCode: string,
-  ): CapabilityAssessment | undefined => {
+  const getLatestFinalized = (capabilityCode: string): CapabilityAssessment | undefined => {
     return assessments?.find(
-      (a) => a.capabilityCode === capabilityCode && a.status === "finalized",
+      (a) => a.capabilityCode === capabilityCode && a.status === "finalized"
     );
   };
 
   /**
    * Get in-progress assessment for a capability
    */
-  const getInProgress = (
-    capabilityCode: string,
-  ): CapabilityAssessment | undefined => {
+  const getInProgress = (capabilityCode: string): CapabilityAssessment | undefined => {
     return assessments?.find(
-      (a) => a.capabilityCode === capabilityCode && a.status === "in_progress",
+      (a) => a.capabilityCode === capabilityCode && a.status === "in_progress"
     );
   };
 
@@ -426,9 +382,8 @@ export function useCapabilityAssessments() {
  */
 export function useCapabilityAssessment(assessmentId: string | undefined) {
   const assessment = useLiveQuery(
-    () =>
-      assessmentId ? db.capabilityAssessments.get(assessmentId) : undefined,
-    [assessmentId],
+    () => (assessmentId ? db.capabilityAssessments.get(assessmentId) : undefined),
+    [assessmentId]
   );
 
   return { assessment };

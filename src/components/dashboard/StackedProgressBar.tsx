@@ -7,10 +7,7 @@
 
 import { Box } from "@mui/material";
 import { getInProgressGradient } from "../../theme/sharedStyles";
-import {
-  PROGRESS_BAR_HEIGHT_LARGE,
-  PROGRESS_STRIPE_WIDTH,
-} from "../../constants/ui";
+import { PROGRESS_BAR_HEIGHT_LARGE, PROGRESS_STRIPE_WIDTH } from "../../constants/ui";
 
 interface StackedProgressBarProps {
   finalized: number;
@@ -18,11 +15,7 @@ interface StackedProgressBarProps {
   total: number;
 }
 
-export function StackedProgressBar({
-  finalized,
-  inProgress,
-  total,
-}: StackedProgressBarProps) {
+export function StackedProgressBar({ finalized, inProgress, total }: StackedProgressBarProps) {
   const notStarted = total - finalized - inProgress;
   const finalizedPercent = total > 0 ? (finalized / total) * 100 : 0;
   const inProgressPercent = total > 0 ? (inProgress / total) * 100 : 0;

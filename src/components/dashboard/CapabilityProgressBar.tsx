@@ -7,20 +7,14 @@
 
 import { Box } from "@mui/material";
 import { getInProgressGradient } from "../../theme/sharedStyles";
-import {
-  PROGRESS_BAR_HEIGHT_SMALL,
-  PROGRESS_STRIPE_WIDTH,
-} from "../../constants/ui";
+import { PROGRESS_BAR_HEIGHT_SMALL, PROGRESS_STRIPE_WIDTH } from "../../constants/ui";
 
 interface CapabilityProgressBarProps {
   status: "not_assessed" | "in_progress" | "finalized";
   progress: number; // 0-100 for question completion
 }
 
-export function CapabilityProgressBar({
-  status,
-  progress,
-}: CapabilityProgressBarProps) {
+export function CapabilityProgressBar({ status, progress }: CapabilityProgressBarProps) {
   const isFinalized = status === "finalized";
   const isInProgress = status === "in_progress";
   const displayProgress = isFinalized ? 100 : progress;
@@ -45,9 +39,7 @@ export function CapabilityProgressBar({
                 }
               : isInProgress
                 ? {
-                    background: getInProgressGradient(
-                      PROGRESS_STRIPE_WIDTH.medium,
-                    ),
+                    background: getInProgressGradient(PROGRESS_STRIPE_WIDTH.medium),
                   }
                 : {
                     backgroundColor: "grey.300",

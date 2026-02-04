@@ -16,11 +16,7 @@ import type { Attachment } from "../types";
 export interface UseAttachmentsReturn {
   attachments: Attachment[];
   attachmentsByRating: Map<string, Attachment[]>;
-  uploadAttachment: (
-    ratingId: string,
-    file: File,
-    description?: string,
-  ) => Promise<string>;
+  uploadAttachment: (ratingId: string, file: File, description?: string) => Promise<string>;
   deleteAttachment: (attachmentId: string) => Promise<void>;
   downloadAttachment: (attachment: Attachment) => void;
   getAttachmentsForRating: (ratingId: string) => Attachment[];
@@ -30,19 +26,14 @@ export interface UseAttachmentsReturn {
 /**
  * Hook for managing attachments within an assessment
  */
-export function useAttachments(
-  capabilityAssessmentId: string | undefined,
-): UseAttachmentsReturn {
+export function useAttachments(capabilityAssessmentId: string | undefined): UseAttachmentsReturn {
   // Get all attachments for this assessment
   const attachments = useLiveQuery(
     () =>
       capabilityAssessmentId
-        ? db.attachments
-            .where("capabilityAssessmentId")
-            .equals(capabilityAssessmentId)
-            .toArray()
+        ? db.attachments.where("capabilityAssessmentId").equals(capabilityAssessmentId).toArray()
         : [],
-    [capabilityAssessmentId],
+    [capabilityAssessmentId]
   );
 
   // Group attachments by rating ID
@@ -59,7 +50,7 @@ export function useAttachments(
   const uploadAttachment = async (
     ratingId: string,
     file: File,
-    description?: string,
+    description?: string
   ): Promise<string> => {
     if (!capabilityAssessmentId) {
       throw new Error("No assessment ID provided");
@@ -113,9 +104,7 @@ export function useAttachments(
     const rating = await db.ratings.get(attachment.ratingId);
     if (rating) {
       await db.ratings.update(attachment.ratingId, {
-        attachmentIds: (rating.attachmentIds || []).filter(
-          (id) => id !== attachmentId,
-        ),
+        attachmentIds: (rating.attachmentIds || []).filter((id) => id !== attachmentId),
         updatedAt: new Date(),
       });
     }

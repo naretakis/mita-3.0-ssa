@@ -11,11 +11,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useCapabilityHistory } from "../../hooks/useHistory";
 import { compactChipSx } from "../../theme/sharedStyles";
 import { formatDateTime } from "../../utils/dateFormatters";
-import {
-  HISTORY_BADGE_WIDTH,
-  HISTORY_DATE_WIDTH,
-  HISTORY_SCORE_WIDTH,
-} from "../../constants/ui";
+import { HISTORY_BADGE_WIDTH, HISTORY_DATE_WIDTH, HISTORY_SCORE_WIDTH } from "../../constants/ui";
 import type { AssessmentHistory, CapabilityAssessment } from "../../types";
 
 interface HistoryPanelProps {
@@ -34,8 +30,7 @@ export function HistoryPanel({
   const { history } = useCapabilityHistory(capabilityCode);
 
   const hasCurrentFinalized =
-    currentAssessment?.status === "finalized" &&
-    currentAssessment.score !== undefined;
+    currentAssessment?.status === "finalized" && currentAssessment.score !== undefined;
   const hasHistory = history.length > 0;
 
   if (!hasCurrentFinalized && !hasHistory) {
@@ -81,26 +76,14 @@ export function HistoryPanel({
             />
           </Box>
           <Typography variant="body2" sx={{ width: HISTORY_DATE_WIDTH }}>
-            {formatDateTime(
-              currentAssessment.finalizedAt || currentAssessment.updatedAt,
-            )}
+            {formatDateTime(currentAssessment.finalizedAt || currentAssessment.updatedAt)}
           </Typography>
-          <Typography
-            variant="body2"
-            fontWeight={500}
-            sx={{ width: HISTORY_SCORE_WIDTH }}
-          >
+          <Typography variant="body2" fontWeight={500} sx={{ width: HISTORY_SCORE_WIDTH }}>
             Score: {currentAssessment.score?.toFixed(1)}
           </Typography>
           <Box sx={{ display: "flex", gap: 0.5 }}>
             {currentAssessment.tags.map((tag) => (
-              <Chip
-                key={tag}
-                label={tag}
-                size="small"
-                variant="outlined"
-                sx={compactChipSx}
-              />
+              <Chip key={tag} label={tag} size="small" variant="outlined" sx={compactChipSx} />
             ))}
           </Box>
         </Box>
@@ -118,35 +101,20 @@ export function HistoryPanel({
             borderColor: "divider",
           }}
         >
-          <Box sx={{ width: HISTORY_BADGE_WIDTH }} />{" "}
-          {/* Spacer for "Current" badge alignment */}
+          <Box sx={{ width: HISTORY_BADGE_WIDTH }} /> {/* Spacer for "Current" badge alignment */}
           <Typography variant="body2" sx={{ width: HISTORY_DATE_WIDTH }}>
             {formatDateTime(entry.snapshotDate)}
           </Typography>
-          <Typography
-            variant="body2"
-            fontWeight={500}
-            sx={{ width: HISTORY_SCORE_WIDTH }}
-          >
+          <Typography variant="body2" fontWeight={500} sx={{ width: HISTORY_SCORE_WIDTH }}>
             Score: {entry.score.toFixed(1)}
           </Typography>
           <Box sx={{ display: "flex", gap: 0.5 }}>
             {entry.tags.map((tag) => (
-              <Chip
-                key={tag}
-                label={tag}
-                size="small"
-                variant="outlined"
-                sx={compactChipSx}
-              />
+              <Chip key={tag} label={tag} size="small" variant="outlined" sx={compactChipSx} />
             ))}
           </Box>
           <Box sx={{ display: "flex", gap: 0.5, ml: 2 }}>
-            <IconButton
-              size="small"
-              onClick={() => onViewHistory(entry)}
-              title="View details"
-            >
+            <IconButton size="small" onClick={() => onViewHistory(entry)} title="View details">
               <VisibilityIcon fontSize="small" />
             </IconButton>
             <IconButton

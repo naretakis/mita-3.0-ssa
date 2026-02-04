@@ -21,9 +21,7 @@ export function useHistory(capabilityCode?: string) {
   /**
    * Get history entries for a specific capability
    */
-  const getCapabilityHistory = async (
-    code: string,
-  ): Promise<AssessmentHistory[]> => {
+  const getCapabilityHistory = async (code: string): Promise<AssessmentHistory[]> => {
     return db.assessmentHistory
       .where("capabilityCode")
       .equals(code)
@@ -34,9 +32,7 @@ export function useHistory(capabilityCode?: string) {
   /**
    * Get a specific history entry by ID
    */
-  const getHistoryEntry = async (
-    id: string,
-  ): Promise<AssessmentHistory | undefined> => {
+  const getHistoryEntry = async (id: string): Promise<AssessmentHistory | undefined> => {
     return db.assessmentHistory.get(id);
   };
 

@@ -6,14 +6,7 @@
  */
 
 import { useState } from "react";
-import {
-  Box,
-  Chip,
-  Collapse,
-  Paper,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { Box, Chip, Collapse, Paper, Tooltip, Typography } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -28,15 +21,7 @@ import { getCapabilityByProcessName } from "../../services/blueprint";
 // ============================================
 
 interface ParsedLine {
-  type:
-    | "paragraph"
-    | "note"
-    | "bullet"
-    | "dash"
-    | "check"
-    | "numbered"
-    | "lettered"
-    | "roman";
+  type: "paragraph" | "note" | "bullet" | "dash" | "check" | "numbered" | "lettered" | "roman";
   content: string;
   indent: number;
 }
@@ -141,11 +126,7 @@ export function Section({
         >
           {title}
         </Typography>
-        {expanded ? (
-          <ExpandLessIcon fontSize="small" />
-        ) : (
-          <ExpandMoreIcon fontSize="small" />
-        )}
+        {expanded ? <ExpandLessIcon fontSize="small" /> : <ExpandMoreIcon fontSize="small" />}
       </Box>
       <Collapse in={expanded}>
         <Box
@@ -181,9 +162,7 @@ function NoteCallout({ content }: { content: string }) {
       }}
     >
       <Box sx={{ display: "flex", gap: 1, alignItems: "flex-start" }}>
-        <InfoOutlinedIcon
-          sx={{ fontSize: 18, color: "info.main", mt: 0.25, flexShrink: 0 }}
-        />
+        <InfoOutlinedIcon sx={{ fontSize: 18, color: "info.main", mt: 0.25, flexShrink: 0 }} />
         <Typography variant="body2" sx={{ lineHeight: 1.6 }}>
           {content}
         </Typography>
@@ -212,10 +191,7 @@ export function FormattedText({ text }: { text: string }) {
 
       case "check":
         elements.push(
-          <Box
-            key={key}
-            sx={{ display: "flex", gap: 1, pl: parsed.indent * 1.5, mb: 0.5 }}
-          >
+          <Box key={key} sx={{ display: "flex", gap: 1, pl: parsed.indent * 1.5, mb: 0.5 }}>
             <Typography
               component="span"
               sx={{ color: "success.main", fontWeight: 600, flexShrink: 0 }}
@@ -225,45 +201,33 @@ export function FormattedText({ text }: { text: string }) {
             <Typography variant="body2" sx={{ lineHeight: 1.5 }}>
               {parsed.content}
             </Typography>
-          </Box>,
+          </Box>
         );
         break;
 
       case "bullet":
         elements.push(
-          <Box
-            key={key}
-            sx={{ display: "flex", gap: 1, pl: parsed.indent * 1.5, mb: 0.5 }}
-          >
-            <Typography
-              component="span"
-              sx={{ color: "text.secondary", flexShrink: 0 }}
-            >
+          <Box key={key} sx={{ display: "flex", gap: 1, pl: parsed.indent * 1.5, mb: 0.5 }}>
+            <Typography component="span" sx={{ color: "text.secondary", flexShrink: 0 }}>
               •
             </Typography>
             <Typography variant="body2" sx={{ lineHeight: 1.5 }}>
               {parsed.content}
             </Typography>
-          </Box>,
+          </Box>
         );
         break;
 
       case "dash":
         elements.push(
-          <Box
-            key={key}
-            sx={{ display: "flex", gap: 1, pl: parsed.indent * 1.5, mb: 0.5 }}
-          >
-            <Typography
-              component="span"
-              sx={{ color: "text.secondary", flexShrink: 0 }}
-            >
+          <Box key={key} sx={{ display: "flex", gap: 1, pl: parsed.indent * 1.5, mb: 0.5 }}>
+            <Typography component="span" sx={{ color: "text.secondary", flexShrink: 0 }}>
               –
             </Typography>
             <Typography variant="body2" sx={{ lineHeight: 1.5 }}>
               {parsed.content}
             </Typography>
-          </Box>,
+          </Box>
         );
         break;
 
@@ -275,7 +239,7 @@ export function FormattedText({ text }: { text: string }) {
             sx={{ lineHeight: 1.6, mb: 1, pl: parsed.indent * 1.5 }}
           >
             {parsed.content}
-          </Typography>,
+          </Typography>
         );
     }
   }
@@ -327,10 +291,7 @@ export function ProcessSteps({ steps }: { steps: string[] }) {
                 borderColor: "warning.main",
               }}
             >
-              <Typography
-                variant="subtitle2"
-                sx={{ fontWeight: 600, color: "warning.dark" }}
-              >
+              <Typography variant="subtitle2" sx={{ fontWeight: 600, color: "warning.dark" }}>
                 {section.title}
               </Typography>
             </Paper>
@@ -343,9 +304,7 @@ export function ProcessSteps({ steps }: { steps: string[] }) {
 
             return (
               <Box key={i} sx={{ mb: 1.5 }}>
-                <Box
-                  sx={{ display: "flex", gap: 1.5, alignItems: "flex-start" }}
-                >
+                <Box sx={{ display: "flex", gap: 1.5, alignItems: "flex-start" }}>
                   {stepNum && (
                     <Box
                       sx={{
@@ -435,11 +394,7 @@ export function ProcessLinks({
             icon={icon}
             variant="outlined"
             clickable={!!isClickable}
-            onClick={
-              isClickable
-                ? () => onProcessClick(capability.code)
-                : undefined
-            }
+            onClick={isClickable ? () => onProcessClick(capability.code) : undefined}
             sx={{
               height: "auto",
               "& .MuiChip-label": {
@@ -484,11 +439,7 @@ export function ProcessLinks({
 /**
  * Render trigger events grouped by type
  */
-export function TriggerEvents({
-  events,
-}: {
-  events: BPT["process_details"]["trigger_events"];
-}) {
+export function TriggerEvents({ events }: { events: BPT["process_details"]["trigger_events"] }) {
   const hasEnvironment = events.environment_based.length > 0;
   const hasInteraction = events.interaction_based.length > 0;
 
@@ -535,11 +486,7 @@ export function TriggerEvents({
 /**
  * Render diagrams section
  */
-export function DiagramsSection({
-  diagrams,
-}: {
-  diagrams: BPT["process_details"]["diagrams"];
-}) {
+export function DiagramsSection({ diagrams }: { diagrams: BPT["process_details"]["diagrams"] }) {
   if (!diagrams || diagrams.length === 0) return null;
 
   return (
@@ -551,28 +498,18 @@ export function DiagramsSection({
         {diagrams.map((diagram, i) => {
           // Handle both string and object formats
           const isObject = typeof diagram === "object" && diagram !== null;
-          const filename = isObject
-            ? (diagram as { filename: string }).filename
-            : diagram;
+          const filename = isObject ? (diagram as { filename: string }).filename : diagram;
           const description = isObject
             ? (diagram as { description?: string }).description
             : undefined;
 
           return (
-            <Paper
-              key={i}
-              elevation={0}
-              sx={{ p: 1, backgroundColor: "grey.50" }}
-            >
+            <Paper key={i} elevation={0} sx={{ p: 1, backgroundColor: "grey.50" }}>
               <Typography variant="caption" sx={{ fontWeight: 500 }}>
                 {filename}
               </Typography>
               {description && (
-                <Typography
-                  variant="caption"
-                  color="text.secondary"
-                  sx={{ display: "block" }}
-                >
+                <Typography variant="caption" color="text.secondary" sx={{ display: "block" }}>
                   {description}
                 </Typography>
               )}
@@ -601,9 +538,7 @@ export function ConstraintsSection({ constraints }: { constraints: string }) {
       }}
     >
       <Box sx={{ display: "flex", gap: 1, alignItems: "flex-start" }}>
-        <WarningAmberIcon
-          sx={{ fontSize: 18, color: "warning.main", mt: 0.25, flexShrink: 0 }}
-        />
+        <WarningAmberIcon sx={{ fontSize: 18, color: "warning.main", mt: 0.25, flexShrink: 0 }} />
         <Typography variant="body2" sx={{ lineHeight: 1.6 }}>
           {constraints}
         </Typography>
@@ -749,11 +684,7 @@ export function BptContent({
             Source: {bpt.metadata.source_file}
           </Typography>
           {bpt.metadata.source_page_range && (
-            <Typography
-              variant="caption"
-              color="text.secondary"
-              sx={{ display: "block" }}
-            >
+            <Typography variant="caption" color="text.secondary" sx={{ display: "block" }}>
               Pages: {bpt.metadata.source_page_range}
             </Typography>
           )}

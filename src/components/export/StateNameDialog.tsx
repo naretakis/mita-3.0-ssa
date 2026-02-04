@@ -22,12 +22,7 @@ interface StateNameDialogProps {
   exportType: string;
 }
 
-export function StateNameDialog({
-  open,
-  onClose,
-  onConfirm,
-  exportType,
-}: StateNameDialogProps) {
+export function StateNameDialog({ open, onClose, onConfirm, exportType }: StateNameDialogProps) {
   const [stateName, setStateName] = useState("");
 
   const handleConfirm = () => {
@@ -45,8 +40,8 @@ export function StateNameDialog({
       <DialogTitle>Enter State Name</DialogTitle>
       <DialogContent>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-          Enter your state name to include in the {exportType}. This helps
-          identify the source of the assessment data.
+          Enter your state name to include in the {exportType}. This helps identify the source of
+          the assessment data.
         </Typography>
         <TextField
           autoFocus

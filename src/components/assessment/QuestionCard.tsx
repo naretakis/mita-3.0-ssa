@@ -24,19 +24,12 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { useRatings } from "../../hooks/useRatings";
 import { AttachmentUpload } from "./AttachmentUpload";
 import { compactChipSx } from "../../theme/sharedStyles";
-import {
-  QUESTION_NUMBER_MIN_WIDTH,
-  NOTES_TEXTAREA_ROWS,
-} from "../../constants/ui";
+import { QUESTION_NUMBER_MIN_WIDTH, NOTES_TEXTAREA_ROWS } from "../../constants/ui";
 import type { CapabilityQuestion, Attachment } from "../../types";
 
 interface AttachmentHandlers {
   getAttachmentsForRating: (ratingId: string) => Attachment[];
-  uploadAttachment: (
-    ratingId: string,
-    file: File,
-    description?: string,
-  ) => Promise<string>;
+  uploadAttachment: (ratingId: string, file: File, description?: string) => Promise<string>;
   deleteAttachment: (attachmentId: string) => Promise<void>;
   downloadAttachment: (attachment: Attachment) => void;
 }
@@ -69,20 +62,14 @@ export function QuestionCard({
   const notes = isEditingNotes ? localNotes : rating?.notes || "";
 
   // Derive expanded states from data
-  const notesExpanded = readOnly
-    ? !!rating?.notes
-    : !!rating?.notes || isEditingNotes;
+  const notesExpanded = readOnly ? !!rating?.notes : !!rating?.notes || isEditingNotes;
 
   // Get attachments for this rating
-  const attachments = rating?.id
-    ? attachmentHandlers.getAttachmentsForRating(rating.id)
-    : [];
+  const attachments = rating?.id ? attachmentHandlers.getAttachmentsForRating(rating.id) : [];
 
   // Derive attachments expanded from whether there are attachments
-  const [attachmentsManuallyExpanded, setAttachmentsManuallyExpanded] =
-    useState(false);
-  const attachmentsExpanded =
-    attachments.length > 0 || attachmentsManuallyExpanded;
+  const [attachmentsManuallyExpanded, setAttachmentsManuallyExpanded] = useState(false);
+  const attachmentsExpanded = attachments.length > 0 || attachmentsManuallyExpanded;
 
   const handleLevelChange = async (level: 1 | 2 | 3 | 4 | 5) => {
     if (readOnly) return;
@@ -112,11 +99,7 @@ export function QuestionCard({
       // Need to create a rating first - saveRating returns the new rating ID
       const newRatingId = await saveRating(questionIndex, null, notes);
       if (newRatingId) {
-        await attachmentHandlers.uploadAttachment(
-          newRatingId,
-          file,
-          description,
-        );
+        await attachmentHandlers.uploadAttachment(newRatingId, file, description);
       }
     } else {
       await attachmentHandlers.uploadAttachment(rating.id, file, description);
@@ -131,19 +114,13 @@ export function QuestionCard({
 
   // Check if this level was the previous selection (carry-forward hint)
   const isPreviousLevel = (level: number) => {
-    return (
-      rating?.carriedForward &&
-      rating?.previousLevel === level &&
-      rating?.level === null
-    );
+    return rating?.carriedForward && rating?.previousLevel === level && rating?.level === null;
   };
 
   return (
     <Card sx={{ mb: 2 }}>
       <CardContent sx={{ p: 2, "&:last-child": { pb: 2 } }}>
-        <Box
-          sx={{ display: "flex", alignItems: "flex-start", gap: 1, mb: 1.5 }}
-        >
+        <Box sx={{ display: "flex", alignItems: "flex-start", gap: 1, mb: 1.5 }}>
           <Typography
             variant="body2"
             color="text.secondary"
@@ -168,20 +145,16 @@ export function QuestionCard({
               color="default"
             />
           )}
-          {rating?.carriedForward &&
-            rating?.previousLevel &&
-            !rating?.level && (
-              <Chip
-                icon={<HistoryIcon />}
-                label={`Previously: Level ${rating.previousLevel}`}
-                size="small"
-                variant="outlined"
-                color="info"
-              />
-            )}
-          {rating?.level && (
-            <CheckCircleIcon color="success" fontSize="small" />
+          {rating?.carriedForward && rating?.previousLevel && !rating?.level && (
+            <Chip
+              icon={<HistoryIcon />}
+              label={`Previously: Level ${rating.previousLevel}`}
+              size="small"
+              variant="outlined"
+              color="info"
+            />
           )}
+          {rating?.level && <CheckCircleIcon color="success" fontSize="small" />}
         </Box>
 
         <FormControl component="fieldset" sx={{ width: "100%" }}>
@@ -214,8 +187,7 @@ export function QuestionCard({
                   ...(!readOnly && {
                     "&:hover": {
                       borderColor: "primary.light",
-                      backgroundColor:
-                        rating?.level === level ? "primary.50" : "action.hover",
+                      backgroundColor: rating?.level === level ? "primary.50" : "action.hover",
                     },
                   }),
                 }}
@@ -223,18 +195,12 @@ export function QuestionCard({
               >
                 <FormControlLabel
                   value={level.toString()}
-                  control={
-                    <Radio size="small" sx={{ py: 0.5 }} disabled={readOnly} />
-                  }
+                  control={<Radio size="small" sx={{ py: 0.5 }} disabled={readOnly} />}
                   label={
                     <Typography variant="body2" component="span">
                       <strong>L{level}:</strong>{" "}
                       <span style={{ color: "inherit" }}>
-                        {
-                          question.levels[
-                            `level_${level}` as keyof typeof question.levels
-                          ]
-                        }
+                        {question.levels[`level_${level}` as keyof typeof question.levels]}
                       </span>
                     </Typography>
                   }
@@ -273,19 +239,13 @@ export function QuestionCard({
               }}
               sx={{ mb: 1 }}
             >
-              {isEditingNotes
-                ? "Done"
-                : rating?.notes
-                  ? "Edit Notes"
-                  : "Add Notes"}
+              {isEditingNotes ? "Done" : rating?.notes ? "Edit Notes" : "Add Notes"}
             </Button>
           )}
           {notesExpanded &&
             (readOnly ? (
               rating?.notes ? (
-                <Box
-                  sx={{ p: 1.5, backgroundColor: "grey.50", borderRadius: 1 }}
-                >
+                <Box sx={{ p: 1.5, backgroundColor: "grey.50", borderRadius: 1 }}>
                   <Typography
                     variant="caption"
                     color="text.secondary"
@@ -316,9 +276,7 @@ export function QuestionCard({
             <Button
               size="small"
               startIcon={<AttachFileIcon />}
-              onClick={() =>
-                setAttachmentsManuallyExpanded(!attachmentsManuallyExpanded)
-              }
+              onClick={() => setAttachmentsManuallyExpanded(!attachmentsManuallyExpanded)}
               sx={{ mb: 1 }}
             >
               {attachmentsExpanded

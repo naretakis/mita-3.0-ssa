@@ -8,13 +8,7 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import type { ExportData, ExportOptions } from "./types";
 import { getCapabilityByCode } from "../blueprint";
-import {
-  PAGE,
-  MARGIN,
-  CONTENT_WIDTH,
-  COLORS,
-  getMaturityLevelName,
-} from "./pdfStyles";
+import { PAGE, MARGIN, CONTENT_WIDTH, COLORS, getMaturityLevelName } from "./pdfStyles";
 
 const PAGE_WIDTH = PAGE.WIDTH;
 const PAGE_HEIGHT = PAGE.HEIGHT;
@@ -28,10 +22,7 @@ type JsPDFWithAutoTable = jsPDF & { lastAutoTable: { finalY: number } };
 /**
  * Generates a comprehensive PDF report from export data
  */
-export async function generatePdfReport(
-  data: ExportData,
-  options: ExportOptions,
-): Promise<Blob> {
+export async function generatePdfReport(data: ExportData, options: ExportOptions): Promise<Blob> {
   const doc = new jsPDF() as JsPDFWithAutoTable;
   const stateName = options.stateName ?? "State";
 
@@ -43,9 +34,7 @@ export async function generatePdfReport(
   generateExecutiveSummary(doc, data);
 
   // Generate business area details
-  const finalizedAssessments = data.data.assessments.filter(
-    (a) => a.status === "finalized",
-  );
+  const finalizedAssessments = data.data.assessments.filter((a) => a.status === "finalized");
 
   // Group assessments by business area
   const assessmentsByArea = new Map<string, typeof finalizedAssessments>();
@@ -73,11 +62,7 @@ export async function generatePdfReport(
 /**
  * Generates the cover page
  */
-function generateCoverPage(
-  doc: JsPDFWithAutoTable,
-  data: ExportData,
-  stateName: string,
-): void {
+function generateCoverPage(doc: JsPDFWithAutoTable, data: ExportData, stateName: string): void {
   const centerX = PAGE_WIDTH / 2;
 
   // Header bar
@@ -113,9 +98,7 @@ function generateCoverPage(
   doc.line(centerX - 50, 110, centerX + 50, 110);
 
   // Overall score section
-  const finalizedAssessments = data.data.assessments.filter(
-    (a) => a.status === "finalized",
-  );
+  const finalizedAssessments = data.data.assessments.filter((a) => a.status === "finalized");
   const scores = finalizedAssessments
     .map((a) => a.score)
     .filter((s): s is number => s !== undefined);
@@ -175,9 +158,7 @@ function generateCoverPage(
       color: COLORS.accent,
     },
     {
-      value: data.data.assessments
-        .filter((a) => a.status === "in_progress")
-        .length.toString(),
+      value: data.data.assessments.filter((a) => a.status === "in_progress").length.toString(),
       label: "In Progress",
       color: COLORS.primary,
     },
@@ -217,12 +198,7 @@ function generateCoverPage(
   });
 
   doc.setDrawColor(...COLORS.mediumGray);
-  doc.line(
-    MARGIN_LEFT,
-    PAGE_HEIGHT - 35,
-    PAGE_WIDTH - MARGIN_RIGHT,
-    PAGE_HEIGHT - 35,
-  );
+  doc.line(MARGIN_LEFT, PAGE_HEIGHT - 35, PAGE_WIDTH - MARGIN_RIGHT, PAGE_HEIGHT - 35);
 
   doc.setFontSize(9);
   doc.setTextColor(...COLORS.darkGray);
@@ -239,10 +215,7 @@ function generateCoverPage(
 /**
  * Generates the executive summary section
  */
-function generateExecutiveSummary(
-  doc: JsPDFWithAutoTable,
-  data: ExportData,
-): number {
+function generateExecutiveSummary(doc: JsPDFWithAutoTable, data: ExportData): number {
   let yPos = MARGIN_TOP;
 
   yPos = addSectionHeader(doc, "Executive Summary", yPos);
@@ -261,14 +234,9 @@ function generateExecutiveSummary(
   yPos += splitIntro.length * 5 + 10;
 
   // Business area scores table
-  const finalizedAssessments = data.data.assessments.filter(
-    (a) => a.status === "finalized",
-  );
+  const finalizedAssessments = data.data.assessments.filter((a) => a.status === "finalized");
 
-  const areaScores = new Map<
-    string,
-    { scores: number[]; capabilities: string[] }
-  >();
+  const areaScores = new Map<string, { scores: number[]; capabilities: string[] }>();
   for (const assessment of finalizedAssessments) {
     if (assessment.score !== undefined) {
       const existing = areaScores.get(assessment.businessArea);
@@ -290,18 +258,10 @@ function generateExecutiveSummary(
     doc.text("Business Area Maturity Scores", MARGIN_LEFT, yPos);
     yPos += 8;
 
-    const areaTableData = Array.from(areaScores.entries()).map(
-      ([area, areaData]) => {
-        const avg =
-          areaData.scores.reduce((a, b) => a + b, 0) / areaData.scores.length;
-        return [
-          area,
-          avg.toFixed(1),
-          areaData.scores.length.toString(),
-          getMaturityLevelName(avg),
-        ];
-      },
-    );
+    const areaTableData = Array.from(areaScores.entries()).map(([area, areaData]) => {
+      const avg = areaData.scores.reduce((a, b) => a + b, 0) / areaData.scores.length;
+      return [area, avg.toFixed(1), areaData.scores.length.toString(), getMaturityLevelName(avg)];
+    });
 
     autoTable(doc, {
       startY: yPos,
@@ -332,16 +292,14 @@ function generateBusinessAreaSection(
   doc: JsPDFWithAutoTable,
   businessArea: string,
   assessments: ExportData["data"]["assessments"],
-  data: ExportData,
+  data: ExportData
 ): number {
   let yPos = MARGIN_TOP;
 
   yPos = addSectionHeader(doc, businessArea, yPos);
 
   // Business area score summary
-  const scores = assessments
-    .map((a) => a.score)
-    .filter((s): s is number => s !== undefined);
+  const scores = assessments.map((a) => a.score).filter((s): s is number => s !== undefined);
 
   if (scores.length > 0) {
     const avgScore = scores.reduce((a, b) => a + b, 0) / scores.length;
@@ -351,18 +309,14 @@ function generateBusinessAreaSection(
     doc.setFontSize(11);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(...COLORS.primary);
-    doc.text(
-      `Business Area Average: ${avgScore.toFixed(1)} / 5.0`,
-      MARGIN_LEFT + 5,
-      yPos + 8,
-    );
+    doc.text(`Business Area Average: ${avgScore.toFixed(1)} / 5.0`, MARGIN_LEFT + 5, yPos + 8);
 
     doc.setFont("helvetica", "normal");
     doc.setTextColor(...COLORS.darkGray);
     doc.text(
       `${assessments.length} capability${assessments.length > 1 ? " assessments" : " assessment"}`,
       MARGIN_LEFT + 5,
-      yPos + 15,
+      yPos + 15
     );
 
     yPos += 28;
@@ -384,7 +338,7 @@ function generateCapabilitySection(
   doc: JsPDFWithAutoTable,
   assessment: ExportData["data"]["assessments"][0],
   data: ExportData,
-  startY: number,
+  startY: number
 ): number {
   let yPos = startY;
 
@@ -419,18 +373,13 @@ function generateCapabilitySection(
     doc.setFont("helvetica", "normal");
     doc.setTextColor(...COLORS.secondary);
     const desc = capability.bpt.process_details.description.substring(0, 300);
-    const descLines = doc.splitTextToSize(
-      desc + (desc.length >= 300 ? "..." : ""),
-      CONTENT_WIDTH,
-    );
+    const descLines = doc.splitTextToSize(desc + (desc.length >= 300 ? "..." : ""), CONTENT_WIDTH);
     doc.text(descLines, MARGIN_LEFT, yPos);
     yPos += descLines.length * 4 + 8;
   }
 
   // Get ratings for this assessment
-  const ratings = data.data.ratings.filter(
-    (r) => r.capabilityAssessmentId === assessment.id,
-  );
+  const ratings = data.data.ratings.filter((r) => r.capabilityAssessmentId === assessment.id);
 
   // Get attachments for this assessment, grouped by rating
   const attachmentsByRating = new Map<string, typeof data.data.attachments>();
@@ -460,9 +409,7 @@ function generateCapabilitySection(
 
       // Calculate space needed for this question block
       const estimatedHeight =
-        30 +
-        (hasNotes ? 15 : 0) +
-        (hasAttachments ? 10 + ratingAttachments.length * 4 : 0);
+        30 + (hasNotes ? 15 : 0) + (hasAttachments ? 10 + ratingAttachments.length * 4 : 0);
       yPos = checkPageBreak(doc, yPos, estimatedHeight);
 
       // Question header bar
@@ -472,31 +419,16 @@ function generateCapabilitySection(
       doc.setFontSize(8);
       doc.setFont("helvetica", "bold");
       doc.setTextColor(...COLORS.secondary);
-      doc.text(
-        `Q${rating.questionIndex + 1}: ${question.category}`,
-        MARGIN_LEFT + 2,
-        yPos + 4,
-      );
+      doc.text(`Q${rating.questionIndex + 1}: ${question.category}`, MARGIN_LEFT + 2, yPos + 4);
 
       // Level badge
       doc.setFillColor(...COLORS.primary);
-      doc.roundedRect(
-        PAGE_WIDTH - MARGIN_RIGHT - 18,
-        yPos + 0.5,
-        15,
-        5,
-        1.5,
-        1.5,
-        "F",
-      );
+      doc.roundedRect(PAGE_WIDTH - MARGIN_RIGHT - 18, yPos + 0.5, 15, 5, 1.5, 1.5, "F");
       doc.setFontSize(7);
       doc.setTextColor(...COLORS.white);
-      doc.text(
-        `Level ${rating.level}`,
-        PAGE_WIDTH - MARGIN_RIGHT - 10.5,
-        yPos + 4,
-        { align: "center" },
-      );
+      doc.text(`Level ${rating.level}`, PAGE_WIDTH - MARGIN_RIGHT - 10.5, yPos + 4, {
+        align: "center",
+      });
 
       yPos += 9;
 
@@ -513,15 +445,7 @@ function generateCapabilitySection(
         doc.setFillColor(255, 251, 235); // Light yellow background
         const noteLines = doc.splitTextToSize(rating.notes, CONTENT_WIDTH - 10);
         const noteBoxHeight = noteLines.length * 3.5 + 4;
-        doc.roundedRect(
-          MARGIN_LEFT + 2,
-          yPos,
-          CONTENT_WIDTH - 4,
-          noteBoxHeight,
-          1,
-          1,
-          "F",
-        );
+        doc.roundedRect(MARGIN_LEFT + 2, yPos, CONTENT_WIDTH - 4, noteBoxHeight, 1, 1, "F");
 
         doc.setFontSize(7);
         doc.setFont("helvetica", "bold");
@@ -566,11 +490,7 @@ function generateCapabilitySection(
 /**
  * Adds a section header with styling
  */
-function addSectionHeader(
-  doc: JsPDFWithAutoTable,
-  title: string,
-  yPos: number,
-): number {
+function addSectionHeader(doc: JsPDFWithAutoTable, title: string, yPos: number): number {
   doc.setFillColor(...COLORS.primary);
   doc.rect(MARGIN_LEFT, yPos, 4, 10, "F");
 
@@ -585,11 +505,7 @@ function addSectionHeader(
 /**
  * Checks if we need a page break
  */
-function checkPageBreak(
-  doc: JsPDFWithAutoTable,
-  yPos: number,
-  requiredSpace: number,
-): number {
+function checkPageBreak(doc: JsPDFWithAutoTable, yPos: number, requiredSpace: number): number {
   if (yPos + requiredSpace > PAGE_HEIGHT - MARGIN_BOTTOM) {
     doc.addPage();
     return MARGIN_TOP;
@@ -600,10 +516,7 @@ function checkPageBreak(
 /**
  * Adds page numbers and footer to all pages
  */
-function addPageNumbersAndFooter(
-  doc: JsPDFWithAutoTable,
-  stateName: string,
-): void {
+function addPageNumbersAndFooter(doc: JsPDFWithAutoTable, stateName: string): void {
   const pageCount = doc.getNumberOfPages();
 
   for (let i = 1; i <= pageCount; i++) {
@@ -612,29 +525,15 @@ function addPageNumbersAndFooter(
     if (i === 1) continue;
 
     doc.setDrawColor(...COLORS.mediumGray);
-    doc.line(
-      MARGIN_LEFT,
-      PAGE_HEIGHT - 18,
-      PAGE_WIDTH - MARGIN_RIGHT,
-      PAGE_HEIGHT - 18,
-    );
+    doc.line(MARGIN_LEFT, PAGE_HEIGHT - 18, PAGE_WIDTH - MARGIN_RIGHT, PAGE_HEIGHT - 18);
 
     doc.setFontSize(9);
     doc.setTextColor(...COLORS.darkGray);
-    doc.text(
-      `Page ${i - 1} of ${pageCount - 1}`,
-      PAGE_WIDTH / 2,
-      PAGE_HEIGHT - 12,
-      {
-        align: "center",
-      },
-    );
+    doc.text(`Page ${i - 1} of ${pageCount - 1}`, PAGE_WIDTH / 2, PAGE_HEIGHT - 12, {
+      align: "center",
+    });
 
     doc.setFontSize(8);
-    doc.text(
-      `${stateName} - MITA 3.0 Maturity Assessment`,
-      MARGIN_LEFT,
-      PAGE_HEIGHT - 12,
-    );
+    doc.text(`${stateName} - MITA 3.0 Maturity Assessment`, MARGIN_LEFT, PAGE_HEIGHT - 12);
   }
 }

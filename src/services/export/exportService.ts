@@ -31,10 +31,7 @@ const BLUEPRINT_VERSION = "3.0";
 /**
  * Generates a unique filename for an attachment in the ZIP export.
  */
-function generateUniqueExportFileName(
-  attachmentId: string,
-  originalFileName: string,
-): string {
+function generateUniqueExportFileName(attachmentId: string, originalFileName: string): string {
   const lastDotIndex = originalFileName.lastIndexOf(".");
   if (lastDotIndex === -1) {
     return `${originalFileName}_${attachmentId}`;
@@ -47,14 +44,10 @@ function generateUniqueExportFileName(
 /**
  * Extracts the attachment ID from a unique export filename.
  */
-export function extractAttachmentIdFromFileName(
-  uniqueFileName: string,
-): string | null {
+export function extractAttachmentIdFromFileName(uniqueFileName: string): string | null {
   const lastDotIndex = uniqueFileName.lastIndexOf(".");
   const nameWithoutExt =
-    lastDotIndex === -1
-      ? uniqueFileName
-      : uniqueFileName.substring(0, lastDotIndex);
+    lastDotIndex === -1 ? uniqueFileName : uniqueFileName.substring(0, lastDotIndex);
   const lastUnderscoreIndex = nameWithoutExt.lastIndexOf("_");
 
   if (lastUnderscoreIndex === -1) {
@@ -75,9 +68,7 @@ async function collectExportData(options: ExportOptions): Promise<ExportData> {
 
   // Filter by scope
   if (scope === "capability" && capabilityCode) {
-    assessments = assessments.filter(
-      (a) => a.capabilityCode === capabilityCode,
-    );
+    assessments = assessments.filter((a) => a.capabilityCode === capabilityCode);
     const capability = getCapabilityByCode(capabilityCode);
     scopeDetails = {
       capabilityCode,
@@ -93,20 +84,14 @@ async function collectExportData(options: ExportOptions): Promise<ExportData> {
   const assessmentIds = assessments.map((a) => a.id);
   const ratings =
     assessmentIds.length > 0
-      ? await db.ratings
-          .where("capabilityAssessmentId")
-          .anyOf(assessmentIds)
-          .toArray()
+      ? await db.ratings.where("capabilityAssessmentId").anyOf(assessmentIds).toArray()
       : [];
 
   // Get history
   const capabilityCodes = assessments.map((a) => a.capabilityCode);
   const history =
     capabilityCodes.length > 0
-      ? await db.assessmentHistory
-          .where("capabilityCode")
-          .anyOf(capabilityCodes)
-          .toArray()
+      ? await db.assessmentHistory.where("capabilityCode").anyOf(capabilityCodes).toArray()
       : [];
 
   // Get all tags
@@ -115,10 +100,7 @@ async function collectExportData(options: ExportOptions): Promise<ExportData> {
   // Get attachment metadata
   const attachmentsRaw =
     assessmentIds.length > 0
-      ? await db.attachments
-          .where("capabilityAssessmentId")
-          .anyOf(assessmentIds)
-          .toArray()
+      ? await db.attachments.where("capabilityAssessmentId").anyOf(assessmentIds).toArray()
       : [];
 
   const attachments: AttachmentMetadata[] = attachmentsRaw.map((a) => ({
@@ -201,7 +183,7 @@ export async function exportAsJson(options: ExportOptions): Promise<string> {
  */
 export async function exportAsZip(
   options: ExportOptions,
-  onProgress?: ExportProgressCallback,
+  onProgress?: ExportProgressCallback
 ): Promise<Blob> {
   const zip = new JSZip();
 
@@ -223,23 +205,17 @@ export async function exportAsZip(
       const assessmentIds = exportData.data.assessments.map((a) => a.id);
       const attachments =
         assessmentIds.length > 0
-          ? await db.attachments
-              .where("capabilityAssessmentId")
-              .anyOf(assessmentIds)
-              .toArray()
+          ? await db.attachments.where("capabilityAssessmentId").anyOf(assessmentIds).toArray()
           : [];
 
       for (const attachment of attachments) {
         const assessment = exportData.data.assessments.find(
-          (a) => a.id === attachment.capabilityAssessmentId,
+          (a) => a.id === attachment.capabilityAssessmentId
         );
         if (assessment) {
           const folderPath = assessment.capabilityCode;
           const folder = attachmentsFolder.folder(folderPath);
-          const uniqueFileName = generateUniqueExportFileName(
-            attachment.id,
-            attachment.fileName,
-          );
+          const uniqueFileName = generateUniqueExportFileName(attachment.id, attachment.fileName);
           folder?.file(uniqueFileName, attachment.blob);
         }
       }
@@ -280,7 +256,7 @@ export async function exportAsZip(
  */
 export async function exportAsPdf(
   options: ExportOptions,
-  onProgress?: ExportProgressCallback,
+  onProgress?: ExportProgressCallback
 ): Promise<Blob> {
   onProgress?.(10, "Collecting data...");
   const exportData = await collectExportData(options);
@@ -298,11 +274,7 @@ export { downloadBlob, downloadText } from "../../utils/downloadHelpers";
 /**
  * Generates a filename with timestamp
  */
-export function generateFilename(
-  prefix: string,
-  extension: string,
-  scope?: string,
-): string {
+export function generateFilename(prefix: string, extension: string, scope?: string): string {
   const date = new Date().toISOString().split("T")[0];
   const scopePart = scope ? `-${scope}` : "";
   return `mita-3.0-${prefix}${scopePart}-${date}.${extension}`;

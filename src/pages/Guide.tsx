@@ -75,8 +75,8 @@ export default function Guide() {
         Guide
       </Typography>
       <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-        Learn how to use the MITA 3.0 State Self-Assessment Tool to evaluate
-        your Medicaid IT maturity.
+        Learn how to use the MITA 3.0 State Self-Assessment Tool to evaluate your Medicaid IT
+        maturity.
       </Typography>
 
       {/* How to Use This Tool */}
@@ -130,9 +130,7 @@ export default function Guide() {
                   secondaryTypographyProps={{ variant: "body2" }}
                 />
               </ListItem>
-              {index < steps.length - 1 && (
-                <Divider variant="inset" component="li" />
-              )}
+              {index < steps.length - 1 && <Divider variant="inset" component="li" />}
             </Box>
           ))}
         </List>
@@ -159,25 +157,24 @@ export default function Guide() {
             </Box>
 
             <Alert severity="warning" sx={{ mb: 2 }}>
-              Your data is stored locally in your browser. Clearing browser data
-              will delete your assessments.
+              Your data is stored locally in your browser. Clearing browser data will delete your
+              assessments.
             </Alert>
 
             <Typography variant="body2" paragraph>
-              This tool stores all assessment data in your browser's local
-              storage (IndexedDB). Your data never leaves your device — nothing
-              is sent to any server.
+              This tool stores all assessment data in your browser's local storage (IndexedDB). Your
+              data never leaves your device — nothing is sent to any server.
             </Typography>
 
             <Typography variant="body2" paragraph>
-              <strong>Important:</strong> To protect your work, regularly export
-              backups using the Import/Export page. We recommend downloading a
-              ZIP backup after each assessment session.
+              <strong>Important:</strong> To protect your work, regularly export backups using the
+              Import/Export page. We recommend downloading a ZIP backup after each assessment
+              session.
             </Typography>
 
             <Typography variant="body2">
-              If you need to use the tool on a different device or browser,
-              export your data and import it on the new device.
+              If you need to use the tool on a different device or browser, export your data and
+              import it on the new device.
             </Typography>
           </Paper>
         </Grid>
@@ -193,23 +190,19 @@ export default function Guide() {
             </Box>
 
             <Typography variant="body2" paragraph>
-              The Medicaid Information Technology Architecture (MITA) is a CMS
-              initiative to establish national guidelines for technologies and
-              processes that support improved program administration for
-              Medicaid.
+              The Medicaid Information Technology Architecture (MITA) is a CMS initiative to
+              establish national guidelines for technologies and processes that support improved
+              program administration for Medicaid.
             </Typography>
 
             <Typography variant="body2" paragraph>
-              MITA 3.0 uses the Business Capability Model (BCM) to define
-              maturity levels across five levels:
+              MITA 3.0 uses the Business Capability Model (BCM) to define maturity levels across
+              five levels:
             </Typography>
 
             <List dense>
               <ListItem>
-                <ListItemText
-                  primary="Level 1: Initial"
-                  secondary="Ad hoc, manual processes"
-                />
+                <ListItemText primary="Level 1: Initial" secondary="Ad hoc, manual processes" />
               </ListItem>
               <ListItem>
                 <ListItemText
@@ -218,22 +211,13 @@ export default function Guide() {
                 />
               </ListItem>
               <ListItem>
-                <ListItemText
-                  primary="Level 3: Defined"
-                  secondary="Standardized processes"
-                />
+                <ListItemText primary="Level 3: Defined" secondary="Standardized processes" />
               </ListItem>
               <ListItem>
-                <ListItemText
-                  primary="Level 4: Managed"
-                  secondary="Measured and controlled"
-                />
+                <ListItemText primary="Level 4: Managed" secondary="Measured and controlled" />
               </ListItem>
               <ListItem>
-                <ListItemText
-                  primary="Level 5: Optimized"
-                  secondary="Continuous improvement"
-                />
+                <ListItemText primary="Level 5: Optimized" secondary="Continuous improvement" />
               </ListItem>
             </List>
           </Paper>
@@ -250,14 +234,12 @@ export default function Guide() {
             </Box>
 
             <Typography variant="body2" paragraph>
-              This tool is open source and built with React, TypeScript, and
-              Material UI. The assessment data is based on the official CMS MITA
-              3.0 framework documentation.
+              This tool is open source and built with React, TypeScript, and Material UI. The
+              assessment data is based on the official CMS MITA 3.0 framework documentation.
             </Typography>
 
             <Typography variant="body2" color="text.secondary">
-              This is an independent tool and is not affiliated with or endorsed
-              by CMS.
+              This is an independent tool and is not affiliated with or endorsed by CMS.
             </Typography>
           </Paper>
         </Grid>

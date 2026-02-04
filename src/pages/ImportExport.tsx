@@ -48,9 +48,7 @@ export default function ImportExport() {
   const [importDialogOpen, setImportDialogOpen] = useState(false);
   const [importSuccess, setImportSuccess] = useState(false);
   const [stateNameDialogOpen, setStateNameDialogOpen] = useState(false);
-  const [pendingExport, setPendingExport] = useState<PendingExport | null>(
-    null,
-  );
+  const [pendingExport, setPendingExport] = useState<PendingExport | null>(null);
   const [exporting, setExporting] = useState<string | null>(null);
   const [exportProgress, setExportProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -92,9 +90,8 @@ export default function ImportExport() {
     setExporting("zip");
     setError(null);
     try {
-      const blob = await exportAsZip(
-        { scope: "full", format: "zip", stateName },
-        (p) => setExportProgress(p),
+      const blob = await exportAsZip({ scope: "full", format: "zip", stateName }, (p) =>
+        setExportProgress(p)
       );
       downloadBlob(blob, generateFilename("backup", "zip"));
     } catch (err) {
@@ -122,9 +119,8 @@ export default function ImportExport() {
     setExporting("pdf");
     setError(null);
     try {
-      const blob = await exportAsPdf(
-        { scope: "full", format: "pdf", stateName },
-        (p) => setExportProgress(p),
+      const blob = await exportAsPdf({ scope: "full", format: "pdf", stateName }, (p) =>
+        setExportProgress(p)
       );
       downloadBlob(blob, generateFilename("report", "pdf"));
     } catch (err) {
@@ -141,8 +137,8 @@ export default function ImportExport() {
         Import & Export
       </Typography>
       <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-        Export your assessment data for CMS submission, stakeholder review, or
-        backup. Import previous assessments to restore or merge data.
+        Export your assessment data for CMS submission, stakeholder review, or backup. Import
+        previous assessments to restore or merge data.
       </Typography>
 
       {/* Stats Summary */}
@@ -198,36 +194,25 @@ export default function ImportExport() {
         <Grid size={{ xs: 12, lg: 7 }}>
           <Paper sx={{ p: 3, height: "100%" }}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-              <DownloadIcon
-                sx={{ mr: 1, color: "primary.main", fontSize: 28 }}
-              />
+              <DownloadIcon sx={{ mr: 1, color: "primary.main", fontSize: 28 }} />
               <Typography variant="h5" component="h2">
                 Export
               </Typography>
             </Box>
 
             {/* Primary Export: Complete Backup */}
-            <Card
-              sx={{ mb: 3, border: "2px solid", borderColor: "primary.main" }}
-            >
+            <Card sx={{ mb: 3, border: "2px solid", borderColor: "primary.main" }}>
               <CardContent>
-                <Box
-                  sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}
-                >
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
                   <FolderZipIcon color="primary" />
                   <Typography variant="h6" component="h3">
                     Complete Backup (ZIP)
                   </Typography>
                   <Chip label="Recommended" size="small" color="primary" />
                 </Box>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  sx={{ mb: 2 }}
-                >
-                  The most comprehensive export option. Creates a single ZIP
-                  file containing everything you need to fully restore your
-                  assessments.
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                  The most comprehensive export option. Creates a single ZIP file containing
+                  everything you need to fully restore your assessments.
                 </Typography>
                 <List dense disablePadding>
                   <ListItem disableGutters>
@@ -250,11 +235,7 @@ export default function ImportExport() {
                   </ListItem>
                 </List>
                 {exporting === "zip" && (
-                  <LinearProgress
-                    variant="determinate"
-                    value={exportProgress}
-                    sx={{ mt: 2 }}
-                  />
+                  <LinearProgress variant="determinate" value={exportProgress} sx={{ mt: 2 }} />
                 )}
               </CardContent>
               <CardActions>
@@ -294,25 +275,18 @@ export default function ImportExport() {
                       </Typography>
                     </Box>
                     <Typography variant="body2" color="text.secondary">
-                      Professional report for stakeholder review and CMS
-                      submission. Includes summary statistics, business area
-                      scores, and assessment details.
+                      Professional report for stakeholder review and CMS submission. Includes
+                      summary statistics, business area scores, and assessment details.
                     </Typography>
                     {exporting === "pdf" && (
-                      <LinearProgress
-                        variant="determinate"
-                        value={exportProgress}
-                        sx={{ mt: 2 }}
-                      />
+                      <LinearProgress variant="determinate" value={exportProgress} sx={{ mt: 2 }} />
                     )}
                   </CardContent>
                   <CardActions>
                     <Button
                       startIcon={<PictureAsPdfIcon />}
                       onClick={() => startExportWithStateName({ type: "pdf" })}
-                      disabled={
-                        statusCounts.finalized === 0 || exporting !== null
-                      }
+                      disabled={statusCounts.finalized === 0 || exporting !== null}
                     >
                       {exporting === "pdf" ? "Generating..." : "Export PDF"}
                     </Button>
@@ -338,9 +312,8 @@ export default function ImportExport() {
                       </Typography>
                     </Box>
                     <Typography variant="body2" color="text.secondary">
-                      Raw assessment data without attachments. Smaller file
-                      size, suitable for data backup or transfer between
-                      browsers.
+                      Raw assessment data without attachments. Smaller file size, suitable for data
+                      backup or transfer between browsers.
                     </Typography>
                   </CardContent>
                   <CardActions>
@@ -362,9 +335,7 @@ export default function ImportExport() {
         <Grid size={{ xs: 12, lg: 5 }}>
           <Paper sx={{ p: 3, height: "100%" }}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-              <UploadFileIcon
-                sx={{ mr: 1, color: "primary.main", fontSize: 28 }}
-              />
+              <UploadFileIcon sx={{ mr: 1, color: "primary.main", fontSize: 28 }} />
               <Typography variant="h5" component="h2">
                 Import
               </Typography>
@@ -372,21 +343,15 @@ export default function ImportExport() {
 
             <Card sx={{ mb: 3 }}>
               <CardContent>
-                <Box
-                  sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}
-                >
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
                   <RestoreIcon color="primary" />
                   <Typography variant="h6" component="h3">
                     Restore from Backup
                   </Typography>
                 </Box>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  sx={{ mb: 2 }}
-                >
-                  Import assessment data from a previous backup. Supports both
-                  ZIP (complete backup) and JSON (data only) files.
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                  Import assessment data from a previous backup. Supports both ZIP (complete backup)
+                  and JSON (data only) files.
                 </Typography>
 
                 <Typography variant="subtitle2" sx={{ mt: 2, mb: 1 }}>
@@ -397,19 +362,13 @@ export default function ImportExport() {
                     <ListItemIcon sx={{ minWidth: 32 }}>
                       <FolderZipIcon fontSize="small" />
                     </ListItemIcon>
-                    <ListItemText
-                      primary=".zip"
-                      secondary="Complete backup with attachments"
-                    />
+                    <ListItemText primary=".zip" secondary="Complete backup with attachments" />
                   </ListItem>
                   <ListItem disableGutters>
                     <ListItemIcon sx={{ minWidth: 32 }}>
                       <DataObjectIcon fontSize="small" />
                     </ListItemIcon>
-                    <ListItemText
-                      primary=".json"
-                      secondary="Data-only backup"
-                    />
+                    <ListItemText primary=".json" secondary="Data-only backup" />
                   </ListItem>
                 </List>
               </CardContent>
@@ -439,8 +398,7 @@ export default function ImportExport() {
                 How Import Works
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                Import uses a "merge with history" strategy — no data is ever
-                lost:
+                Import uses a "merge with history" strategy — no data is ever lost:
               </Typography>
               <List dense disablePadding>
                 <ListItem disableGutters>

@@ -21,11 +21,7 @@ export function downloadBlob(blob: Blob, filename: string): void {
 /**
  * Downloads text as a file
  */
-export function downloadText(
-  text: string,
-  filename: string,
-  mimeType: string,
-): void {
+export function downloadText(text: string, filename: string, mimeType: string): void {
   const blob = new Blob([text], { type: mimeType });
   downloadBlob(blob, filename);
 }

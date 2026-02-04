@@ -8,10 +8,7 @@ import type { Tag } from "../types";
  */
 export function useTags() {
   // Get all tags sorted by usage count (most used first)
-  const tags = useLiveQuery(
-    () => db.tags.orderBy("usageCount").reverse().toArray(),
-    [],
-  );
+  const tags = useLiveQuery(() => db.tags.orderBy("usageCount").reverse().toArray(), []);
 
   /**
    * Get tag suggestions for autocomplete
@@ -23,9 +20,7 @@ export function useTags() {
     if (!prefix) return tags;
 
     const normalizedPrefix = prefix.toLowerCase().replace(/^#/, "");
-    return tags.filter((t) =>
-      t.name.toLowerCase().replace(/^#/, "").startsWith(normalizedPrefix),
-    );
+    return tags.filter((t) => t.name.toLowerCase().replace(/^#/, "").startsWith(normalizedPrefix));
   };
 
   /**

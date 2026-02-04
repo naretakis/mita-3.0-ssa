@@ -104,9 +104,7 @@ export function AttachmentUpload({
   // Generate a unique ID for the file input to avoid conflicts when multiple
   // AttachmentUpload components are rendered on the same page
   const generatedId = React.useId();
-  const inputId = uploadId
-    ? `attachment-upload-${uploadId}`
-    : `attachment-upload-${generatedId}`;
+  const inputId = uploadId ? `attachment-upload-${uploadId}` : `attachment-upload-${generatedId}`;
 
   const handleFileSelect = useCallback(
     async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,17 +113,13 @@ export function AttachmentUpload({
 
       // Validate file type
       if (!ALLOWED_TYPES.includes(file.type)) {
-        setError(
-          "File type not supported. Please upload PDF, Word, Excel, images, or text files.",
-        );
+        setError("File type not supported. Please upload PDF, Word, Excel, images, or text files.");
         return;
       }
 
       // Validate file size
       if (file.size > maxFileSize) {
-        setError(
-          `File too large. Maximum size is ${formatFileSize(maxFileSize)}.`,
-        );
+        setError(`File too large. Maximum size is ${formatFileSize(maxFileSize)}.`);
         return;
       }
 
@@ -135,7 +129,7 @@ export function AttachmentUpload({
       // Reset input
       event.target.value = "";
     },
-    [maxFileSize],
+    [maxFileSize]
   );
 
   const handleUploadConfirm = async (): Promise<void> => {
@@ -165,16 +159,14 @@ export function AttachmentUpload({
       }
 
       if (file.size > maxFileSize) {
-        setError(
-          `File too large. Maximum size is ${formatFileSize(maxFileSize)}.`,
-        );
+        setError(`File too large. Maximum size is ${formatFileSize(maxFileSize)}.`);
         return;
       }
 
       setError(null);
       setDescriptionDialog({ open: true, file });
     },
-    [maxFileSize],
+    [maxFileSize]
   );
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>): void => {
@@ -230,20 +222,13 @@ export function AttachmentUpload({
             {uploading ? (
               <CircularProgress size={24} aria-label="Uploading file" />
             ) : (
-              <CloudUploadIcon
-                color="action"
-                fontSize="large"
-                aria-hidden="true"
-              />
+              <CloudUploadIcon color="action" fontSize="large" aria-hidden="true" />
             )}
             <Typography variant="body2" color="text.secondary">
-              {uploading
-                ? "Uploading..."
-                : "Drop files here or click to upload"}
+              {uploading ? "Uploading..." : "Drop files here or click to upload"}
             </Typography>
             <Typography variant="caption" color="text.secondary">
-              PDF, Word, Excel, images, or text (max{" "}
-              {formatFileSize(maxFileSize)})
+              PDF, Word, Excel, images, or text (max {formatFileSize(maxFileSize)})
             </Typography>
           </Box>
         </label>
@@ -338,16 +323,8 @@ export function AttachmentUpload({
           />
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={() => setDescriptionDialog({ open: false, file: null })}
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={handleUploadConfirm}
-            variant="contained"
-            disabled={uploading}
-          >
+          <Button onClick={() => setDescriptionDialog({ open: false, file: null })}>Cancel</Button>
+          <Button onClick={handleUploadConfirm} variant="contained" disabled={uploading}>
             {uploading ? "Uploading..." : "Upload"}
           </Button>
         </DialogActions>

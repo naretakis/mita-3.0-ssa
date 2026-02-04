@@ -61,20 +61,13 @@ export function TagInput({ tags, onChange }: TagInputProps) {
         renderInput={(params) => (
           <TextField
             {...params}
-            placeholder={
-              tags.length === 0 ? "Add tags (e.g., #provider-module)" : ""
-            }
+            placeholder={tags.length === 0 ? "Add tags (e.g., #provider-module)" : ""}
             onKeyDown={handleKeyDown}
           />
         )}
         renderTags={(value, getTagProps) =>
           value.map((option, index) => (
-            <Chip
-              {...getTagProps({ index })}
-              key={option}
-              label={option}
-              size="small"
-            />
+            <Chip {...getTagProps({ index })} key={option} label={option} size="small" />
           ))
         }
       />

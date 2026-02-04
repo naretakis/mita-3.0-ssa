@@ -27,8 +27,7 @@ export function useScores() {
     const ratingsByAssessment = new Map<string, number>();
     for (const rating of allRatings) {
       if (rating.level !== null) {
-        const count =
-          ratingsByAssessment.get(rating.capabilityAssessmentId) || 0;
+        const count = ratingsByAssessment.get(rating.capabilityAssessmentId) || 0;
         ratingsByAssessment.set(rating.capabilityAssessmentId, count + 1);
       }
     }
@@ -54,8 +53,7 @@ export function useScores() {
 
       // Get total questions for this capability
       const capability = getCapabilityByCode(capabilityCode);
-      const totalQuestions =
-        capability?.bcm.maturity_model.capability_questions.length || 1;
+      const totalQuestions = capability?.bcm.maturity_model.capability_questions.length || 1;
 
       if (finalized) {
         const answeredCount = ratingsByAssessment.get(finalized.id) || 0;
@@ -88,9 +86,7 @@ export function useScores() {
   /**
    * Get score data for a specific capability
    */
-  const getCapabilityScoreData = (
-    capabilityCode: string,
-  ): CapabilityScoreData | undefined => {
+  const getCapabilityScoreData = (capabilityCode: string): CapabilityScoreData | undefined => {
     return scoreData?.capabilityScores.get(capabilityCode);
   };
 
@@ -125,20 +121,16 @@ export function useScores() {
    * Get status for a capability
    */
   const getCapabilityStatus = (
-    capabilityCode: string,
+    capabilityCode: string
   ): "not_assessed" | "in_progress" | "finalized" => {
-    return (
-      scoreData?.capabilityScores.get(capabilityCode)?.status ?? "not_assessed"
-    );
+    return scoreData?.capabilityScores.get(capabilityCode)?.status ?? "not_assessed";
   };
 
   /**
    * Get question progress for a capability (0-100)
    */
   const getCapabilityProgress = (capabilityCode: string): number => {
-    return (
-      scoreData?.capabilityScores.get(capabilityCode)?.questionProgress ?? 0
-    );
+    return scoreData?.capabilityScores.get(capabilityCode)?.questionProgress ?? 0;
   };
 
   /**

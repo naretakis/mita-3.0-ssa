@@ -132,15 +132,9 @@ export interface ImportItemResult {
 /**
  * Export progress callback
  */
-export type ExportProgressCallback = (
-  progress: number,
-  message: string,
-) => void;
+export type ExportProgressCallback = (progress: number, message: string) => void;
 
 /**
  * Import progress callback
  */
-export type ImportProgressCallback = (
-  progress: number,
-  message: string,
-) => void;
+export type ImportProgressCallback = (progress: number, message: string) => void;

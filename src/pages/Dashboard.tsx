@@ -73,16 +73,12 @@ export default function Dashboard() {
   } = useScores();
 
   const [expandedAreas, setExpandedAreas] = useState<Set<string>>(new Set());
-  const [expandedCapabilities, setExpandedCapabilities] = useState<Set<string>>(
-    new Set(),
-  );
+  const [expandedCapabilities, setExpandedCapabilities] = useState<Set<string>>(new Set());
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   // Menu state for action dropdown
   const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
-  const [menuCapabilityCode, setMenuCapabilityCode] = useState<string | null>(
-    null,
-  );
+  const [menuCapabilityCode, setMenuCapabilityCode] = useState<string | null>(null);
   const [menuCapabilityStatus, setMenuCapabilityStatus] = useState<
     "not_assessed" | "in_progress" | "finalized"
   >("not_assessed");
@@ -94,8 +90,7 @@ export default function Dashboard() {
     id: string;
     name: string;
   } | null>(null);
-  const [historyViewEntry, setHistoryViewEntry] =
-    useState<AssessmentHistory | null>(null);
+  const [historyViewEntry, setHistoryViewEntry] = useState<AssessmentHistory | null>(null);
 
   const allTags = getAllTagsInUse();
 
@@ -137,7 +132,7 @@ export default function Dashboard() {
   const handleMenuOpen = (
     event: React.MouseEvent<HTMLElement>,
     capabilityCode: string,
-    status: "not_assessed" | "in_progress" | "finalized",
+    status: "not_assessed" | "in_progress" | "finalized"
   ) => {
     event.stopPropagation();
     setMenuAnchorEl(event.currentTarget);
@@ -320,8 +315,7 @@ export default function Dashboard() {
             MITA 3.0 State Self-Assessment Dashboard
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Click on any business area start, view, or edit a capability
-            maturity assessment
+            Click on any business area start, view, or edit a capability maturity assessment
           </Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
@@ -341,12 +335,7 @@ export default function Dashboard() {
               )}
               renderTags={(value, getTagProps) =>
                 value.map((option, index) => (
-                  <Chip
-                    {...getTagProps({ index })}
-                    key={option}
-                    label={option}
-                    size="small"
-                  />
+                  <Chip {...getTagProps({ index })} key={option} label={option} size="small" />
                 ))
               }
             />
@@ -354,8 +343,7 @@ export default function Dashboard() {
           <Chip
             label={`${overallStats.finalized} of ${overallStats.total} finalized`}
             color={
-              overallStats.finalized === overallStats.total &&
-              overallStats.total > 0
+              overallStats.finalized === overallStats.total && overallStats.total > 0
                 ? "success"
                 : "default"
             }
@@ -390,24 +378,16 @@ export default function Dashboard() {
             {businessAreas.map((area) => {
               const stats = getAreaStats(area.name);
               const isExpanded = expandedAreas.has(area.name);
-              const areaScore = getBusinessAreaScore(
-                area.capabilities.map((c) => c.code),
-              );
+              const areaScore = getBusinessAreaScore(area.capabilities.map((c) => c.code));
               const areaTags = getAreaTags(area.name);
 
               if (selectedTags.length > 0 && stats.total === 0) return null;
 
               return (
                 <React.Fragment key={area.name}>
-                  <TableRow
-                    hover
-                    onClick={() => toggleArea(area.name)}
-                    sx={{ cursor: "pointer" }}
-                  >
+                  <TableRow hover onClick={() => toggleArea(area.name)} sx={{ cursor: "pointer" }}>
                     <TableCell>
-                      <Box
-                        sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
-                      >
+                      <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                         <IconButton size="small" sx={{ p: 0.25 }}>
                           {isExpanded ? (
                             <KeyboardArrowDownIcon fontSize="small" />
@@ -424,9 +404,7 @@ export default function Dashboard() {
                       <Typography
                         variant="body2"
                         fontWeight={areaScore !== null ? 600 : 400}
-                        color={
-                          areaScore !== null ? "text.primary" : "text.disabled"
-                        }
+                        color={areaScore !== null ? "text.primary" : "text.disabled"}
                       >
                         {areaScore !== null ? areaScore.toFixed(1) : "—"}
                       </Typography>
@@ -516,20 +494,14 @@ export default function Dashboard() {
                                     <KeyboardArrowRightIcon fontSize="small" />
                                   )}
                                 </IconButton>
-                                <Typography variant="body2">
-                                  {cap.processName}
-                                </Typography>
+                                <Typography variant="body2">{cap.processName}</Typography>
                               </Box>
                             </TableCell>
                             <TableCell align="center">
                               <Typography
                                 variant="body2"
                                 fontWeight={score !== null ? 500 : 400}
-                                color={
-                                  score !== null
-                                    ? "text.primary"
-                                    : "text.disabled"
-                                }
+                                color={score !== null ? "text.primary" : "text.disabled"}
                               >
                                 {score !== null ? score.toFixed(1) : "—"}
                               </Typography>
@@ -544,27 +516,18 @@ export default function Dashboard() {
                                 }}
                               >
                                 {tags.map((tag) => (
-                                  <Chip
-                                    key={tag}
-                                    label={tag}
-                                    size="small"
-                                    sx={compactChipSx}
-                                  />
+                                  <Chip key={tag} label={tag} size="small" sx={compactChipSx} />
                                 ))}
                               </Box>
                             </TableCell>
                             <TableCell>
-                              <CapabilityProgressBar
-                                status={status}
-                                progress={progress}
-                              />
+                              <CapabilityProgressBar status={status} progress={progress} />
                             </TableCell>
                             <TableCell align="center">
                               <Typography
                                 variant="body2"
                                 sx={{
-                                  fontWeight:
-                                    status === "finalized" ? 500 : 400,
+                                  fontWeight: status === "finalized" ? 500 : 400,
                                   color:
                                     status === "finalized"
                                       ? "success.main"
@@ -584,9 +547,7 @@ export default function Dashboard() {
                                   size="small"
                                   variant="contained"
                                   onClick={async () => {
-                                    const assessmentId = await startAssessment(
-                                      cap.code,
-                                    );
+                                    const assessmentId = await startAssessment(cap.code);
                                     navigate(`/assessment/${assessmentId}`);
                                   }}
                                   sx={{
@@ -602,9 +563,7 @@ export default function Dashboard() {
                                 <Button
                                   size="small"
                                   variant="outlined"
-                                  onClick={(e) =>
-                                    handleMenuOpen(e, cap.code, status)
-                                  }
+                                  onClick={(e) => handleMenuOpen(e, cap.code, status)}
                                   sx={{
                                     textTransform: "none",
                                     width: ACTION_BUTTON_WIDTH,
@@ -620,15 +579,10 @@ export default function Dashboard() {
 
                           {isCapExpanded && (
                             <TableRow>
-                              <TableCell
-                                colSpan={6}
-                                sx={{ backgroundColor: "grey.100", py: 1 }}
-                              >
+                              <TableCell colSpan={6} sx={{ backgroundColor: "grey.100", py: 1 }}>
                                 <HistoryPanel
                                   capabilityCode={cap.code}
-                                  currentAssessment={getLatestFinalized(
-                                    cap.code,
-                                  )}
+                                  currentAssessment={getLatestFinalized(cap.code)}
                                   onViewHistory={handleViewHistory}
                                   onDeleteHistory={handleDeleteHistory}
                                 />
@@ -673,11 +627,7 @@ export default function Dashboard() {
         </Box>
       </Box>
 
-      <Menu
-        anchorEl={menuAnchorEl}
-        open={Boolean(menuAnchorEl)}
-        onClose={handleMenuClose}
-      >
+      <Menu anchorEl={menuAnchorEl} open={Boolean(menuAnchorEl)} onClose={handleMenuClose}>
         {menuCapabilityStatus === "in_progress" && (
           <MenuItem onClick={handleViewFromMenu}>
             <VisibilityIcon fontSize="small" sx={{ mr: 1 }} />
@@ -716,14 +666,9 @@ export default function Dashboard() {
         )}
       </Menu>
 
-      <Dialog
-        open={deleteDialogOpen}
-        onClose={() => setDeleteDialogOpen(false)}
-      >
+      <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}>
         <DialogTitle>
-          {deleteTarget?.type === "assessment"
-            ? "Delete Assessment?"
-            : "Delete History Entry?"}
+          {deleteTarget?.type === "assessment" ? "Delete Assessment?" : "Delete History Entry?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -734,11 +679,7 @@ export default function Dashboard() {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setDeleteDialogOpen(false)}>Cancel</Button>
-          <Button
-            onClick={handleConfirmDelete}
-            color="error"
-            variant="contained"
-          >
+          <Button onClick={handleConfirmDelete} color="error" variant="contained">
             Delete
           </Button>
         </DialogActions>

@@ -29,11 +29,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
 import HistoryIcon from "@mui/icons-material/History";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
-import {
-  importFromJson,
-  importFromZip,
-  readFileAsText,
-} from "../../services/export";
+import { importFromJson, importFromZip, readFileAsText } from "../../services/export";
 import type { ImportResult } from "../../services/export";
 
 interface ImportDialogProps {
@@ -42,11 +38,7 @@ interface ImportDialogProps {
   onImportComplete: () => void;
 }
 
-export function ImportDialog({
-  open,
-  onClose,
-  onImportComplete,
-}: ImportDialogProps) {
+export function ImportDialog({ open, onClose, onImportComplete }: ImportDialogProps) {
   const [file, setFile] = useState<File | null>(null);
   const [importing, setImporting] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -54,32 +46,26 @@ export function ImportDialog({
   const [result, setResult] = useState<ImportResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const handleFileSelect = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const selectedFile = event.target.files?.[0];
-      if (selectedFile) {
-        const isValid =
-          selectedFile.name.endsWith(".zip") ||
-          selectedFile.name.endsWith(".json");
-        if (isValid) {
-          setFile(selectedFile);
-          setError(null);
-          setResult(null);
-        } else {
-          setError("Please select a .zip or .json file");
-        }
+  const handleFileSelect = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0];
+    if (selectedFile) {
+      const isValid = selectedFile.name.endsWith(".zip") || selectedFile.name.endsWith(".json");
+      if (isValid) {
+        setFile(selectedFile);
+        setError(null);
+        setResult(null);
+      } else {
+        setError("Please select a .zip or .json file");
       }
-      event.target.value = "";
-    },
-    [],
-  );
+    }
+    event.target.value = "";
+  }, []);
 
   const handleDrop = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const droppedFile = event.dataTransfer.files[0];
     if (droppedFile) {
-      const isValid =
-        droppedFile.name.endsWith(".zip") || droppedFile.name.endsWith(".json");
+      const isValid = droppedFile.name.endsWith(".zip") || droppedFile.name.endsWith(".json");
       if (isValid) {
         setFile(droppedFile);
         setError(null);
@@ -154,8 +140,8 @@ export function ImportDialog({
         {!result ? (
           <>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              Select a backup file to import. Supports ZIP (complete backup with
-              attachments) and JSON (data only) files.
+              Select a backup file to import. Supports ZIP (complete backup with attachments) and
+              JSON (data only) files.
             </Typography>
 
             {/* Drop zone */}
@@ -201,12 +187,8 @@ export function ImportDialog({
                     </>
                   ) : (
                     <>
-                      <CloudUploadIcon
-                        sx={{ fontSize: 48, color: "action.active" }}
-                      />
-                      <Typography variant="body1">
-                        Drop file here or click to select
-                      </Typography>
+                      <CloudUploadIcon sx={{ fontSize: 48, color: "action.active" }} />
+                      <Typography variant="body1">Drop file here or click to select</Typography>
                       <Typography variant="caption" color="text.secondary">
                         Supports .zip and .json files
                       </Typography>
@@ -219,11 +201,7 @@ export function ImportDialog({
             {importing && (
               <Box sx={{ mt: 2 }}>
                 <LinearProgress variant="determinate" value={progress} />
-                <Typography
-                  variant="caption"
-                  color="text.secondary"
-                  sx={{ mt: 0.5 }}
-                >
+                <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5 }}>
                   {progressMessage || "Processing..."}
                 </Typography>
               </Box>
@@ -238,10 +216,7 @@ export function ImportDialog({
         ) : (
           <>
             {/* Import Results */}
-            <Alert
-              severity={result.success ? "success" : "warning"}
-              sx={{ mb: 2 }}
-            >
+            <Alert severity={result.success ? "success" : "warning"} sx={{ mb: 2 }}>
               {result.success
                 ? "Import completed successfully!"
                 : `Import completed with ${result.errors.length} error(s)`}
@@ -288,9 +263,7 @@ export function ImportDialog({
                         {item.action === "skipped" && (
                           <SkipNextIcon fontSize="small" color="action" />
                         )}
-                        {item.action === "error" && (
-                          <ErrorIcon fontSize="small" color="error" />
-                        )}
+                        {item.action === "error" && <ErrorIcon fontSize="small" color="error" />}
                       </ListItemIcon>
                       <ListItemText
                         primary={item.capabilityName}
@@ -323,11 +296,7 @@ export function ImportDialog({
             <Button onClick={handleClose} disabled={importing}>
               Cancel
             </Button>
-            <Button
-              onClick={handleImport}
-              variant="contained"
-              disabled={!file || importing}
-            >
+            <Button onClick={handleImport} variant="contained" disabled={!file || importing}>
               {importing ? "Importing..." : "Import"}
             </Button>
           </>

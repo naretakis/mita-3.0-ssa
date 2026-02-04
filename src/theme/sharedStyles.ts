@@ -16,9 +16,7 @@ import {
  * Generate striped gradient for in-progress status
  * @param stripeWidth - Width of each stripe in pixels (default: 4)
  */
-export function getInProgressGradient(
-  stripeWidth: number = PROGRESS_STRIPE_WIDTH.large,
-): string {
+export function getInProgressGradient(stripeWidth: number = PROGRESS_STRIPE_WIDTH.large): string {
   return `repeating-linear-gradient(
     -45deg,
     #81c784,
