@@ -18,11 +18,13 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const navItems = [
   { label: "Dashboard", path: "/dashboard", icon: <DashboardIcon /> },
+  { label: "Processes", path: "/processes", icon: <AccountTreeIcon /> },
   {
     label: "Import/Export",
     path: "/import-export",
@@ -49,6 +51,14 @@ export default function Layout() {
     }
   };
 
+  // Check if a nav item is active (handles nested routes like /processes/:code)
+  const isNavActive = (path: string) => {
+    if (path === "/processes") {
+      return location.pathname.startsWith("/processes");
+    }
+    return location.pathname === path;
+  };
+
   // Mobile drawer content
   const mobileDrawer = (
     <Box sx={{ width: 240 }}>
@@ -66,7 +76,7 @@ export default function Layout() {
         {navItems.map((item) => (
           <ListItem key={item.path} disablePadding>
             <ListItemButton
-              selected={location.pathname === item.path}
+              selected={isNavActive(item.path)}
               onClick={() => handleNavClick(item.path)}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
@@ -120,10 +130,9 @@ export default function Layout() {
                   startIcon={item.icon}
                   onClick={() => handleNavClick(item.path)}
                   sx={{
-                    backgroundColor:
-                      location.pathname === item.path
-                        ? "rgba(255,255,255,0.15)"
-                        : "transparent",
+                    backgroundColor: isNavActive(item.path)
+                      ? "rgba(255,255,255,0.15)"
+                      : "transparent",
                     "&:hover": {
                       backgroundColor: "rgba(255,255,255,0.25)",
                     },

@@ -5,6 +5,7 @@ import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Assessment from "./pages/Assessment";
+import Processes from "./pages/Processes";
 import ImportExport from "./pages/ImportExport";
 import Guide from "./pages/Guide";
 
@@ -18,6 +19,8 @@ function App() {
             <Route index element={<Home />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="assessment/:id" element={<Assessment />} />
+            <Route path="processes" element={<Processes />} />
+            <Route path="processes/:code" element={<Processes />} />
             <Route path="import-export" element={<ImportExport />} />
             <Route path="guide" element={<Guide />} />
           </Route>
